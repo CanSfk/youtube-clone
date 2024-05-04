@@ -1,9 +1,13 @@
-import "./assets/app.css";
+import "./assets/css/app.css";
+import FrontEndLayout from "./layouts/front-end/layout";
+import Home from "./pages/home";
 
 function App() {
   return (
     <>
-      <h1 className='font-bold text-3xl w-full text-center p-3 bg-gray-800 text-white'>Hello World!</h1>
+      <FrontEndLayout>
+        <Home />
+      </FrontEndLayout>
     </>
   );
 }
