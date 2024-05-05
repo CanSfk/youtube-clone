@@ -7,7 +7,7 @@ interface LayoutProps {
 
 export const FrontEndLayout = ({children}: LayoutProps) => {
   return (
-    <div className='w-full min-h-screen bg-dark-theme-black text-dark-theme-white'>
+    <div className='w-full min-h-[2000px] bg-dark-theme-black text-dark-theme-white font-roboto'>
       <Navbar />
       {children}
     </div>

@@ -11,6 +11,7 @@ export default {
         "dark-theme-white": "#f1f1f1",
         "dark-theme-gray": "#aaa",
         "dark-theme-blue": "#3EA6FF",
+        "youtube-red": "#CC0000",
       },
     },
   },

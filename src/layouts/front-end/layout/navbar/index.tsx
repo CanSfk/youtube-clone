@@ -1,4 +1,5 @@
 import {MenuIcon, YoutubeIcon} from "../../../../assets/icons";
+import Account from "./account";
 import Search from "./search";
 
 export const Navbar = () => {
@@ -30,7 +31,7 @@ export const Navbar = () => {
 
       <Search />
 
-      <div>Account</div>
+      <Account />
     </div>
   );
 };
