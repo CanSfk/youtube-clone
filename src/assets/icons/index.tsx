@@ -82,6 +82,19 @@ export const MicIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => 
   );
 };
 
+export const CloseIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+  return (
+    <SvgContext
+      width={width}
+      height={height}
+      viewBox={viewBox}
+      fill={fill}
+    >
+      <path d='m12.71 12 8.15 8.15-.71.71L12 12.71l-8.15 8.15-.71-.71L11.29 12 3.15 3.85l.71-.71L12 11.29l8.15-8.15.71.71L12.71 12z'></path>
+    </SvgContext>
+  );
+};
+
 export const YoutubeIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
   return (
     <SvgContext
