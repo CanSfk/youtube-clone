@@ -68,6 +68,27 @@
     src: url("/public/fonts/roboto/Roboto-LightItalic.ttf");
 }
 
+@layer base {
+
+    * {
+        scrollbar-color: #ababab #000;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: #ababab;
+        border-radius: 100px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #000;
+    }
+
+    ::-webkit-scrollbar {
+        height: 1px;
+        width: 9px;
+    }
+}
+
 @layer components {
     .font-roboto {
         font-family: 'Roboto', Arial, sans-serif;
