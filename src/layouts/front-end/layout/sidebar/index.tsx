@@ -1,7 +1,7 @@
 import {ReactElement} from "react";
 import {HomeIcon, ShortIcon, Subscriber, YouIcon} from "../../../../assets/icons";
 import {SmallSidebarItem} from "./small-sidebar-item";
-import {LargeSidebarItem} from "./large-sidebar-item";
+import LargeSidebar from "./large-sidebar";
 
 interface smallMenuItemType {
   title: string;
@@ -43,7 +43,7 @@ export const Sidebar = () => {
         </div>
       </div>
 
-      {/* <LargeSidebarItem /> */}
+      <LargeSidebar />
     </div>
   );
 };

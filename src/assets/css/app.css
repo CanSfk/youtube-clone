@@ -74,22 +74,13 @@
         scrollbar-color: #ababab #000;
     }
 
-    ::-webkit-scrollbar-thumb {
-        background-color: #ababab;
-        border-radius: 100px;
-    }
-
-    ::-webkit-scrollbar-track {
-        background: #000;
-    }
-
-    ::-webkit-scrollbar {
-        height: 1px;
-        width: 9px;
+    .custom-scrollbar {
+        scrollbar-color: #717171 transparent;
+        scrollbar-width: thin;
     }
 }
 
-@layer components {
+@layer utilities {
     .font-roboto {
         font-family: 'Roboto', Arial, sans-serif;
         font-style: normal;
