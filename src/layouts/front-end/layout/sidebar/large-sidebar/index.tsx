@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import {
   BeforeTimeIcon,
   ChannelIcon,
@@ -25,9 +26,11 @@ import {
   YoutubePremiumIcon,
   YoutubeStudioIcon,
 } from "../../../../../assets/icons";
+import {useMenu} from "../../../../../stores/menu/hooks";
 import {truncateText} from "../../../../../utils";
 import LargeSidebarFooter from "./large-sidebar-footer";
 import {LargeSidebarItem} from "./large-sidebar-item";
+import {removeMenu} from "../../../../../stores/menu/actions";
 
 const largeSidebarItems = [
   {
@@ -199,11 +202,18 @@ const largeSidebarItems = [
 ];
 
 export const LargeSidebar = () => {
+  const {menuName} = useMenu();
+
   return (
-    <div className='fixed top-0 left-0 max-h-screen h-screen bg-dark-theme-black  w-[240px]'>
+    <div
+      className={classNames("fixed top-0 max-h-screen h-screen bg-dark-theme-black -left-[240px] w-[240px] transition-all duration-200 z-[100]", {
+        "!left-0": menuName === "sidebar-menu",
+      })}
+    >
       <div className='flex items-center pl-4'>
         <button
           type='button'
+          onClick={() => removeMenu()}
           className='text-white p-2 rounded-full transition-color duration-200 hover:bg-dark-theme-soft-black'
         >
           <MenuIcon fill='white' />
@@ -227,12 +237,16 @@ export const LargeSidebar = () => {
 
       <div className='h-[calc(100%-56px)] overflow-y-auto custom-scrollbar'>
         <div className='flex items-center flex-col '>
-          {(largeSidebarItems || []).map((parentItem) => (
-            <div className='py-3 w-full border-b-[.5px] border-dark-theme-primary-black'>
+          {(largeSidebarItems || []).map((parentItem, index) => (
+            <div
+              key={index}
+              className='py-3 w-full border-b-[.5px] border-dark-theme-primary-black'
+            >
               {parentItem.parentTitle !== null && <h3 className='pl-6 pt-[6px] pb-1'>{truncateText(parentItem.parentTitle, 22)}</h3>}
               <div className='flex items-center flex-col w-full px-3'>
-                {(parentItem.child || []).map((childItem) => (
+                {(parentItem.child || []).map((childItem, index) => (
                   <LargeSidebarItem
+                    key={index}
                     icon={(childItem.childLeftIcon && childItem.childLeftIcon) || (childItem.childRightIcon && childItem.childRightIcon)}
                     title={truncateText(childItem.childTitle, 19)}
                     iconPosition={(childItem.childLeftIcon && "left") || (childItem.childRightIcon && "right") || null}

@@ -1,4 +1,5 @@
 import {MenuIcon, YoutubeIcon} from "../../../../assets/icons";
+import {setMenu} from "../../../../stores/menu/actions";
 import Account from "./account";
 import Search from "./search";
 
@@ -8,6 +9,7 @@ export const Navbar = () => {
       <div className='flex items-center'>
         <button
           type='button'
+          onClick={() => setMenu("sidebar-menu")}
           className='text-white p-2 rounded-full transition-color duration-200 hover:bg-dark-theme-soft-black'
         >
           <MenuIcon fill='white' />
