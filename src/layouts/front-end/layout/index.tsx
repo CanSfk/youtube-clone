@@ -4,6 +4,7 @@ import {Sidebar} from "./sidebar";
 import {useMenu} from "../../../stores/menu/hooks";
 import {removeMenu} from "../../../stores/menu/actions";
 import classNames from "classnames";
+import Suggestionbar from "./suggestionbar";
 
 interface LayoutProps {
   children: ReactNode;
@@ -21,10 +22,13 @@ export const FrontEndLayout = ({children}: LayoutProps) => {
     <div className='w-full min-h-[2000px] bg-dark-theme-black text-dark-theme-white flex'>
       <div className='flex-1'>
         <Navbar />
-        <div className='flex gap-4'>
+        <div className='flex'>
           <Sidebar />
 
-          {children}
+          <div>
+            <Suggestionbar />
+            <div className='pt-20 px-4'>{children}</div>
+          </div>
         </div>
       </div>
       {menuName !== null && <div className='w-[15px] bg-transparent ' />}

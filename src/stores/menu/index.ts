@@ -10,7 +10,6 @@ const menu = createSlice({
   reducers: {
     _setMenu: (state, action) => {
       state.menuName = action.payload;
-      console.log(action.payload);
     },
 
     _removeMenu: (state) => {
