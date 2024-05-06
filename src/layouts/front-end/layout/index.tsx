@@ -25,9 +25,9 @@ export const FrontEndLayout = ({children}: LayoutProps) => {
         <div className='flex'>
           <Sidebar />
 
-          <div>
+          <div className='w-full h-full'>
             <Suggestionbar />
-            <div className='pt-20 px-4'>{children}</div>
+            <main className='pt-20 px-6'>{children}</main>
           </div>
         </div>
       </div>
@@ -35,7 +35,7 @@ export const FrontEndLayout = ({children}: LayoutProps) => {
 
       <div
         onClick={() => removeMenu()}
-        className={classNames("fixed inset-0 bg-[rgba(0,0,0,.4)] z-50 transition-all duration-200", {
+        className={classNames("fixed inset-0 bg-[rgba(0,0,0,.4)] z-[200] transition-all duration-200", {
           "opacity-100 visible": menuName !== null,
           "opacity-0 invisible": menuName === null,
         })}

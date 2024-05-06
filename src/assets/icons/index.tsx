@@ -355,6 +355,19 @@ export const HelpIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) =>
   );
 };
 
+export const BarMenu: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+  return (
+    <SvgContext
+      width={width}
+      height={height}
+      viewBox={viewBox}
+      fill={fill}
+    >
+      <path d='M12 16.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5-1.5-.67-1.5-1.5.67-1.5 1.5-1.5zM10.5 12c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5-1.5.67-1.5 1.5zm0-6c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5-1.5.67-1.5 1.5z'></path>
+    </SvgContext>
+  );
+};
+
 export const InfoIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
   return (
     <SvgContext

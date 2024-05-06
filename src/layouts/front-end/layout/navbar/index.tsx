@@ -5,7 +5,7 @@ import Search from "./search";
 
 export const Navbar = () => {
   return (
-    <div className='px-4 flex items-center justify-between sticky top-0 bg-dark-theme-black'>
+    <div className='px-4 flex items-center justify-between sticky top-0 bg-dark-theme-black z-[100]'>
       <div className='flex items-center'>
         <button
           type='button'

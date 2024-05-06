@@ -206,7 +206,7 @@ export const LargeSidebar = () => {
 
   return (
     <div
-      className={classNames("fixed top-0 max-h-screen h-screen bg-dark-theme-black -left-[240px] w-[240px] transition-all duration-200 z-[100]", {
+      className={classNames("fixed top-0 max-h-screen h-screen bg-dark-theme-black -left-[240px] w-[240px] transition-all duration-200 z-[300]", {
         "!left-0": menuName === "sidebar-menu",
       })}
     >

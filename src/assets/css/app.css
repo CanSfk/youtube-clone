@@ -80,6 +80,13 @@
     }
 }
 
+@layer components {
+    .vide-card-list-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+    }
+}
+
 @layer utilities {
     .font-roboto {
         font-family: 'Roboto', Arial, sans-serif;

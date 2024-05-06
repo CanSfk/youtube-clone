@@ -2,8 +2,8 @@ import {SuggestionbarItem} from "./suggestionbar-item";
 
 export const Suggestionbar = () => {
   return (
-    <div className='px-6 h-14 grid place-items-center fixed bg-dark-theme-black'>
-      <div className='flex items-center gap-3'>
+    <div className='h-14 grid place-items-center fixed bg-dark-theme-black z-[100] w-full'>
+      <div className='flex items-center gap-3 w-full px-6'>
         <SuggestionbarItem title='Tümü' />
         <SuggestionbarItem title='Oyun' />
         <SuggestionbarItem title='Müzik' />
