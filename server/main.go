@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"youtube-clone/common/database"
 
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
@@ -16,6 +17,8 @@ func main() {
 	}
 
 	e := echo.New()
+
+	database.InitDb("common/database/db.sqlite")
 
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"http://localhost:5173"},
