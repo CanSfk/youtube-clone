@@ -80,7 +80,7 @@ func (r *UserRepository) CreateUser(createUserDto dto.CreateUserDto) dto.Respons
 }
 
 func (r *UserRepository) GetAllUsersWithVideos() []dto.UsersWithVideosResponse {
-	var users []dto.UsersWithVideosResponse
+	users := []dto.UsersWithVideosResponse{}
 	userMap := make(map[string]*dto.UsersWithVideosResponse)
 
 	query := `SELECT 
