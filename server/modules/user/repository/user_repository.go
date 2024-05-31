@@ -8,7 +8,7 @@ import (
 )
 
 type IUserRepository interface {
-	GetAllUsers() []model.User
+	GetAllUsers() []dto.ResponseUserDto
 	GetUserById(id int) model.User
 	CreateUser(createUser dto.CreateUserDto) model.User
 }
@@ -23,14 +23,14 @@ func NewUserRepository(baseCrudRepository repositories.IBaseCrudRepository) IUse
 	}
 }
 
-func (r *UserRepository) GetAllUsers() []model.User {
-	var users []model.User
-	var user model.User
+func (r *UserRepository) GetAllUsers() []dto.ResponseUserDto {
+	var users []dto.ResponseUserDto
+	var user dto.ResponseUserDto
 
-	rows, _ := r.baseCrudRepository.GetAll("id", "full_name", "user_name", "password")
+	rows, _ := r.baseCrudRepository.GetAll("full_name", "user_name")
 
 	for rows.Next() {
-		rows.Scan(user.Id, user.FullName, user.UserName, user.Password)
+		rows.Scan(&user.FullName, &user.UserName)
 
 		users = append(users, user)
 	}

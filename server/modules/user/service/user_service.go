@@ -7,7 +7,7 @@ import (
 )
 
 type IUserService interface {
-	GetAllUsers() []model.User
+	GetAllUsers() []dto.ResponseUserDto
 	GetUserById(id int) model.User
 	CreateUser(dto.CreateUserDto) model.User
 }
@@ -22,7 +22,7 @@ func NewUserService(userRepository repository.IUserRepository) IUserService {
 	}
 }
 
-func (p *UserService) GetAllUsers() []model.User {
+func (p *UserService) GetAllUsers() []dto.ResponseUserDto {
 	return p.userRepository.GetAllUsers()
 }
 

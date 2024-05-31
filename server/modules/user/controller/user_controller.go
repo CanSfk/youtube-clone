@@ -35,9 +35,9 @@ func (u *UserController) RegisterRoutes(e *echo.Echo) {
 }
 
 func (u *UserController) index(c echo.Context) error {
-	message := responseMessage{Message: "Hello this is user controller"}
+	users := u.userService.GetAllUsers()
 
-	return c.JSON(http.StatusOK, message)
+	return c.JSON(http.StatusOK, users)
 }
 
 func (u *UserController) create(c echo.Context) error {
