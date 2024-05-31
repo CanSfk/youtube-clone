@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"database/sql"
 	"fmt"
 	"net/http"
 	"strconv"
@@ -11,7 +12,8 @@ import (
 )
 
 type responseMessage struct {
-	Message string
+	Message    string `json:"message"`
+	StatusCode string `json:"status"`
 }
 
 type IUserController interface {
@@ -52,7 +54,7 @@ func (u *UserController) create(c echo.Context) error {
 
 	u.userService.CreateUser(createUserDto)
 
-	return c.JSON(http.StatusOK, responseMessage{Message: "Created user successful"})
+	return c.JSON(http.StatusOK, responseMessage{Message: "Created user successful", StatusCode: "200"})
 }
 
 func (u *UserController) show(c echo.Context) error {
@@ -64,10 +66,14 @@ func (u *UserController) show(c echo.Context) error {
 		fmt.Printf("Conversion error: %s", err)
 	}
 
-	user := u.userService.GetUserById(parseIntId)
+	user, err := u.userService.GetUserById(parseIntId)
 
-	if user.Id == 0 {
-		return c.JSON(http.StatusBadRequest, responseMessage{Message: "User not found!"})
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return c.JSON(http.StatusNotFound, responseMessage{Message: "User not found!", StatusCode: "404"})
+		} else {
+			return c.JSON(http.StatusBadRequest, responseMessage{Message: "Unexpected error!", StatusCode: "500"})
+		}
 	}
 
 	return c.JSON(http.StatusOK, user)

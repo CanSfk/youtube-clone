@@ -1,16 +1,16 @@
 package repository
 
 import (
+	"database/sql"
 	"log"
 	"youtube-clone/common/repositories"
-	"youtube-clone/modules/user/model"
 	"youtube-clone/modules/user/model/dto"
 )
 
 type IUserRepository interface {
 	GetAllUsers() []dto.ResponseUserDto
-	GetUserById(id int) model.User
-	CreateUser(createUser dto.CreateUserDto) model.User
+	GetUserById(id int) (dto.ResponseUserDto, error)
+	CreateUser(createUser dto.CreateUserDto) dto.ResponseUserDto
 }
 
 type UserRepository struct {
@@ -40,18 +40,22 @@ func (r *UserRepository) GetAllUsers() []dto.ResponseUserDto {
 	return users
 }
 
-func (r *UserRepository) GetUserById(id int) model.User {
-	var user model.User
+func (r *UserRepository) GetUserById(id int) (dto.ResponseUserDto, error) {
+	var user dto.ResponseUserDto
 
-	row, _ := r.baseCrudRepository.GetById(id, "id", "full_name", "user_name", "password")
+	row, _ := r.baseCrudRepository.GetById(id, "full_name", "user_name")
 
-	row.Scan(&user.Id, &user.FullName, &user.UserName, &user.Password)
+	err := row.Scan(&user.FullName, &user.UserName)
 
-	return user
+	if err == sql.ErrNoRows {
+		return user, err
+	}
+
+	return user, nil
 }
 
-func (r *UserRepository) CreateUser(createUserDto dto.CreateUserDto) model.User {
-	var user model.User
+func (r *UserRepository) CreateUser(createUserDto dto.CreateUserDto) dto.ResponseUserDto {
+	var user dto.ResponseUserDto
 
 	userDataMap := map[string]interface{}{
 		"full_name": createUserDto.FullName,
@@ -66,9 +70,9 @@ func (r *UserRepository) CreateUser(createUserDto dto.CreateUserDto) model.User 
 		log.Fatalf("Last insert id error: %s", err)
 	}
 
-	getByIdRow, _ := r.baseCrudRepository.GetById(int(lastInsertId), "id", "full_name", "user_name", "password")
+	getByIdRow, _ := r.baseCrudRepository.GetById(int(lastInsertId), "full_name", "user_name")
 
-	getByIdRow.Scan(&user.Id, &user.FullName, &user.UserName, &user.Password)
+	getByIdRow.Scan(&user.FullName, &user.UserName)
 
 	return user
 }
