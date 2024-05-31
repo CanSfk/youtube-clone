@@ -24,4 +24,5 @@ dist-ssr
 *.sw?
 
 .env
-/server/tmp
+*.sqlite
+server/tmp
