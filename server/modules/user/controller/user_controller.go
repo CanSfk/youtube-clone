@@ -40,7 +40,7 @@ func (u *UserController) RegisterRoutes(e *echo.Echo) {
 }
 
 func (u *UserController) index(c echo.Context) error {
-	users := u.userService.GetAllUsers()
+	users := u.userService.GetAllUsersWithVideos()
 
 	return c.JSON(http.StatusOK, users)
 }

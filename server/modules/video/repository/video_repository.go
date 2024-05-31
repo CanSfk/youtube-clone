@@ -28,7 +28,7 @@ func (vr *videoRepository) GetAllVideos() []dto.VideoResponseDto {
 	rows, _ := vr.baseCrudRepository.GetAll("video_url", "video_title", "video_description")
 
 	for rows.Next() {
-		rows.Scan(&video.VideoUrl, &video.VideoTitle, &video.VidoeDescription)
+		rows.Scan(&video.VideoUrl, &video.VideoTitle, &video.VideoDescription)
 
 		videos = append(videos, video)
 	}
@@ -55,7 +55,7 @@ func (vr *videoRepository) CreateVideo(videoCreateDto dto.VideoCreateDto) dto.Vi
 
 	getByIdRow, _ := vr.baseCrudRepository.GetById(int(lastInsertId), "video_url", "video_title", "video_description")
 
-	getByIdRow.Scan(&video.VideoUrl, &video.VideoTitle, &video.VidoeDescription)
+	getByIdRow.Scan(&video.VideoUrl, &video.VideoTitle, &video.VideoDescription)
 
 	return video
 }

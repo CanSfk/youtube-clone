@@ -9,6 +9,7 @@ type IUserService interface {
 	GetAllUsers() []dto.ResponseUserDto
 	GetUserById(id int) (dto.ResponseUserDto, error)
 	CreateUser(dto.CreateUserDto) dto.ResponseUserDto
+	GetAllUsersWithVideos() []dto.UsersWithVideosResponse
 }
 
 type UserService struct {
@@ -21,16 +22,20 @@ func NewUserService(userRepository repository.IUserRepository) IUserService {
 	}
 }
 
-func (p *UserService) GetAllUsers() []dto.ResponseUserDto {
-	return p.userRepository.GetAllUsers()
+func (u *UserService) GetAllUsers() []dto.ResponseUserDto {
+	return u.userRepository.GetAllUsers()
 }
 
-func (p *UserService) GetUserById(id int) (dto.ResponseUserDto, error) {
-	return p.userRepository.GetUserById(id)
+func (u *UserService) GetUserById(id int) (dto.ResponseUserDto, error) {
+	return u.userRepository.GetUserById(id)
 }
 
-func (p *UserService) CreateUser(createUserDto dto.CreateUserDto) dto.ResponseUserDto {
-	user := p.userRepository.CreateUser(createUserDto)
+func (u *UserService) CreateUser(createUserDto dto.CreateUserDto) dto.ResponseUserDto {
+	user := u.userRepository.CreateUser(createUserDto)
 
 	return user
+}
+
+func (u *UserService) GetAllUsersWithVideos() []dto.UsersWithVideosResponse {
+	return u.userRepository.GetAllUsersWithVideos()
 }

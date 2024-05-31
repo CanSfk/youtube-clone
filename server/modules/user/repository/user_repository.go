@@ -5,12 +5,14 @@ import (
 	"log"
 	"youtube-clone/common/repositories"
 	"youtube-clone/modules/user/model/dto"
+	dtoVideo "youtube-clone/modules/video/model/dto"
 )
 
 type IUserRepository interface {
 	GetAllUsers() []dto.ResponseUserDto
 	GetUserById(id int) (dto.ResponseUserDto, error)
 	CreateUser(createUser dto.CreateUserDto) dto.ResponseUserDto
+	GetAllUsersWithVideos() []dto.UsersWithVideosResponse
 }
 
 type UserRepository struct {
@@ -75,4 +77,63 @@ func (r *UserRepository) CreateUser(createUserDto dto.CreateUserDto) dto.Respons
 	getByIdRow.Scan(&user.FullName, &user.UserName)
 
 	return user
+}
+
+func (r *UserRepository) GetAllUsersWithVideos() []dto.UsersWithVideosResponse {
+	var users []dto.UsersWithVideosResponse
+	userMap := make(map[string]*dto.UsersWithVideosResponse)
+
+	query := `SELECT 
+	u.full_name, u.user_name,
+	v.video_url, v.video_title, v.video_description 
+	FROM Users u 
+	LEFT JOIN Videos v 
+	ON u.id= v.user_id`
+
+	rows, _ := r.baseCrudRepository.GetAllCustomQuery(query)
+
+	defer rows.Close()
+
+	for rows.Next() {
+		var fullName, userName, videoUrl, videoTitle, videoDescription sql.NullString
+
+		err := rows.Scan(&fullName, &userName, &videoUrl, &videoTitle, &videoDescription)
+		if err != nil {
+			log.Fatalf("Error row scan: %s", err)
+		}
+
+		user, ok := userMap[userName.String]
+
+		if !ok {
+			user := dto.UsersWithVideosResponse{
+				FullName: fullName.String,
+				UserName: userName.String,
+				Videos:   []dtoVideo.VideoResponseDto{},
+			}
+
+			if videoUrl.String != "" {
+				user.Videos = append(user.Videos, dtoVideo.VideoResponseDto{
+					VideoUrl:         videoUrl.String,
+					VideoTitle:       videoTitle.String,
+					VideoDescription: videoDescription.String,
+				})
+			}
+
+			userMap[userName.String] = &user
+		} else {
+			if videoUrl.String != "" {
+				user.Videos = append(user.Videos, dtoVideo.VideoResponseDto{
+					VideoUrl:         videoUrl.String,
+					VideoTitle:       videoTitle.String,
+					VideoDescription: videoDescription.String,
+				})
+			}
+		}
+	}
+
+	for _, value := range userMap {
+		users = append(users, *value)
+	}
+
+	return users
 }
