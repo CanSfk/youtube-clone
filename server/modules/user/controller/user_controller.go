@@ -3,6 +3,7 @@ package controller
 import (
 	"fmt"
 	"net/http"
+	"strconv"
 	"youtube-clone/modules/user/model/dto"
 	"youtube-clone/modules/user/service"
 
@@ -17,6 +18,7 @@ type IUserController interface {
 	RegisterRoutes(e *echo.Echo)
 	index(c echo.Context) error
 	create(c echo.Context) error
+	show(c echo.Context) error
 }
 
 type UserController struct {
@@ -31,6 +33,7 @@ func NewUserController(userService service.IUserService) IUserController {
 
 func (u *UserController) RegisterRoutes(e *echo.Echo) {
 	e.GET("/users", u.index)
+	e.GET("/users/:id", u.show)
 	e.POST("/user/create", u.create)
 }
 
@@ -41,16 +44,31 @@ func (u *UserController) index(c echo.Context) error {
 }
 
 func (u *UserController) create(c echo.Context) error {
-	message := responseMessage{}
 	createUserDto := dto.CreateUserDto{}
 
 	if err := c.Bind(&createUserDto); err != nil {
-		message.Message = fmt.Sprintf("Bad Request: %s", err)
-
-		return c.JSON(http.StatusBadRequest, message)
+		return c.JSON(http.StatusBadRequest, responseMessage{Message: "Bad request"})
 	}
 
 	u.userService.CreateUser(createUserDto)
 
-	return c.JSON(http.StatusOK, message)
+	return c.JSON(http.StatusOK, responseMessage{Message: "Created user successful"})
+}
+
+func (u *UserController) show(c echo.Context) error {
+	id := c.Param("id")
+
+	parseIntId, err := strconv.Atoi(id)
+
+	if err != nil {
+		fmt.Printf("Conversion error: %s", err)
+	}
+
+	user := u.userService.GetUserById(parseIntId)
+
+	if user.Id == 0 {
+		return c.JSON(http.StatusBadRequest, responseMessage{Message: "User not found!"})
+	}
+
+	return c.JSON(http.StatusOK, user)
 }
