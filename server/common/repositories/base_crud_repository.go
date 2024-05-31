@@ -15,19 +15,19 @@ type IBaseCrudRepository interface {
 	// Delete(id int) (bool, error)
 }
 
-type BaseCrudRepository struct {
+type baseCrudRepository struct {
 	db        *sql.DB
 	tableName string
 }
 
 func NewBaseCrudRepository(db *sql.DB, tableName string) IBaseCrudRepository {
-	return &BaseCrudRepository{
+	return &baseCrudRepository{
 		db:        db,
 		tableName: tableName,
 	}
 }
 
-func (r *BaseCrudRepository) GetAll(fields ...string) (*sql.Rows, error) {
+func (r *baseCrudRepository) GetAll(fields ...string) (*sql.Rows, error) {
 	query := fmt.Sprintf("SELECT %s FROM %s", strings.Join(fields, ","), r.tableName)
 
 	stmt, err := r.db.Prepare(query)
@@ -44,7 +44,7 @@ func (r *BaseCrudRepository) GetAll(fields ...string) (*sql.Rows, error) {
 	return rows, nil
 }
 
-func (r *BaseCrudRepository) GetById(id int, fields ...string) (*sql.Row, error) {
+func (r *baseCrudRepository) GetById(id int, fields ...string) (*sql.Row, error) {
 	query := fmt.Sprintf("SELECT %s FROM %s WHERE id = %d", strings.Join(fields, ","), r.tableName, id)
 
 	stmt, err := r.db.Prepare(query)
@@ -62,7 +62,7 @@ func (r *BaseCrudRepository) GetById(id int, fields ...string) (*sql.Row, error)
 	return row, nil
 }
 
-func (r *BaseCrudRepository) Create(data map[string]interface{}) (sql.Result, error) {
+func (r *baseCrudRepository) Create(data map[string]interface{}) (sql.Result, error) {
 	dataKeys := make([]string, 0, len(data))
 	placeholder := make([]string, 0, len(data))
 	values := make([]interface{}, 0, len(data))
