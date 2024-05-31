@@ -2,13 +2,12 @@ package main
 
 import (
 	"log"
-	"net/http"
 	"os"
 	"youtube-clone/common/database"
+	"youtube-clone/routes"
 
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
@@ -18,18 +17,21 @@ func main() {
 
 	e := echo.New()
 
-	database.InitDb("common/database/db.sqlite")
+	db := database.InitDb("common/database/db.sqlite")
 
-	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{"http://localhost:5173"},
-		AllowHeaders: []string{"Content-Type", "Origin", "Accept"},
-		AllowMethods: []string{http.MethodGet, http.MethodPut, http.MethodDelete, http.MethodPut, http.MethodPatch},
-	}))
+	// e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+	// 	AllowOrigins: []string{"http://localhost:5173"},
+	// 	AllowHeaders: []string{"Content-Type", "Origin", "Accept"},
+	// 	AllowMethods: []string{http.MethodGet, http.MethodPut, http.MethodDelete, http.MethodPut, http.MethodPatch},
+	// }))
+
+	webRoutes := routes.NewWebRoutes()
+	webRoutes.Routes(e, db)
 
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
 	}
 
-	e.Logger.Fatal(e.Start("127.0.0.1:" + port))
+	e.Logger.Fatal(e.Start(":" + port))
 }
