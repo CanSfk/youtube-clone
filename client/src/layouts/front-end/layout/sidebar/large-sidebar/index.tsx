@@ -31,8 +31,21 @@ import {truncateText} from "../../../../../utils";
 import LargeSidebarFooter from "./large-sidebar-footer";
 import {LargeSidebarItem} from "./large-sidebar-item";
 import {removeMenu} from "../../../../../stores/menu/actions";
+import {setModal} from "../../../../../stores/modal/actions";
 
-const largeSidebarItems = [
+type largeSidebarItemProps = {
+  parentTitle: string | null;
+  child: largetSidebarItemChildProp[];
+};
+
+type largetSidebarItemChildProp = {
+  childTitle: string;
+  childLeftIcon: React.ReactNode;
+  childRightIcon: React.ReactNode;
+  childOnClick?: React.MouseEventHandler<HTMLButtonElement>;
+};
+
+const largeSidebarItems: largeSidebarItemProps[] = [
   {
     parentTitle: null,
     child: [
@@ -40,16 +53,19 @@ const largeSidebarItems = [
         childTitle: "Ana Sayfa",
         childLeftIcon: <HomeIcon />,
         childRightIcon: null,
+        childOnClick: () => removeMenu(),
       },
       {
         childTitle: "Shorts",
         childLeftIcon: <ShortIcon />,
         childRightIcon: null,
+        childOnClick: () => removeMenu(),
       },
       {
         childTitle: "Abonelikler",
         childLeftIcon: <Subscriber />,
         childRightIcon: null,
+        childOnClick: () => removeMenu(),
       },
     ],
   },
@@ -66,36 +82,43 @@ const largeSidebarItems = [
             viewBox='0 0 16 16'
           />
         ),
+        childOnClick: () => removeMenu(),
       },
       {
         childTitle: "Kanalınız",
         childLeftIcon: <ChannelIcon />,
         childRightIcon: null,
+        childOnClick: () => removeMenu(),
       },
       {
         childTitle: "Geçmiş",
         childLeftIcon: <BeforeTimeIcon />,
         childRightIcon: null,
+        childOnClick: () => removeMenu(),
       },
       {
         childTitle: "Oynatma listesi",
         childLeftIcon: <PlayerListIcon />,
         childRightIcon: null,
+        childOnClick: () => removeMenu(),
       },
       {
         childTitle: "Videolarınız",
         childLeftIcon: <VideoIcon />,
         childRightIcon: null,
+        childOnClick: () => removeMenu(),
       },
       {
         childTitle: "Daha sonra izle",
         childLeftIcon: <TimeIcon />,
         childRightIcon: null,
+        childOnClick: () => removeMenu(),
       },
       {
         childTitle: "Beğendiğin videolar",
         childLeftIcon: <LikeIcon />,
         childRightIcon: null,
+        childOnClick: () => removeMenu(),
       },
     ],
   },
@@ -106,16 +129,19 @@ const largeSidebarItems = [
         childTitle: "Abonelik-1",
         childLeftIcon: <ShortIcon />,
         childRightIcon: null,
+        childOnClick: () => removeMenu(),
       },
       {
         childTitle: "Abonelik-2",
         childLeftIcon: <ShortIcon />,
         childRightIcon: null,
+        childOnClick: () => removeMenu(),
       },
       {
         childTitle: "Abonelik-3",
         childLeftIcon: <ShortIcon />,
         childRightIcon: null,
+        childOnClick: () => removeMenu(),
       },
     ],
   },
@@ -126,26 +152,31 @@ const largeSidebarItems = [
         childTitle: "Trendler",
         childLeftIcon: <TrendIcon />,
         childRightIcon: null,
+        childOnClick: () => removeMenu(),
       },
       {
         childTitle: "Müzik",
         childLeftIcon: <MusicIcon />,
         childRightIcon: null,
+        childOnClick: () => removeMenu(),
       },
       {
         childTitle: "Canlı",
         childLeftIcon: <LiveIcon />,
         childRightIcon: null,
+        childOnClick: () => removeMenu(),
       },
       {
         childTitle: "Oyun",
         childLeftIcon: <GameIcon />,
         childRightIcon: null,
+        childOnClick: () => removeMenu(),
       },
       {
         childTitle: "Spor",
         childLeftIcon: <SportIcon />,
         childRightIcon: null,
+        childOnClick: () => removeMenu(),
       },
     ],
   },
@@ -156,21 +187,28 @@ const largeSidebarItems = [
         childTitle: "YouTube Premium",
         childLeftIcon: <YoutubePremiumIcon />,
         childRightIcon: null,
+        childOnClick: () => removeMenu(),
       },
       {
         childTitle: "YouTube Studio",
         childLeftIcon: <YoutubeStudioIcon />,
         childRightIcon: null,
+        childOnClick: () => {
+          setModal("youtube_studio_modal", {});
+          removeMenu();
+        },
       },
       {
         childTitle: "YouTube Music",
         childLeftIcon: <YoutubeMusicIcon />,
         childRightIcon: null,
+        childOnClick: () => removeMenu(),
       },
       {
         childTitle: "YouTube Kids",
         childLeftIcon: <YoutubeKidsIcon />,
         childRightIcon: null,
+        childOnClick: () => removeMenu(),
       },
     ],
   },
@@ -181,21 +219,25 @@ const largeSidebarItems = [
         childTitle: "Ayarlar",
         childLeftIcon: <SettingIcon />,
         childRightIcon: null,
+        childOnClick: () => removeMenu(),
       },
       {
         childTitle: "İçerik bildirme geçmişi",
         childLeftIcon: <FlagIcon />,
         childRightIcon: null,
+        childOnClick: () => removeMenu(),
       },
       {
         childTitle: "Yardım",
         childLeftIcon: <HelpIcon />,
         childRightIcon: null,
+        childOnClick: () => removeMenu(),
       },
       {
         childTitle: "Geri bildirim gönder",
         childLeftIcon: <InfoIcon />,
         childRightIcon: null,
+        childOnClick: () => removeMenu(),
       },
     ],
   },
@@ -250,6 +292,7 @@ export const LargeSidebar = () => {
                     icon={(childItem.childLeftIcon && childItem.childLeftIcon) || (childItem.childRightIcon && childItem.childRightIcon)}
                     title={truncateText(childItem.childTitle, 19)}
                     iconPosition={(childItem.childLeftIcon && "left") || (childItem.childRightIcon && "right") || null}
+                    onClick={childItem.childOnClick}
                   />
                 ))}
               </div>

@@ -68,6 +68,10 @@
     src: url("/public/fonts/roboto/Roboto-LightItalic.ttf");
 }
 
+.filepond--panel-root {
+    background-color: #000;
+}
+
 @layer base {
 
     * {
@@ -84,6 +88,37 @@
     .vide-card-list-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+    }
+
+    .modal-opacity-animate {
+        animation: opacityAnimateModal 250ms ease forwards;
+    }
+
+    @keyframes opacityAnimateModal {
+        to {
+            opacity: 1;
+        }
+    }
+
+    .my-alert-animate {
+        animation: myAlertAnimate 5s ease
+    }
+
+    @keyframes myAlertAnimate {
+        8% {
+            opacity: 1;
+            right: 4px;
+        }
+
+        90% {
+            opacity: 1;
+            right: 4px;
+        }
+
+        100% {
+            opacity: 0;
+            right: -96px;
+        }
     }
 }
 

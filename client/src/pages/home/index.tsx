@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {VideoCard} from "../../components/video-card";
+import {MyVideoCard} from "../../components";
 
 export const Home = () => {
   const videos = [
@@ -160,7 +160,7 @@ export const Home = () => {
     <article className='w-full flex-1'>
       <section className='vide-card-list-grid gap-x-3 gap-y-8'>
         {(videos || []).map((vd, index) => (
-          <VideoCard
+          <MyVideoCard
             id={`card-${index}`}
             key={index}
             imageName={vd.imageName}

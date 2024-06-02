@@ -1,0 +1,11 @@
+.filepond--panel-root {
+    background-color: #0f0f0f;
+}
+
+.filepond--drop-label {
+    color: #aaa;
+}
+
+.filepond--credits {
+    display: none;
+}

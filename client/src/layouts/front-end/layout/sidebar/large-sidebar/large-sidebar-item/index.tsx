@@ -1,15 +1,16 @@
 import classNames from "classnames";
-import {ReactElement} from "react";
+import React, {ButtonHTMLAttributes} from "react";
 
-interface LargeSidebarItemProp {
-  icon: ReactElement<any, any> | JSX.Element;
+interface LargeSidebarItemProp extends ButtonHTMLAttributes<HTMLButtonElement> {
+  icon: React.ReactNode;
   title: string;
   iconPosition: string | null;
 }
 
-export const LargeSidebarItem: React.FC<LargeSidebarItemProp> = ({icon, title, iconPosition}) => {
+export const LargeSidebarItem: React.FC<LargeSidebarItemProp> = ({icon, title, iconPosition, ...props}) => {
   return (
     <button
+      {...props}
       className={classNames("flex items-center justify-start w-full px-3 h-10 rounded-xl hover:bg-dark-theme-extra-soft-black", {
         "gap-2": iconPosition === "right",
         "gap-6": iconPosition === "left",

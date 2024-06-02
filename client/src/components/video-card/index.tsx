@@ -2,7 +2,7 @@ import React from "react";
 import {BarMenu} from "../../assets/icons";
 import {truncateText} from "../../utils";
 
-interface VideoCardProp {
+interface MyVideoCardProp {
   imageName: string;
   href?: string;
   title: string;
@@ -13,7 +13,7 @@ interface VideoCardProp {
   height: number;
 }
 
-export const VideoCard: React.FC<VideoCardProp> = ({imageName, href = "#", title, accountName, view, postedTime, id, height}) => {
+export const MyVideoCard: React.FC<MyVideoCardProp> = ({imageName, href = "#", title, accountName, view, postedTime, id, height}) => {
   return (
     <div
       id={id}
@@ -91,3 +91,5 @@ export const VideoCard: React.FC<VideoCardProp> = ({imageName, href = "#", title
     </div>
   );
 };
+
+export default MyVideoCard;
