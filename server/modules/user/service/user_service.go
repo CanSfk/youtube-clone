@@ -1,6 +1,7 @@
 package service
 
 import (
+	"youtube-clone/modules/auth/password"
 	"youtube-clone/modules/user/model/dto"
 	"youtube-clone/modules/user/repository"
 )
@@ -10,6 +11,7 @@ type IUserService interface {
 	GetUserById(id int) (dto.ResponseUserDto, error)
 	CreateUser(dto.CreateUserDto) dto.ResponseUserDto
 	GetAllUsersWithVideos() []dto.UsersWithVideosResponse
+	LoginUser(dto.LoginUserDto) bool
 }
 
 type UserService struct {
@@ -31,11 +33,18 @@ func (u *UserService) GetUserById(id int) (dto.ResponseUserDto, error) {
 }
 
 func (u *UserService) CreateUser(createUserDto dto.CreateUserDto) dto.ResponseUserDto {
-	user := u.userRepository.CreateUser(createUserDto)
+	hashedPassword, _ := password.HashPassword(createUserDto.Password)
+	createUserDto.Password = hashedPassword
 
-	return user
+	return u.userRepository.CreateUser(createUserDto)
 }
 
 func (u *UserService) GetAllUsersWithVideos() []dto.UsersWithVideosResponse {
 	return u.userRepository.GetAllUsersWithVideos()
+}
+
+func (u *UserService) LoginUser(loginUserDto dto.LoginUserDto) bool {
+	user := u.userRepository.GetUserByUserName(loginUserDto.UserName)
+
+	return password.ComparePasswords(user.Password, []byte(loginUserDto.Password))
 }

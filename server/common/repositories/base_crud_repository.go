@@ -12,6 +12,7 @@ type IBaseCrudRepository interface {
 	GetById(id int, fields ...string) (*sql.Row, error)
 	Create(data map[string]interface{}) (sql.Result, error)
 	GetAllCustomQuery(query string) (*sql.Rows, error)
+	GetCustomQuery(query string) (*sql.Row, error)
 	// Update(id int, entity interface{}) (interface{}, error)
 	// Delete(id int) (bool, error)
 }
@@ -103,4 +104,19 @@ func (r *baseCrudRepository) GetAllCustomQuery(query string) (*sql.Rows, error) 
 	}
 
 	return rows, nil
+}
+
+func (r *baseCrudRepository) GetCustomQuery(query string) (*sql.Row, error) {
+	stmt, err := r.db.Prepare(query)
+	if err != nil {
+		log.Fatalf("Query error: %s", err)
+	}
+	defer stmt.Close()
+
+	row := stmt.QueryRow()
+	if err != nil {
+		log.Fatalf("An error occurred during the query: %s", err)
+	}
+
+	return row, nil
 }

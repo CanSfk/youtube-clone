@@ -12,6 +12,10 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 )
 
+type CustomContext struct {
+	echo.Context
+}
+
 func main() {
 	if err := godotenv.Load("../.env"); err != nil {
 		log.Fatal("Error loading .env file")

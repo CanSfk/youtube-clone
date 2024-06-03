@@ -3,6 +3,7 @@ package controller
 import (
 	"mime/multipart"
 	"net/http"
+	"youtube-clone/modules/auth/jwt"
 	"youtube-clone/modules/video/model/dto"
 	"youtube-clone/modules/video/service"
 	"youtube-clone/utils"
@@ -32,8 +33,10 @@ func NewVideoController(videoService service.IVideoService) IVideoController {
 }
 
 func (v *videoController) RegisterRoutes(e *echo.Echo) {
-	e.GET("/videos", v.index)
-	e.POST("/video/create", v.create)
+	routeGroup := e.Group("video", jwt.JWTMiddleware)
+
+	routeGroup.GET("/list", v.index, jwt.JWTMiddleware)
+	routeGroup.POST("/create", v.create)
 }
 
 func (v *videoController) index(c echo.Context) error {

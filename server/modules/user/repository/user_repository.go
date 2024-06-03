@@ -2,6 +2,7 @@ package repository
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 	"youtube-clone/common/repositories"
 	"youtube-clone/modules/user/model/dto"
@@ -13,6 +14,7 @@ type IUserRepository interface {
 	GetUserById(id int) (dto.ResponseUserDto, error)
 	CreateUser(createUser dto.CreateUserDto) dto.ResponseUserDto
 	GetAllUsersWithVideos() []dto.UsersWithVideosResponse
+	GetUserByUserName(userName string) dto.ResponseUserDtoWithPassport
 }
 
 type UserRepository struct {
@@ -136,4 +138,14 @@ func (r *UserRepository) GetAllUsersWithVideos() []dto.UsersWithVideosResponse {
 	}
 
 	return users
+}
+
+func (u *UserRepository) GetUserByUserName(userName string) dto.ResponseUserDtoWithPassport {
+	var user dto.ResponseUserDtoWithPassport
+
+	row, _ := u.baseCrudRepository.GetCustomQuery(fmt.Sprintf("Select full_name, user_name, password FROM Users Where user_name = ('%s')", userName))
+
+	row.Scan(&user.FullName, &user.UserName, &user.Password)
+
+	return user
 }
