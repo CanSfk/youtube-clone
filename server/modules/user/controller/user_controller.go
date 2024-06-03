@@ -5,16 +5,12 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
+	"youtube-clone/common/dtos"
 	"youtube-clone/modules/user/model/dto"
 	"youtube-clone/modules/user/service"
 
 	"github.com/labstack/echo/v4"
 )
-
-type responseMessage struct {
-	Message    string `json:"message"`
-	StatusCode string `json:"status"`
-}
 
 type IUserController interface {
 	RegisterRoutes(e *echo.Echo)
@@ -49,12 +45,12 @@ func (u *UserController) create(c echo.Context) error {
 	createUserDto := dto.CreateUserDto{}
 
 	if err := c.Bind(&createUserDto); err != nil {
-		return c.JSON(http.StatusBadRequest, responseMessage{Message: "Bad request"})
+		return c.JSON(http.StatusBadRequest, dtos.ResponseMessage{Message: "Bad request"})
 	}
 
 	u.userService.CreateUser(createUserDto)
 
-	return c.JSON(http.StatusOK, responseMessage{Message: "Created user successful", StatusCode: "200"})
+	return c.JSON(http.StatusOK, dtos.ResponseMessage{Message: "Created user successful", StatusCode: "200"})
 }
 
 func (u *UserController) show(c echo.Context) error {
@@ -70,9 +66,9 @@ func (u *UserController) show(c echo.Context) error {
 
 	if err != nil {
 		if err == sql.ErrNoRows {
-			return c.JSON(http.StatusNotFound, responseMessage{Message: "User not found!", StatusCode: "404"})
+			return c.JSON(http.StatusNotFound, dtos.ResponseMessage{Message: "User not found!", StatusCode: "404"})
 		} else {
-			return c.JSON(http.StatusBadRequest, responseMessage{Message: "Unexpected error!", StatusCode: "500"})
+			return c.JSON(http.StatusBadRequest, dtos.ResponseMessage{Message: "Unexpected error!", StatusCode: "500"})
 		}
 	}
 

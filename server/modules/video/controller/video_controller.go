@@ -3,6 +3,7 @@ package controller
 import (
 	"mime/multipart"
 	"net/http"
+	"youtube-clone/common/dtos"
 	"youtube-clone/modules/auth/jwt"
 	"youtube-clone/modules/video/model/dto"
 	"youtube-clone/modules/video/service"
@@ -10,11 +11,6 @@ import (
 
 	"github.com/labstack/echo/v4"
 )
-
-type responseMessage struct {
-	Message    string `json:"message"`
-	StatusCode string `json:"status"`
-}
 
 type IVideoController interface {
 	RegisterRoutes(e *echo.Echo)
@@ -56,25 +52,25 @@ func (v *videoController) create(c echo.Context) error {
 
 	if videoFile != nil {
 		if videoFileErr != nil {
-			return c.JSON(http.StatusBadRequest, responseMessage{Message: "Error retrieving the file", StatusCode: "400"})
+			return c.JSON(http.StatusBadRequest, dtos.ResponseMessage{Message: "Error retrieving the file", StatusCode: "400"})
 		}
 
 		videoName, videoFileErr = utils.UploadVideo(*videoFile)
 
 		if videoFileErr != nil {
-			return c.JSON(http.StatusBadRequest, responseMessage{Message: videoFileErr.Error(), StatusCode: "400"})
+			return c.JSON(http.StatusBadRequest, dtos.ResponseMessage{Message: videoFileErr.Error(), StatusCode: "400"})
 		}
 	}
 
 	if coverImage != nil {
 		if coverImageErr != nil {
-			return c.JSON(http.StatusBadRequest, responseMessage{Message: "Error retrieving the file", StatusCode: "400"})
+			return c.JSON(http.StatusBadRequest, dtos.ResponseMessage{Message: "Error retrieving the file", StatusCode: "400"})
 		}
 
 		coverImageName, coverImageErr = utils.UploadImage(*coverImage, true)
 
 		if coverImageErr != nil {
-			return c.JSON(http.StatusBadRequest, responseMessage{Message: coverImageErr.Error(), StatusCode: "400"})
+			return c.JSON(http.StatusBadRequest, dtos.ResponseMessage{Message: coverImageErr.Error(), StatusCode: "400"})
 		}
 	}
 
@@ -88,5 +84,5 @@ func (v *videoController) create(c echo.Context) error {
 
 	v.videoService.CreateVideo(videoCreateDto)
 
-	return c.JSON(http.StatusOK, responseMessage{Message: "Video created successful", StatusCode: "200"})
+	return c.JSON(http.StatusOK, dtos.ResponseMessage{Message: "Video created successful", StatusCode: "200"})
 }
