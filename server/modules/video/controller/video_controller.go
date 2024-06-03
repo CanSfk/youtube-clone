@@ -1,9 +1,11 @@
 package controller
 
 import (
+	"mime/multipart"
 	"net/http"
 	"youtube-clone/modules/video/model/dto"
 	"youtube-clone/modules/video/service"
+	"youtube-clone/utils"
 
 	"github.com/labstack/echo/v4"
 )
@@ -39,11 +41,46 @@ func (v *videoController) index(c echo.Context) error {
 }
 
 func (v *videoController) create(c echo.Context) error {
-	videoCreateDto := dto.VideoCreateDto{}
+	videoName := ""
+	coverImageName := ""
+	var videoFileErr error
+	var coverImageErr error
+	var videoFile *multipart.FileHeader
+	var coverImage *multipart.FileHeader
 
-	err := c.Bind(&videoCreateDto)
-	if err != nil {
-		return c.JSON(http.StatusBadRequest, responseMessage{Message: "Bad Request", StatusCode: "400"})
+	videoFile, videoFileErr = c.FormFile("video_file")
+	coverImage, coverImageErr = c.FormFile("image_file")
+
+	if videoFile != nil {
+		if videoFileErr != nil {
+			return c.JSON(http.StatusBadRequest, responseMessage{Message: "Error retrieving the file", StatusCode: "400"})
+		}
+
+		videoName, videoFileErr = utils.UploadVideo(*videoFile)
+
+		if videoFileErr != nil {
+			return c.JSON(http.StatusBadRequest, responseMessage{Message: videoFileErr.Error(), StatusCode: "400"})
+		}
+	}
+
+	if coverImage != nil {
+		if coverImageErr != nil {
+			return c.JSON(http.StatusBadRequest, responseMessage{Message: "Error retrieving the file", StatusCode: "400"})
+		}
+
+		coverImageName, coverImageErr = utils.UploadImage(*coverImage, true)
+
+		if coverImageErr != nil {
+			return c.JSON(http.StatusBadRequest, responseMessage{Message: coverImageErr.Error(), StatusCode: "400"})
+		}
+	}
+
+	videoCreateDto := dto.VideoCreateDto{
+		VideoUrl:            videoName,
+		VideoCoverImageName: coverImageName,
+		VideoTitle:          c.FormValue("video_title"),
+		VideoDescription:    c.FormValue("video_description"),
+		UserId:              1,
 	}
 
 	v.videoService.CreateVideo(videoCreateDto)

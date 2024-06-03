@@ -13,6 +13,7 @@ var CrateTableQuerys = []string{
 	`CREATE TABLE IF NOT EXISTS Videos(
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	video_url VARCHAR(255) NOT NULL,
+	video_cover_image_name VARCHAR(255) NOT NULL,
 	video_title VARCHAR(255) NOT NULL,
 	video_description VARCHAR(255) NOT NULL,
 	user_id INTEGER NOT NULL,

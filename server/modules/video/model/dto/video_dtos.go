@@ -7,8 +7,9 @@ type VideoResponseDto struct {
 }
 
 type VideoCreateDto struct {
-	VideoUrl         string `json:"video_url"`
-	VideoTitle       string `json:"video_title"`
-	VideoDescription string `json:"video_description"`
-	UserId           int    `json:"user_id"`
+	VideoUrl            string `json:"video_url"`
+	VideoCoverImageName string `json:"video_cover_image_name"`
+	VideoTitle          string `json:"video_title"`
+	VideoDescription    string `json:"video_description"`
+	UserId              int    `json:"user_id"`
 }

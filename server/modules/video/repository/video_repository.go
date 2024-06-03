@@ -40,10 +40,11 @@ func (vr *videoRepository) CreateVideo(videoCreateDto dto.VideoCreateDto) dto.Vi
 	var video dto.VideoResponseDto
 
 	createData := map[string]interface{}{
-		"video_url":         videoCreateDto.VideoUrl,
-		"video_title":       videoCreateDto.VideoTitle,
-		"video_description": videoCreateDto.VideoDescription,
-		"user_id":           videoCreateDto.UserId,
+		"video_url":              videoCreateDto.VideoUrl,
+		"video_cover_image_name": videoCreateDto.VideoCoverImageName,
+		"video_title":            videoCreateDto.VideoTitle,
+		"video_description":      videoCreateDto.VideoDescription,
+		"user_id":                videoCreateDto.UserId,
 	}
 
 	row, _ := vr.baseCrudRepository.Create(createData)

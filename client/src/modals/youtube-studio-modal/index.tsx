@@ -1,12 +1,13 @@
+import {FormEvent, useEffect, useState} from "react";
 import {FilePond, registerPlugin} from "react-filepond";
 import ModalLayout from "../../layouts/modal-layout";
 import "filepond/dist/filepond.min.css";
 import "../../assets/css/filepond.css";
 import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
 
-import {FormEvent, useState} from "react";
 import {removeModal} from "../../stores/modal/actions";
 import {MyAlert, MyButton, MyInput, MyTextarea} from "../../components";
+import {optimizeImage} from "../../utils";
 
 registerPlugin(FilePondPluginFileValidateType);
 
@@ -15,18 +16,23 @@ type responseMessageType = {
   status: string;
 };
 
+type filesType = {
+  videoFile: File[];
+  imageFile: File[];
+  optimizedImageFile: File;
+};
+
 export const YoutubeStudioModal = () => {
-  const [responseMessage, setReponseMessage] = useState<responseMessageType>();
-  const [file, setFile] = useState<unknown>();
+  const [responseMessage, setReponseMessage] = useState<responseMessageType | null>(null);
+  const [files, setFiles] = useState<filesType>({videoFile: [], imageFile: [], optimizedImageFile: {} as File});
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     const formData = new FormData(e.target as HTMLFormElement);
 
-    if (file) {
-      formData.append("video_file", file as Blob);
-    }
+    if (files.videoFile && files.videoFile.length > 0) formData.append("video_file", files.videoFile[0] as Blob);
+    if (files.optimizedImageFile) formData.append("image_file", files.optimizedImageFile);
 
     const response: Response = await fetch("http://localhost:8085/video/create", {
       method: "POST",
@@ -37,6 +43,30 @@ export const YoutubeStudioModal = () => {
 
     setReponseMessage({message: ms.message, status: ms.status});
   };
+
+  useEffect(() => {
+    let time: number;
+
+    if (files.imageFile.length > 0) {
+      time = setTimeout(async () => {
+        const optimizedImage = await optimizeImage(files.imageFile[0]);
+
+        setFiles((prevData) => {
+          const data = {...prevData};
+          data.optimizedImageFile = optimizedImage;
+          return data;
+        });
+      }, 1000);
+    }
+
+    return () => {
+      clearTimeout(time);
+    };
+  }, [files.imageFile]);
+
+  useEffect(() => {
+    console.log(files);
+  }, [files]);
 
   return (
     <ModalLayout>
@@ -55,31 +85,45 @@ export const YoutubeStudioModal = () => {
               </label>
 
               <FilePond
+                files={files.videoFile}
+                onupdatefiles={(fileItems) =>
+                  setFiles((prevData) => {
+                    const data = {...prevData};
+                    data.videoFile = fileItems.map((fileItem) => fileItem.file) as File[];
+                    return data;
+                  })
+                }
                 id='video'
                 name='video_file'
-                acceptedFileTypes={["video/mp4", "video/quicktime"]}
                 labelFileTypeNotAllowed='Geçersiz dosya türü'
-                fileValidateTypeLabelExpectedTypes='jpg, jpeg, png, webp türünde dosya bekleniyor'
+                acceptedFileTypes={["video/mp4", "video/quicktime"]}
+                fileValidateTypeLabelExpectedTypes='quicktime, mp4 türünde dosya bekleniyor'
                 labelIdle='Dosyanızı sürükleyip bırakın veya gözatın <span class="filepond--label-action">Dosyalar</span>'
-                onupdatefiles={(fileItems) => {
-                  setFile(fileItems[0].file);
-                }}
               />
             </div>
 
             <div className='flex flex-col gap-2 flex-1'>
               <label
-                htmlFor='video'
+                htmlFor='cover_image'
                 className='text-dark-theme-white'
               >
                 Kapak resmi
               </label>
 
               <FilePond
-                id='video'
+                files={files.imageFile}
+                onupdatefiles={(fileItems) =>
+                  setFiles((prevData) => {
+                    const data = {...prevData};
+                    data.imageFile = fileItems.map((fileItem) => fileItem.file) as File[];
+                    return data;
+                  })
+                }
+                id='cover_image'
                 name='cover_image_file'
                 acceptedFileTypes={["image/jpeg", "image/jpg", "image/webp", "image/png"]}
                 labelIdle='Dosyanızı sürükleyip bırakın veya gözatın <span class="filepond--label-action">Dosyalar</span>'
+                maxFiles={1}
               />
             </div>
           </div>
