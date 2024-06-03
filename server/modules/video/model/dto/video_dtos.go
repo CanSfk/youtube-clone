@@ -13,3 +13,10 @@ type VideoCreateDto struct {
 	VideoDescription    string `json:"video_description"`
 	UserId              int    `json:"user_id"`
 }
+
+type VideoWithUserResponseDto struct {
+	VideoUrl            string `json:"video_url"`
+	VideoCoverImageName string `json:"video_cover_image_name"`
+	VideoTitle          string `json:"video_title"`
+	UserName            string `json:"user_name"`
+}

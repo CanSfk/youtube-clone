@@ -36,12 +36,19 @@ export const YoutubeStudioModal = () => {
 
     const response: Response = await fetch("http://localhost:8085/video/create", {
       method: "POST",
+      credentials: "include",
       body: formData,
     });
 
-    const ms: {message: string; status: string} = await response.json();
+    if (response.ok) {
+      const {message, video} = await response.json();
 
-    setReponseMessage({message: ms.message, status: ms.status});
+      setReponseMessage({message: message.message, status: message.status});
+    } else {
+      const ms: {message: {message: string; status: string}} = await response.json();
+
+      setReponseMessage({message: ms.message.message, status: ms.message.status});
+    }
   };
 
   useEffect(() => {
@@ -63,10 +70,6 @@ export const YoutubeStudioModal = () => {
       clearTimeout(time);
     };
   }, [files.imageFile]);
-
-  useEffect(() => {
-    console.log(files);
-  }, [files]);
 
   return (
     <ModalLayout>

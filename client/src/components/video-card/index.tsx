@@ -27,11 +27,11 @@ export const MyVideoCard: React.FC<MyVideoCardProp> = ({imageName, href = "#", t
         <picture className='absolute inset-0 transition-all duration-500 hover:scale-[1.02]'>
           <source
             type='image/webp'
-            srcSet={`/public/images/${imageName}`}
+            srcSet={`${imageName}`}
           />
 
           <img
-            src={`/public/images/${imageName}`}
+            src={`${imageName}`}
             alt='Youtube clone image'
             className='w-full h-full object-cover'
           />
@@ -47,11 +47,11 @@ export const MyVideoCard: React.FC<MyVideoCardProp> = ({imageName, href = "#", t
           <picture className='absolute inset-0'>
             <source
               type='image/webp'
-              srcSet={`/public/images/${imageName}`}
+              srcSet={`${imageName}`}
             />
 
             <img
-              src={`/public/images/${imageName}`}
+              src={`${imageName}`}
               alt='Youtube clone image'
               className='w-full h-full object-cover'
             />

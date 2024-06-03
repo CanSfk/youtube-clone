@@ -7,7 +7,8 @@ import (
 
 type IVideoService interface {
 	GetAllVideos() []dto.VideoResponseDto
-	CreateVideo(videoCreateDto dto.VideoCreateDto) dto.VideoResponseDto
+	GetAllVideosWithUser() []dto.VideoWithUserResponseDto
+	CreateVideo(videoCreateDto dto.VideoCreateDto) dto.VideoWithUserResponseDto
 }
 
 type videoService struct {
@@ -24,6 +25,10 @@ func (vs *videoService) GetAllVideos() []dto.VideoResponseDto {
 	return vs.videoRepository.GetAllVideos()
 }
 
-func (vs *videoService) CreateVideo(videoCreateDto dto.VideoCreateDto) dto.VideoResponseDto {
+func (vs *videoService) GetAllVideosWithUser() []dto.VideoWithUserResponseDto {
+	return vs.videoRepository.GetAllVideosWithUser()
+}
+
+func (vs *videoService) CreateVideo(videoCreateDto dto.VideoCreateDto) dto.VideoWithUserResponseDto {
 	return vs.videoRepository.CreateVideo(videoCreateDto)
 }

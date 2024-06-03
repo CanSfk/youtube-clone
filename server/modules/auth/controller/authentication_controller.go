@@ -20,6 +20,12 @@ type AuthController struct {
 	userService service.IUserService
 }
 
+type ResponseUser struct {
+	UserName   string `json:"user_name"`
+	StatusCode string `json:"status"`
+	Message    string `json:"message"`
+}
+
 func NewAuthController(userService service.IUserService) IAuthController {
 	return &AuthController{
 		userService: userService,
@@ -31,9 +37,9 @@ func (a *AuthController) RegisterRoutes(e *echo.Echo) {
 }
 
 func (a *AuthController) login(c echo.Context) error {
-	var loginUserDto dto.LoginUserDto
-	if err := c.Bind(&loginUserDto); err != nil {
-		return c.JSON(http.StatusNotFound, dtos.ResponseMessage{Message: "Bad request", StatusCode: "400"})
+	loginUserDto := dto.LoginUserDto{
+		UserName: c.FormValue("user_name"),
+		Password: c.FormValue("password"),
 	}
 
 	loggedIn := a.userService.LoginUser(loginUserDto)
@@ -53,5 +59,5 @@ func (a *AuthController) login(c echo.Context) error {
 
 	c.SetCookie(cookie)
 
-	return c.JSON(http.StatusOK, dtos.ResponseMessage{Message: "Login process successful. Token: ", StatusCode: "200"})
+	return c.JSON(http.StatusOK, ResponseUser{UserName: loginUserDto.UserName, StatusCode: "200", Message: ""})
 }

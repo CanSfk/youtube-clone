@@ -6,14 +6,18 @@ interface MyButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   ballonEffect?: boolean;
   styleType?: "outline" | "normal";
+  color?: "red" | "green" | "yellow" | "blue";
 }
 
-export const MyButton: React.FC<MyButtonProps> = ({text, className, ballonEffect = false, styleType = "normal", ...props}) => {
+export const MyButton: React.FC<MyButtonProps> = ({text, className, ballonEffect = false, styleType = "normal", color = "green", ...props}) => {
   return (
     <button
       {...props}
       className={classNames(`${className}  p-2 px-5 rounded-md relative group overflow-hidden`, {
-        "border border-youtube-red text-youtube-red": styleType === "outline",
+        border: styleType === "outline",
+        "border-green-500 text-green-500": styleType === "outline" && color === "green",
+        "border-youtube-red text-youtube-red": styleType === "outline" && color === "red",
+        "border-yellow-500 text-yellow-500": styleType === "outline" && color === "yellow",
         "bg-dark-theme-black text-dark-theme-gray": styleType === "normal",
       })}
     >

@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"fmt"
 	"log"
 	"youtube-clone/common/repositories"
 	"youtube-clone/modules/video/model/dto"
@@ -8,7 +9,8 @@ import (
 
 type IVideoRepository interface {
 	GetAllVideos() []dto.VideoResponseDto
-	CreateVideo(videoCreateDto dto.VideoCreateDto) dto.VideoResponseDto
+	GetAllVideosWithUser() []dto.VideoWithUserResponseDto
+	CreateVideo(videoCreateDto dto.VideoCreateDto) dto.VideoWithUserResponseDto
 }
 
 type videoRepository struct {
@@ -36,8 +38,36 @@ func (vr *videoRepository) GetAllVideos() []dto.VideoResponseDto {
 	return videos
 }
 
-func (vr *videoRepository) CreateVideo(videoCreateDto dto.VideoCreateDto) dto.VideoResponseDto {
-	var video dto.VideoResponseDto
+func (vr *videoRepository) GetAllVideosWithUser() []dto.VideoWithUserResponseDto {
+	videos := []dto.VideoWithUserResponseDto{}
+	video := dto.VideoWithUserResponseDto{}
+
+	query := `SELECT 
+	v.video_url, v.video_title, v.video_cover_image_name,
+	u.user_name
+	FROM Videos v 
+	INNER JOIN Users u
+	ON v.user_id = u.id`
+
+	rows, _ := vr.baseCrudRepository.GetAllCustomQuery(query)
+
+	defer rows.Close()
+
+	for rows.Next() {
+
+		err := rows.Scan(&video.VideoUrl, &video.VideoTitle, &video.VideoCoverImageName, &video.UserName)
+		if err != nil {
+			log.Fatalf("Error row scan: %s", err)
+		}
+
+		videos = append(videos, video)
+	}
+
+	return videos
+}
+
+func (vr *videoRepository) CreateVideo(videoCreateDto dto.VideoCreateDto) dto.VideoWithUserResponseDto {
+	var video dto.VideoWithUserResponseDto
 
 	createData := map[string]interface{}{
 		"video_url":              videoCreateDto.VideoUrl,
@@ -54,9 +84,15 @@ func (vr *videoRepository) CreateVideo(videoCreateDto dto.VideoCreateDto) dto.Vi
 		log.Fatalf("Last insert id error: %s", err)
 	}
 
-	getByIdRow, _ := vr.baseCrudRepository.GetById(int(lastInsertId), "video_url", "video_title", "video_description")
+	getByIdRowVideo, _ := vr.baseCrudRepository.GetCustomQuery(fmt.Sprintf(`SELECT 
+	v.video_url, v.video_title, v.video_cover_image_name,
+	u.user_name
+	FROM Videos v 
+	INNER JOIN Users u
+	ON v.user_id= u.id
+	Where v.id = ('%d')`, int(lastInsertId)))
 
-	getByIdRow.Scan(&video.VideoUrl, &video.VideoTitle, &video.VideoDescription)
+	getByIdRowVideo.Scan(&video.VideoUrl, &video.VideoTitle, &video.VideoCoverImageName, &video.UserName)
 
 	return video
 }

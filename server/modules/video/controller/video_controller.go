@@ -22,6 +22,11 @@ type videoController struct {
 	videoService service.IVideoService
 }
 
+type ReponseMessageAndVideo struct {
+	Video   dto.VideoWithUserResponseDto `json:"video"`
+	Message dtos.ResponseMessage         `json:"message"`
+}
+
 func NewVideoController(videoService service.IVideoService) IVideoController {
 	return &videoController{
 		videoService: videoService,
@@ -36,7 +41,7 @@ func (v *videoController) RegisterRoutes(e *echo.Echo) {
 }
 
 func (v *videoController) index(c echo.Context) error {
-	return c.JSON(http.StatusOK, v.videoService.GetAllVideos())
+	return c.JSON(http.StatusOK, v.videoService.GetAllVideosWithUser())
 }
 
 func (v *videoController) create(c echo.Context) error {
@@ -82,7 +87,15 @@ func (v *videoController) create(c echo.Context) error {
 		UserId:              1,
 	}
 
-	v.videoService.CreateVideo(videoCreateDto)
+	video := v.videoService.CreateVideo(videoCreateDto)
 
-	return c.JSON(http.StatusOK, dtos.ResponseMessage{Message: "Video created successful", StatusCode: "200"})
+	response := ReponseMessageAndVideo{
+		Video: video,
+		Message: dtos.ResponseMessage{
+			Message:    "Video created succesfuly",
+			StatusCode: "200",
+		},
+	}
+
+	return c.JSON(http.StatusOK, response)
 }

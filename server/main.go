@@ -29,9 +29,10 @@ func main() {
 	defer database.CloseDb()
 
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{"http://localhost:5173"},
-		AllowHeaders: []string{"Content-Type", "Origin", "Accept"},
-		AllowMethods: []string{http.MethodGet, http.MethodPut, http.MethodDelete, http.MethodPut, http.MethodPatch},
+		AllowOrigins:     []string{"http://localhost:5173"},
+		AllowHeaders:     []string{"Content-Type", "Origin", "Accept"},
+		AllowMethods:     []string{http.MethodGet, http.MethodPut, http.MethodDelete, http.MethodPut, http.MethodPatch},
+		AllowCredentials: true,
 	}))
 
 	webRoutes := routes.NewWebRoutes()
