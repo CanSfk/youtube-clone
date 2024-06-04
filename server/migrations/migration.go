@@ -30,8 +30,7 @@ var CrateTableQuerys = []string{
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (user_id) REFERENCES Users(id),
-	FOREIGN KEY (video_id) REFERENCES Videos(id),
-	UNIQUE (user_id, video_id)
+	FOREIGN KEY (video_id) REFERENCES Videos(id)
 	)`,
 
 	`CREATE TABLE IF NOT EXISTS VideoComments(
@@ -42,8 +41,7 @@ var CrateTableQuerys = []string{
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (user_id) REFERENCES Users(id),
-	FOREIGN KEY (video_id) REFERENCES Videos(id),
-	UNIQUE (user_id, video_id)
+	FOREIGN KEY (video_id) REFERENCES Videos(id)
 	)`,
 }
 
