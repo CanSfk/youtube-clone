@@ -122,7 +122,6 @@ func (vr *videoRepository) GetVideoByName(videoName string) (dto.VideoShowRespon
 		return video, nil, scanErr
 	}
 
-	fmt.Println(videoId)
 	getVideoCommentsRows, err := vr.baseCrudRepository.GetAllCustomQuery(fmt.Sprintf(`SELECT
 	c.comment, u.user_name FROM video_comments c 
 	INNER JOIN users u ON c.user_id = u.id

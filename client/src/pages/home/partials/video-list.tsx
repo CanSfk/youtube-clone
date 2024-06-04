@@ -5,7 +5,6 @@ import { setAllVideo } from '../../../stores/video/actions';
 
 export const VideoList = () => {
   const { videos } = useVideo();
-
   const [height, setHeight] = useState<number>(200);
   const [videoCard, setVideoCard] = useState<HTMLElement | undefined>();
 
@@ -21,9 +20,8 @@ export const VideoList = () => {
         credentials: 'include',
       });
 
-      const data = await response.json();
-
-      setAllVideo(data);
+      if (response.ok) setAllVideo(await response.json());
+      else console.log('Failed the fetch videos data', response.status);
     })();
   }, []);
 

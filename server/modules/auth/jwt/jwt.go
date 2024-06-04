@@ -3,6 +3,7 @@ package jwt
 import (
 	"net/http"
 	"time"
+	"youtube-clone/common/dtos"
 
 	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4"
@@ -34,7 +35,7 @@ func JWTMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		tokenString, err := c.Cookie("authorization")
 		if err != nil {
-			return c.JSON(http.StatusUnauthorized, echo.Map{"error": "Missing or invalid token"})
+			return c.JSON(http.StatusUnauthorized, dtos.ResponseMessage{Message: "Missing or invalid token", StatusCode: "401"})
 		}
 
 		token, err := jwt.ParseWithClaims(tokenString.Value, &Claims{}, func(token *jwt.Token) (interface{}, error) {
@@ -42,12 +43,12 @@ func JWTMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 		})
 
 		if err != nil || !token.Valid {
-			return c.JSON(http.StatusUnauthorized, echo.Map{"error": "Invalid token"})
+			return c.JSON(http.StatusUnauthorized, dtos.ResponseMessage{Message: "Missing or invalid token", StatusCode: "401"})
 		}
 
 		claims, ok := token.Claims.(*Claims)
 		if !ok || !token.Valid {
-			return c.JSON(http.StatusUnauthorized, echo.Map{"error": "Invalid token"})
+			return c.JSON(http.StatusUnauthorized, dtos.ResponseMessage{Message: "Missing or invalid token", StatusCode: "401"})
 		}
 
 		c.Set("username", claims.Username)

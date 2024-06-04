@@ -20,10 +20,16 @@ const auth = createSlice({
     _setAuth: (state, action) => {
       state.userName = action.payload.userName;
       state.state = action.payload.state;
+
+      localStorage.setItem('auth', String(action.payload.state));
+      localStorage.setItem('userName', action.payload.userName);
     },
     _removeAuth: (state) => {
       state.userName = '';
       state.state = false;
+
+      localStorage.setItem('auth', '');
+      localStorage.setItem('userName', 'false');
     },
   },
 });

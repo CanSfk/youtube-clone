@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"net/http"
 	"time"
 	"youtube-clone/common/dtos"
@@ -14,6 +15,8 @@ import (
 type IAuthController interface {
 	RegisterRoutes(e *echo.Echo)
 	login(c echo.Context) error
+	logout(c echo.Context) error
+	register(c echo.Context) error
 }
 
 type AuthController struct {
@@ -34,6 +37,19 @@ func NewAuthController(userService service.IUserService) IAuthController {
 
 func (a *AuthController) RegisterRoutes(e *echo.Echo) {
 	e.POST("/login", a.login)
+	e.POST("/logout", a.logout)
+}
+
+func (a *AuthController) register(c echo.Context) error {
+	createUserDto := dto.CreateUserDto{}
+
+	if err := c.Bind(&createUserDto); err != nil {
+		return c.JSON(http.StatusBadRequest, dtos.ResponseMessage{Message: "Bad request"})
+	}
+
+	a.userService.CreateUser(createUserDto)
+
+	return c.JSON(http.StatusOK, dtos.ResponseMessage{Message: "Created user successful", StatusCode: "200"})
 }
 
 func (a *AuthController) login(c echo.Context) error {
@@ -60,4 +76,19 @@ func (a *AuthController) login(c echo.Context) error {
 	c.SetCookie(cookie)
 
 	return c.JSON(http.StatusOK, ResponseUser{UserName: loginUserDto.UserName, StatusCode: "200", Message: ""})
+}
+
+func (a *AuthController) logout(c echo.Context) error {
+	fmt.Println("LOG")
+	cookie := &http.Cookie{
+		Name:     "authorization",
+		Value:    "",
+		Expires:  time.Now().Add(-time.Hour),
+		MaxAge:   -1,
+		HttpOnly: true,
+	}
+
+	c.SetCookie(cookie)
+
+	return c.JSON(http.StatusOK, dtos.ResponseMessage{Message: "Logout successful", StatusCode: "200"})
 }

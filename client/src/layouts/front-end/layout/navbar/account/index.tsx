@@ -1,8 +1,20 @@
 import { useEffect, useState } from 'react';
 import { CameraIcon, CloseIconDoor, NotificationIcon } from '../../../../../assets/icons';
+import { removeAuth } from '../../../../../stores/auth/actions';
+import { NavLink } from 'react-router-dom';
 
 export const Account = () => {
   const [showPopover, setShowPopover] = useState<boolean>(false);
+
+  const logout = async () => {
+    const response = await fetch(`${import.meta.env.VITE_BASE_URL}/logout`, {
+      method: 'POST',
+      credentials: 'include',
+    });
+
+    if (response.ok) removeAuth();
+    else console.log('Failed the logout', response.status);
+  };
 
   const changePopoverState = (e: MouseEvent) => {
     const popover = document.querySelector('#account_popover');
@@ -47,10 +59,17 @@ export const Account = () => {
         {showPopover && (
           <div className='absolute right-0 top-full p-2'>
             <div className='py-2 bg-dark-theme-extra-soft-black rounded-lg w-[300px] select-none'>
-              <div className='flex items-center gap-3 px-3 py-2 transition duration-200 hover:bg-dark-theme-primary-black'>
+              <NavLink
+                to='/'
+                onClick={() => {
+                  logout();
+                  setShowPopover(false);
+                }}
+                className='flex w-full items-center gap-3 px-3 py-2 transition duration-200 hover:bg-dark-theme-primary-black'
+              >
                 <CloseIconDoor />
                 <p className='w-max text-[14px]'>Cıkış Yap</p>
-              </div>
+              </NavLink>
             </div>
           </div>
         )}

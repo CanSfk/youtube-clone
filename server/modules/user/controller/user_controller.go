@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"strconv"
 	"youtube-clone/common/dtos"
-	"youtube-clone/modules/user/model/dto"
 	"youtube-clone/modules/user/service"
 
 	"github.com/labstack/echo/v4"
@@ -15,7 +14,6 @@ import (
 type IUserController interface {
 	RegisterRoutes(e *echo.Echo)
 	index(c echo.Context) error
-	create(c echo.Context) error
 	show(c echo.Context) error
 }
 
@@ -32,25 +30,12 @@ func NewUserController(userService service.IUserService) IUserController {
 func (u *UserController) RegisterRoutes(e *echo.Echo) {
 	e.GET("/users", u.index)
 	e.GET("/users/:id", u.show)
-	e.POST("/user/create", u.create)
 }
 
 func (u *UserController) index(c echo.Context) error {
 	users := u.userService.GetAllUsersWithVideos()
 
 	return c.JSON(http.StatusOK, users)
-}
-
-func (u *UserController) create(c echo.Context) error {
-	createUserDto := dto.CreateUserDto{}
-
-	if err := c.Bind(&createUserDto); err != nil {
-		return c.JSON(http.StatusBadRequest, dtos.ResponseMessage{Message: "Bad request"})
-	}
-
-	u.userService.CreateUser(createUserDto)
-
-	return c.JSON(http.StatusOK, dtos.ResponseMessage{Message: "Created user successful", StatusCode: "200"})
 }
 
 func (u *UserController) show(c echo.Context) error {
