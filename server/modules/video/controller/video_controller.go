@@ -20,7 +20,8 @@ type IVideoController interface {
 }
 
 type videoController struct {
-	videoService service.IVideoService
+	videoService        service.IVideoService
+	videoCommentService service.IVideoCommentService
 }
 
 type ReponseMessageAndVideo struct {
@@ -28,9 +29,10 @@ type ReponseMessageAndVideo struct {
 	Message dtos.ResponseMessage         `json:"message"`
 }
 
-func NewVideoController(videoService service.IVideoService) IVideoController {
+func NewVideoController(videoService service.IVideoService, videoCommentService service.IVideoCommentService) IVideoController {
 	return &videoController{
-		videoService: videoService,
+		videoService:        videoService,
+		videoCommentService: videoCommentService,
 	}
 }
 

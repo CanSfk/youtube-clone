@@ -29,3 +29,14 @@ type VideoShowResponseDto struct {
 	VideoDescription    string `json:"video_description"`
 	UserName            string `json:"account_name"`
 }
+
+type VideoCommentCreateDto struct {
+	VideoUrl string `json:"video_url"`
+	UserName string `json:"user_name"`
+	Comment  string `json:"comment"`
+}
+
+type VideoCommentReponseDto struct {
+	Comment  string `json:"comment"`
+	UserName string `json:"accont_name"`
+}
