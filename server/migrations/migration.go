@@ -1,7 +1,7 @@
 package migrations
 
 var CrateTableQuerys = []string{
-	`CREATE TABLE IF NOT EXISTS Users(
+	`CREATE TABLE IF NOT EXISTS users(
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	full_name VARCHAR(255) NOT NULL,
 	user_name VARCHAR(255) NOT NULL,
@@ -10,7 +10,7 @@ var CrateTableQuerys = []string{
 	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 	)`,
 
-	`CREATE TABLE IF NOT EXISTS Videos(
+	`CREATE TABLE IF NOT EXISTS videos(
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	video_url VARCHAR(255) NOT NULL,
 	video_cover_image_name VARCHAR(255) NOT NULL,
@@ -23,7 +23,7 @@ var CrateTableQuerys = []string{
 	FOREIGN KEY (user_id) REFERENCES Users(id)
 	)`,
 
-	`CREATE TABLE IF NOT EXISTS VideoLikes(
+	`CREATE TABLE IF NOT EXISTS video_likes(
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	user_id INTEGER NOT NULL,
 	video_id INTEGER NOT NULL,
@@ -33,7 +33,7 @@ var CrateTableQuerys = []string{
 	FOREIGN KEY (video_id) REFERENCES Videos(id)
 	)`,
 
-	`CREATE TABLE IF NOT EXISTS VideoComments(
+	`CREATE TABLE IF NOT EXISTS video_comments(
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	comment VARCHAR(255) NOT NULL,	
 	user_id INTEGER NOT NULL,
@@ -44,25 +44,3 @@ var CrateTableQuerys = []string{
 	FOREIGN KEY (video_id) REFERENCES Videos(id)
 	)`,
 }
-
-// var CreateUserTable string = `
-// CREATE USER TABLE IF NOT EXISTS Users(
-// 	id INTEGER PRIMARY KEY AUTOINCREMENT,
-// 	full_name VARCHAR(255) NOT NULL,
-// 	user_name VARCHAR(255) NOT NULL,
-// 	password VARCHAR(255) NOT NULL
-// 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-// 	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-// )`
-
-// var CreateVideoTable string = `
-// CREATE USER TABLE IF NOT EXISTS Videos(
-// 	id INTEGER PRIMARY KEY AUTOINCREMENT,
-// 	video_url VARCHAR(255) NOT NULL,
-// 	video_title VARCHAR(255) NOT NULL
-// 	video_description VARCHAR(255) NOT NULL
-// 	user_id INTEGER NOT NULL,
-// 	FOREIGN KEY (user_id) REFERENCES Users(id)
-// 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-// 	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-// )`

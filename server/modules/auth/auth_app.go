@@ -9,7 +9,7 @@ import (
 )
 
 func CreateAuthApp(db *sql.DB) controller.IAuthController {
-	baseCrudRepository := repositories.NewBaseCrudRepository(db, "Users")
+	baseCrudRepository := repositories.NewBaseCrudRepository(db, "users")
 	userRepository := repository.NewUserRepository(baseCrudRepository)
 	userService := service.NewUserService(userRepository)
 

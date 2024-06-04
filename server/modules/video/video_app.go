@@ -9,11 +9,11 @@ import (
 )
 
 func CreateVideoApp(db *sql.DB) controller.IVideoController {
-	baseCrudRepositoryVideo := repositories.NewBaseCrudRepository(db, "Videos")
+	baseCrudRepositoryVideo := repositories.NewBaseCrudRepository(db, "videos")
 	videoRepository := repository.NewVideoRepository(baseCrudRepositoryVideo)
 	videoService := service.NewVideoService(videoRepository)
 
-	baseCrudRepositoryVideoComment := repositories.NewBaseCrudRepository(db, "VideoComments")
+	baseCrudRepositoryVideoComment := repositories.NewBaseCrudRepository(db, "video_comments")
 	videoCommentRepository := repository.NewVideoCommentRepository(baseCrudRepositoryVideoComment)
 	videoCommentService := service.NewVideoCommentService(videoCommentRepository)
 	videoController := controller.NewVideoController(videoService, videoCommentService)
