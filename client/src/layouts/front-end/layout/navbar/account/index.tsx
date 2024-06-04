@@ -1,4 +1,4 @@
-import {CameraIcon, NotificationIcon} from "../../../../../assets/icons";
+import { CameraIcon, NotificationIcon } from '../../../../../assets/icons';
 
 export const Account = () => {
   return (

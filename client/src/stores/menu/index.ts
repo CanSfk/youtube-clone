@@ -1,11 +1,11 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   menuName: null,
 };
 
 const menu = createSlice({
-  name: "menu",
+  name: 'menu',
   initialState,
   reducers: {
     _setMenu: (state, action) => {
@@ -18,5 +18,5 @@ const menu = createSlice({
   },
 });
 
-export const {_setMenu, _removeMenu} = menu.actions;
+export const { _setMenu, _removeMenu } = menu.actions;
 export default menu.reducer;

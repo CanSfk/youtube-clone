@@ -1,4 +1,4 @@
-import {SuggestionbarItem} from "./suggestionbar-item";
+import { SuggestionbarItem } from './suggestionbar-item';
 
 export const Suggestionbar = () => {
   return (

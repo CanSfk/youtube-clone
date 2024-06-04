@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 type ModalProp = {
   modalName: string;
@@ -6,12 +6,12 @@ type ModalProp = {
 };
 
 const initialState: ModalProp = {
-  modalName: "",
+  modalName: '',
   modalData: {},
 };
 
 const modal = createSlice({
-  name: "modal",
+  name: 'modal',
   initialState,
   reducers: {
     _setModal: (state, action) => {
@@ -20,11 +20,11 @@ const modal = createSlice({
     },
 
     _removeModal: (state) => {
-      state.modalName = "";
+      state.modalName = '';
       state.modalData = {};
     },
   },
 });
 
-export const {_setModal, _removeModal} = modal.actions;
+export const { _setModal, _removeModal } = modal.actions;
 export default modal.reducer;

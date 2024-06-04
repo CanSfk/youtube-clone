@@ -1,10 +1,10 @@
-import {LoginForm} from "../../forms";
-import FrontEndLayout from "../../layouts/front-end/layout";
-import {useAuth} from "../../stores/auth/hooks";
-import VideoList from "./partials/video-list";
+import { LoginForm } from '../../forms';
+import FrontEndLayout from '../../layouts/front-end/layout';
+import { useAuth } from '../../stores/auth/hooks';
+import VideoList from './partials/video-list';
 
 export const Home = () => {
-  const {state} = useAuth();
+  const { state } = useAuth();
 
   return (
     <FrontEndLayout>

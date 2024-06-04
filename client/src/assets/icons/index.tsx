@@ -1,4 +1,4 @@
-import React, {ReactNode} from "react";
+import React, { ReactNode } from 'react';
 
 interface SvgContextProps {
   width?: number | string;
@@ -8,16 +8,9 @@ interface SvgContextProps {
   children: ReactNode;
 }
 
-const SvgContext: React.FC<SvgContextProps> = ({width = 24, height = 24, viewBox = "0 0 24 24", fill = "currentColor", children, ...props}) => {
+const SvgContext: React.FC<SvgContextProps> = ({ width = 24, height = 24, viewBox = '0 0 24 24', fill = 'currentColor', children, ...props }) => {
   return (
-    <svg
-      height={height}
-      viewBox={viewBox}
-      width={width}
-      focusable='false'
-      fill={fill}
-      {...props}
-    >
+    <svg height={height} viewBox={viewBox} width={width} focusable='false' fill={fill} {...props}>
       {children}
     </svg>
   );
@@ -30,379 +23,232 @@ interface IconProps {
   fill?: string;
 }
 
-export const SearchIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+export const SearchIcon: React.FC<IconProps> = ({ width, height, viewBox, fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      viewBox={viewBox}
-      fill={fill}
-    >
+    <SvgContext width={width} height={height} viewBox={viewBox} fill={fill}>
       <path d='m20.87 20.17-5.59-5.59C16.35 13.35 17 11.75 17 10c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.75 0 3.35-.65 4.58-1.71l5.59 5.59.7-.71zM10 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z'></path>
     </SvgContext>
   );
 };
 
-export const MenuIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+export const MenuIcon: React.FC<IconProps> = ({ width, height, viewBox, fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      viewBox={viewBox}
-      fill={fill}
-    >
+    <SvgContext width={width} height={height} viewBox={viewBox} fill={fill}>
       <path d='M21 6H3V5h18v1zm0 5H3v1h18v-1zm0 6H3v1h18v-1z'></path>
     </SvgContext>
   );
 };
 
-export const BeforeTimeIcon: React.FC<IconProps> = ({width, height, viewBox = "0 0 15 15", fill}) => {
+export const BeforeTimeIcon: React.FC<IconProps> = ({ width, height, viewBox = '0 0 15 15', fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      viewBox={viewBox}
-      fill={fill}
-    >
+    <SvgContext width={width} height={height} viewBox={viewBox} fill={fill}>
       <path d='M13.15 7.49998C13.15 4.66458 10.9402 1.84998 7.50002 1.84998C4.7217 1.84998 3.34851 3.90636 2.76336 4.99997H4.5C4.77614 4.99997 5 5.22383 5 5.49997C5 5.77611 4.77614 5.99997 4.5 5.99997H1.5C1.22386 5.99997 1 5.77611 1 5.49997V2.49997C1 2.22383 1.22386 1.99997 1.5 1.99997C1.77614 1.99997 2 2.22383 2 2.49997V4.31318C2.70453 3.07126 4.33406 0.849976 7.50002 0.849976C11.5628 0.849976 14.15 4.18537 14.15 7.49998C14.15 10.8146 11.5628 14.15 7.50002 14.15C5.55618 14.15 3.93778 13.3808 2.78548 12.2084C2.16852 11.5806 1.68668 10.839 1.35816 10.0407C1.25306 9.78536 1.37488 9.49315 1.63024 9.38806C1.8856 9.28296 2.17781 9.40478 2.2829 9.66014C2.56374 10.3425 2.97495 10.9745 3.4987 11.5074C4.47052 12.4963 5.83496 13.15 7.50002 13.15C10.9402 13.15 13.15 10.3354 13.15 7.49998ZM7 10V5.00001H8V10H7Z' />
     </SvgContext>
   );
 };
 
-export const MicIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+export const MicIcon: React.FC<IconProps> = ({ width, height, viewBox, fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      viewBox={viewBox}
-      fill={fill}
-    >
+    <SvgContext width={width} height={height} viewBox={viewBox} fill={fill}>
       <path d='M12 3c-1.66 0-3 1.37-3 3.07v5.86c0 1.7 1.34 3.07 3 3.07s3-1.37 3-3.07V6.07C15 4.37 13.66 3 12 3zm6.5 9h-1c0 3.03-2.47 5.5-5.5 5.5S6.5 15.03 6.5 12h-1c0 3.24 2.39 5.93 5.5 6.41V21h2v-2.59c3.11-.48 5.5-3.17 5.5-6.41z'></path>
     </SvgContext>
   );
 };
 
-export const CloseIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+export const CloseIcon: React.FC<IconProps> = ({ width, height, viewBox, fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      viewBox={viewBox}
-      fill={fill}
-    >
+    <SvgContext width={width} height={height} viewBox={viewBox} fill={fill}>
       <path d='m12.71 12 8.15 8.15-.71.71L12 12.71l-8.15 8.15-.71-.71L11.29 12 3.15 3.85l.71-.71L12 11.29l8.15-8.15.71.71L12.71 12z'></path>
     </SvgContext>
   );
 };
 
-export const CameraIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+export const CameraIcon: React.FC<IconProps> = ({ width, height, viewBox, fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      viewBox={viewBox}
-      fill={fill}
-    >
+    <SvgContext width={width} height={height} viewBox={viewBox} fill={fill}>
       <path d='M14 13h-3v3H9v-3H6v-2h3V8h2v3h3v2zm3-7H3v12h14v-6.39l4 1.83V8.56l-4 1.83V6m1-1v3.83L22 7v8l-4-1.83V19H2V5h16z'></path>
     </SvgContext>
   );
 };
 
-export const NotificationIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+export const NotificationIcon: React.FC<IconProps> = ({ width, height, viewBox, fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      viewBox={viewBox}
-      fill={fill}
-    >
+    <SvgContext width={width} height={height} viewBox={viewBox} fill={fill}>
       <path d='M10 20h4c0 1.1-.9 2-2 2s-2-.9-2-2zm10-2.65V19H4v-1.65l2-1.88v-5.15C6 7.4 7.56 5.1 10 4.34v-.38c0-1.42 1.49-2.5 2.99-1.76.65.32 1.01 1.03 1.01 1.76v.39c2.44.75 4 3.06 4 5.98v5.15l2 1.87zm-1 .42-2-1.88v-5.47c0-2.47-1.19-4.36-3.13-5.1-1.26-.53-2.64-.5-3.84.03C8.15 6.11 7 7.99 7 10.42v5.47l-2 1.88V18h14v-.23z'></path>
     </SvgContext>
   );
 };
 
-export const HomeIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+export const HomeIcon: React.FC<IconProps> = ({ width, height, viewBox, fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      viewBox={viewBox}
-      fill={fill}
-    >
+    <SvgContext width={width} height={height} viewBox={viewBox} fill={fill}>
       <path d='M4 21V10.08l8-6.96 8 6.96V21h-6v-6h-4v6H4z'></path>
     </SvgContext>
   );
 };
 
-export const ShortIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+export const ShortIcon: React.FC<IconProps> = ({ width, height, viewBox, fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      viewBox={viewBox}
-      fill={fill}
-    >
+    <SvgContext width={width} height={height} viewBox={viewBox} fill={fill}>
       <path d='M10 14.65v-5.3L15 12l-5 2.65zm7.77-4.33-1.2-.5L18 9.06c1.84-.96 2.53-3.23 1.56-5.06s-3.24-2.53-5.07-1.56L6 6.94c-1.29.68-2.07 2.04-2 3.49.07 1.42.93 2.67 2.22 3.25.03.01 1.2.5 1.2.5L6 14.93c-1.83.97-2.53 3.24-1.56 5.07.97 1.83 3.24 2.53 5.07 1.56l8.5-4.5c1.29-.68 2.06-2.04 1.99-3.49-.07-1.42-.94-2.68-2.23-3.25zm-.23 5.86-8.5 4.5c-1.34.71-3.01.2-3.72-1.14-.71-1.34-.2-3.01 1.14-3.72l2.04-1.08v-1.21l-.69-.28-1.11-.46c-.99-.41-1.65-1.35-1.7-2.41-.05-1.06.52-2.06 1.46-2.56l8.5-4.5c1.34-.71 3.01-.2 3.72 1.14.71 1.34.2 3.01-1.14 3.72L15.5 9.26v1.21l1.8.74c.99.41 1.65 1.35 1.7 2.41.05 1.06-.52 2.06-1.46 2.56z'></path>
     </SvgContext>
   );
 };
 
-export const Subscriber: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+export const Subscriber: React.FC<IconProps> = ({ width, height, viewBox, fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      viewBox={viewBox}
-      fill={fill}
-    >
+    <SvgContext width={width} height={height} viewBox={viewBox} fill={fill}>
       <path d='M10 18v-6l5 3-5 3zm7-15H7v1h10V3zm3 3H4v1h16V6zm2 3H2v12h20V9zM3 10h18v10H3V10z'></path>
     </SvgContext>
   );
 };
 
-export const YouIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+export const YouIcon: React.FC<IconProps> = ({ width, height, viewBox, fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      viewBox={viewBox}
-      fill={fill}
-    >
+    <SvgContext width={width} height={height} viewBox={viewBox} fill={fill}>
       <path d='m11 7 6 3.5-6 3.5V7zm7 13H4V6H3v15h15v-1zm3-2H6V3h15v15zM7 17h13V4H7v13z'></path>
     </SvgContext>
   );
 };
 
-export const ChannelIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+export const ChannelIcon: React.FC<IconProps> = ({ width, height, viewBox, fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      viewBox={viewBox}
-      fill={fill}
-    >
+    <SvgContext width={width} height={height} viewBox={viewBox} fill={fill}>
       <path d='M4 20h14v1H3V6h1v14zM6 3v15h15V3H6zm2.02 14c.36-2.13 1.93-4.1 5.48-4.1s5.12 1.97 5.48 4.1H8.02zM11 8.5a2.5 2.5 0 015 0 2.5 2.5 0 01-5 0zm3.21 3.43A3.507 3.507 0 0017 8.5C17 6.57 15.43 5 13.5 5S10 6.57 10 8.5c0 1.69 1.2 3.1 2.79 3.43-3.48.26-5.4 2.42-5.78 5.07H7V4h13v13h-.01c-.38-2.65-2.31-4.81-5.78-5.07z'></path>
     </SvgContext>
   );
 };
 
-export const PlayerListIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+export const PlayerListIcon: React.FC<IconProps> = ({ width, height, viewBox, fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      viewBox={viewBox}
-      fill={fill}
-    >
+    <SvgContext width={width} height={height} viewBox={viewBox} fill={fill}>
       <path d='M22 7H2v1h20V7zm-9 5H2v-1h11v1zm0 4H2v-1h11v1zm2 3v-8l7 4-7 4z'></path>
     </SvgContext>
   );
 };
 
-export const RightArrowIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+export const RightArrowIcon: React.FC<IconProps> = ({ width, height, viewBox, fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      viewBox={viewBox}
-      fill={fill}
-    >
+    <SvgContext width={width} height={height} viewBox={viewBox} fill={fill}>
       <path d='M4.97 12.65 9.62 8 4.97 3.35l.71-.71L11.03 8l-5.35 5.35-.71-.7z'></path>
     </SvgContext>
   );
 };
 
-export const TimeIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+export const TimeIcon: React.FC<IconProps> = ({ width, height, viewBox, fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      viewBox={viewBox}
-      fill={fill}
-    >
+    <SvgContext width={width} height={height} viewBox={viewBox} fill={fill}>
       <path d='M14.97 16.95 10 13.87V7h2v5.76l4.03 2.49-1.06 1.7zM12 3c-4.96 0-9 4.04-9 9s4.04 9 9 9 9-4.04 9-9-4.04-9-9-9m0-1c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2z'></path>
     </SvgContext>
   );
 };
 
-export const VideoIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+export const VideoIcon: React.FC<IconProps> = ({ width, height, viewBox, fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      viewBox={viewBox}
-      fill={fill}
-    >
+    <SvgContext width={width} height={height} viewBox={viewBox} fill={fill}>
       <path d='m10 8 6 4-6 4V8zm11-5v18H3V3h18zm-1 1H4v16h16V4z'></path>
     </SvgContext>
   );
 };
 
-export const LikeIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+export const LikeIcon: React.FC<IconProps> = ({ width, height, viewBox, fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      viewBox={viewBox}
-      fill={fill}
-    >
+    <SvgContext width={width} height={height} viewBox={viewBox} fill={fill}>
       <path d='M18.77,11h-4.23l1.52-4.94C16.38,5.03,15.54,4,14.38,4c-0.58,0-1.14,0.24-1.52,0.65L7,11H3v10h4h1h9.43 c1.06,0,1.98-0.67,2.19-1.61l1.34-6C21.23,12.15,20.18,11,18.77,11z M7,20H4v-8h3V20z M19.98,13.17l-1.34,6 C18.54,19.65,18.03,20,17.43,20H8v-8.61l5.6-6.06C13.79,5.12,14.08,5,14.38,5c0.26,0,0.5,0.11,0.63,0.3 c0.07,0.1,0.15,0.26,0.09,0.47l-1.52,4.94L13.18,12h1.35h4.23c0.41,0,0.8,0.17,1.03,0.46C19.92,12.61,20.05,12.86,19.98,13.17z'></path>
     </SvgContext>
   );
 };
 
-export const TrendIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+export const TrendIcon: React.FC<IconProps> = ({ width, height, viewBox, fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      viewBox={viewBox}
-      fill={fill}
-    >
+    <SvgContext width={width} height={height} viewBox={viewBox} fill={fill}>
       <path d='M19 3.87v9.77C19 17.7 15.86 21 12 21s-7-3.3-7-7.37v-.13c0-1.06.22-2.13.62-3.09.5-1.19 1.29-2.21 2.27-2.97.85-.66 1.83-1.14 2.87-1.65.39-.19.77-.38 1.15-.58.36-.19.72-.38 1.08-.56v3.22l1.55-1.04L19 3.87M20 2l-6 4V3c-.85.44-1.7.88-2.55 1.33-1.41.74-2.9 1.34-4.17 2.32-1.13.87-2.02 2.05-2.58 3.37-.46 1.09-.7 2.29-.7 3.48v.14C4 18.26 7.58 22 12 22s8-3.74 8-8.36V2zM9.45 12.89 14 10v5.7c0 1.82-1.34 3.3-3 3.3s-3-1.47-3-3.3c0-1.19.58-2.23 1.45-2.81z'></path>
     </SvgContext>
   );
 };
 
-export const MusicIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+export const MusicIcon: React.FC<IconProps> = ({ width, height, viewBox, fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      viewBox={viewBox}
-      fill={fill}
-    >
+    <SvgContext width={width} height={height} viewBox={viewBox} fill={fill}>
       <path d='M12 4v9.38c-.73-.84-1.8-1.38-3-1.38-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V8h6V4h-7zM9 19c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm9-12h-5V5h5v2z'></path>
     </SvgContext>
   );
 };
 
-export const LiveIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+export const LiveIcon: React.FC<IconProps> = ({ width, height, viewBox, fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      viewBox={viewBox}
-      fill={fill}
-    >
+    <SvgContext width={width} height={height} viewBox={viewBox} fill={fill}>
       <path d='M14 12c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zM8.48 8.45l-.71-.7C6.68 8.83 6 10.34 6 12s.68 3.17 1.77 4.25l.71-.71C7.57 14.64 7 13.39 7 12s.57-2.64 1.48-3.55zm7.75-.7-.71.71c.91.9 1.48 2.15 1.48 3.54s-.57 2.64-1.48 3.55l.71.71C17.32 15.17 18 13.66 18 12s-.68-3.17-1.77-4.25zM5.65 5.63l-.7-.71C3.13 6.73 2 9.24 2 12s1.13 5.27 2.95 7.08l.71-.71C4.02 16.74 3 14.49 3 12s1.02-4.74 2.65-6.37zm13.4-.71-.71.71C19.98 7.26 21 9.51 21 12s-1.02 4.74-2.65 6.37l.71.71C20.87 17.27 22 14.76 22 12s-1.13-5.27-2.95-7.08z'></path>
     </SvgContext>
   );
 };
 
-export const GameIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+export const GameIcon: React.FC<IconProps> = ({ width, height, viewBox, fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      viewBox={viewBox}
-      fill={fill}
-    >
+    <SvgContext width={width} height={height} viewBox={viewBox} fill={fill}>
       <path d='M10 12H8v2H6v-2H4v-2h2V8h2v2h2v2zm7 .5c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5.67 1.5 1.5 1.5 1.5-.67 1.5-1.5zm3-3c0-.83-.67-1.5-1.5-1.5S17 8.67 17 9.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5zm-3.03-4.35-4.5 2.53-.49.27-.49-.27-4.5-2.53L3 7.39v6.43l8.98 5.04 8.98-5.04V7.39l-3.99-2.24m0-1.15 4.99 2.8v7.6L11.98 20 2 14.4V6.8L6.99 4l4.99 2.8L16.97 4z'></path>
     </SvgContext>
   );
 };
 
-export const SportIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+export const SportIcon: React.FC<IconProps> = ({ width, height, viewBox, fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      viewBox={viewBox}
-      fill={fill}
-    >
+    <SvgContext width={width} height={height} viewBox={viewBox} fill={fill}>
       <path d='M18 5V2H6v3H3v6l3.23 1.61c.7 2.5 2.97 4.34 5.69 4.38L8 19v3h8v-3l-3.92-2.01c2.72-.04 4.99-1.88 5.69-4.38L21 11V5h-3zM6 11.38l-2-1V6h2v5.38zM15 21H9v-1.39l3-1.54 3 1.54V21zm2-10c0 2.76-2.24 5-5 5s-5-2.24-5-5V3h10v8zm3-.62-2 1V6h2v4.38z'></path>
     </SvgContext>
   );
 };
 
-export const SettingIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+export const SettingIcon: React.FC<IconProps> = ({ width, height, viewBox, fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      viewBox={viewBox}
-      fill={fill}
-    >
+    <SvgContext width={width} height={height} viewBox={viewBox} fill={fill}>
       <path d='M12 9.5c1.38 0 2.5 1.12 2.5 2.5s-1.12 2.5-2.5 2.5-2.5-1.12-2.5-2.5 1.12-2.5 2.5-2.5m0-1c-1.93 0-3.5 1.57-3.5 3.5s1.57 3.5 3.5 3.5 3.5-1.57 3.5-3.5-1.57-3.5-3.5-3.5zM13.22 3l.55 2.2.13.51.5.18c.61.23 1.19.56 1.72.98l.4.32.5-.14 2.17-.62 1.22 2.11-1.63 1.59-.37.36.08.51c.05.32.08.64.08.98s-.03.66-.08.98l-.08.51.37.36 1.63 1.59-1.22 2.11-2.17-.62-.5-.14-.4.32c-.53.43-1.11.76-1.72.98l-.5.18-.13.51-.55 2.24h-2.44l-.55-2.2-.13-.51-.5-.18c-.6-.23-1.18-.56-1.72-.99l-.4-.32-.5.14-2.17.62-1.21-2.12 1.63-1.59.37-.36-.08-.51c-.05-.32-.08-.65-.08-.98s.03-.66.08-.98l.08-.51-.37-.36L3.6 8.56l1.22-2.11 2.17.62.5.14.4-.32c.53-.44 1.11-.77 1.72-.99l.5-.18.13-.51.54-2.21h2.44M14 2h-4l-.74 2.96c-.73.27-1.4.66-2 1.14l-2.92-.83-2 3.46 2.19 2.13c-.06.37-.09.75-.09 1.14s.03.77.09 1.14l-2.19 2.13 2 3.46 2.92-.83c.6.48 1.27.87 2 1.14L10 22h4l.74-2.96c.73-.27 1.4-.66 2-1.14l2.92.83 2-3.46-2.19-2.13c.06-.37.09-.75.09-1.14s-.03-.77-.09-1.14l2.19-2.13-2-3.46-2.92.83c-.6-.48-1.27-.87-2-1.14L14 2z'></path>
     </SvgContext>
   );
 };
 
-export const FlagIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+export const FlagIcon: React.FC<IconProps> = ({ width, height, viewBox, fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      viewBox={viewBox}
-      fill={fill}
-    >
+    <SvgContext width={width} height={height} viewBox={viewBox} fill={fill}>
       <path d='m13.18 4 .24 1.2.16.8H19v7h-5.18l-.24-1.2-.16-.8H6V4h7.18M14 3H5v18h1v-9h6.6l.4 2h7V5h-5.6L14 3z'></path>
     </SvgContext>
   );
 };
 
-export const HelpIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+export const HelpIcon: React.FC<IconProps> = ({ width, height, viewBox, fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      viewBox={viewBox}
-      fill={fill}
-    >
+    <SvgContext width={width} height={height} viewBox={viewBox} fill={fill}>
       <path d='M15.36 9.96c0 1.09-.67 1.67-1.31 2.24-.53.47-1.03.9-1.16 1.6l-.04.2H11.1l.03-.28c.14-1.17.8-1.76 1.47-2.27.52-.4 1.01-.77 1.01-1.49 0-.51-.23-.97-.63-1.29-.4-.31-.92-.42-1.42-.29-.59.15-1.05.67-1.19 1.34l-.05.28H8.57l.06-.42c.2-1.4 1.15-2.53 2.42-2.87 1.05-.29 2.14-.08 2.98.57.85.64 1.33 1.62 1.33 2.68zM12 18c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zm0-15c-4.96 0-9 4.04-9 9s4.04 9 9 9 9-4.04 9-9-4.04-9-9-9m0-1c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2z'></path>
     </SvgContext>
   );
 };
 
-export const BarMenu: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+export const BarMenu: React.FC<IconProps> = ({ width, height, viewBox, fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      viewBox={viewBox}
-      fill={fill}
-    >
+    <SvgContext width={width} height={height} viewBox={viewBox} fill={fill}>
       <path d='M12 16.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5-1.5-.67-1.5-1.5.67-1.5 1.5-1.5zM10.5 12c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5-1.5.67-1.5 1.5zm0-6c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5-1.5.67-1.5 1.5z'></path>
     </SvgContext>
   );
 };
 
-export const InfoIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+export const InfoIcon: React.FC<IconProps> = ({ width, height, viewBox, fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      viewBox={viewBox}
-      fill={fill}
-    >
+    <SvgContext width={width} height={height} viewBox={viewBox} fill={fill}>
       <path d='M13 14h-2v-2h2v2zm0-9h-2v6h2V5zm6-2H5v16.59l3.29-3.29.3-.3H19V3m1-1v15H9l-5 5V2h16z'></path>
     </SvgContext>
   );
 };
 
-export const YoutubeIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+export const YoutubeIcon: React.FC<IconProps> = ({ width, height, viewBox, fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      fill={fill}
-      viewBox={viewBox}
-    >
-      <svg
-        id='yt-logo-updated_yt6'
-        viewBox='0 0 90 20'
-        preserveAspectRatio='xMidYMid meet'
-      >
+    <SvgContext width={width} height={height} fill={fill} viewBox={viewBox}>
+      <svg id='yt-logo-updated_yt6' viewBox='0 0 90 20' preserveAspectRatio='xMidYMid meet'>
         <g>
           <path
             d='M27.9727 3.12324C27.6435 1.89323 26.6768 0.926623 25.4468 0.597366C23.2197 2.24288e-07 14.285 0 14.285 0C14.285 0 5.35042 2.24288e-07 3.12323 0.597366C1.89323 0.926623 0.926623 1.89323 0.597366 3.12324C2.24288e-07 5.35042 0 10 0 10C0 10 2.24288e-07 14.6496 0.597366 16.8768C0.926623 18.1068 1.89323 19.0734 3.12323 19.4026C5.35042 20 14.285 20 14.285 20C14.285 20 23.2197 20 25.4468 19.4026C26.6768 19.0734 27.6435 18.1068 27.9727 16.8768C28.5701 14.6496 28.5701 10 28.5701 10C28.5701 10 28.5677 5.35042 27.9727 3.12324Z'
             fill='#FF0000'
           ></path>
-          <path
-            d='M11.4253 14.2854L18.8477 10.0004L11.4253 5.71533V14.2854Z'
-            fill='white'
-          ></path>
+          <path d='M11.4253 14.2854L18.8477 10.0004L11.4253 5.71533V14.2854Z' fill='white'></path>
         </g>
         <g>
           <g id='youtube-paths_yt6'>
@@ -420,33 +266,18 @@ export const YoutubeIcon: React.FC<IconProps> = ({width, height, viewBox, fill})
   );
 };
 
-export const YoutubePremiumIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+export const YoutubePremiumIcon: React.FC<IconProps> = ({ width, height, viewBox, fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      viewBox={viewBox}
-      fill={fill}
-    >
-      <g
-        fill='none'
-        fillRule='evenodd'
-      >
+    <SvgContext width={width} height={height} viewBox={viewBox} fill={fill}>
+      <g fill='none' fillRule='evenodd'>
         <path d='M1 1h21.77v22H1z'></path>
         <g fillRule='nonzero'>
           <path
             fill='#F00'
             d='M22.54 7.6s-.2-1.5-.86-2.17c-.83-.87-1.75-.88-2.18-.93-3.04-.22-7.6-.2-7.6-.2s-4.56-.02-7.6.2c-.43.05-1.35.06-2.18.93-.65.67-.86 2.18-.86 2.18S1.04 9.4 1 11.18v1.66c.04 1.78.26 3.55.26 3.55s.2 1.5.86 2.18c.83.87 1.9.84 2.4.94 1.7.15 7.2.2 7.38.2 0 0 4.57 0 7.6-.22.43-.05 1.35-.06 2.18-.93.65-.67.86-2.18.86-2.18s.22-1.77.24-3.55v-1.66c-.02-1.78-.24-3.55-.24-3.55z'
           ></path>
-          <path
-            fill='#FAFAFA'
-            d='M9.68 8.9v6.18l5.84-3.1'
-          ></path>
-          <path
-            fill='#000'
-            fillOpacity='.12'
-            d='M9.68 8.88l5.13 3.48.73-.38'
-          ></path>
+          <path fill='#FAFAFA' d='M9.68 8.9v6.18l5.84-3.1'></path>
+          <path fill='#000' fillOpacity='.12' d='M9.68 8.88l5.13 3.48.73-.38'></path>
           <path
             fill='#FFF'
             fillOpacity='.2'
@@ -457,16 +288,8 @@ export const YoutubePremiumIcon: React.FC<IconProps> = ({width, height, viewBox,
             fillOpacity='.2'
             d='M22.54 16.4s-.2 1.5-.86 2.17c-.83.87-1.75.88-2.18.93-3.04.22-7.6.2-7.6.2s-4.56.02-7.6-.2c-.43-.05-1.35-.06-2.18-.93-.65-.67-.86-2.18-.86-2.18s-.22-1.8-.26-3.57v-.1c.04 1.76.26 3.54.26 3.54s.2 1.5.86 2.17c.83.88 1.75.88 2.18.93 3.04.22 7.6.2 7.6.2s4.56.02 7.6-.2c.43-.05 1.35-.05 2.18-.93.65-.66.86-2.17.86-2.17s.22-1.78.23-3.55v.1c0 1.8-.23 3.56-.23 3.56z'
           ></path>
-          <path
-            fill='#FFF'
-            fillOpacity='.2'
-            d='M9.68 15.08v.1l5.84-3.08v-.12'
-          ></path>
-          <path
-            fill='#3E2723'
-            fillOpacity='.2'
-            d='M9.68 8.9v-.13l5.84 3.1v.1'
-          ></path>
+          <path fill='#FFF' fillOpacity='.2' d='M9.68 15.08v.1l5.84-3.08v-.12'></path>
+          <path fill='#3E2723' fillOpacity='.2' d='M9.68 8.9v-.13l5.84 3.1v.1'></path>
           <path
             fill='url(#a_yt840)'
             fillOpacity='.1'
@@ -479,14 +302,9 @@ export const YoutubePremiumIcon: React.FC<IconProps> = ({width, height, viewBox,
   );
 };
 
-export const YoutubeStudioIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+export const YoutubeStudioIcon: React.FC<IconProps> = ({ width, height, viewBox, fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      fill={fill}
-      viewBox={viewBox}
-    >
+    <SvgContext width={width} height={height} fill={fill} viewBox={viewBox}>
       <path
         fill='red'
         d='M11.13 1.21c.48-.28 1.26-.28 1.74 0l8.01 4.64c.48.28.87.97.87 1.53v9.24c0 .56-.39 1.25-.87 1.53l-8.01 4.64c-.48.28-1.26.28-1.74 0l-8.01-4.64c-.48-.28-.87-.97-.87-1.53V7.38c0-.56.39-1.25.87-1.53l8.01-4.64z'
@@ -499,32 +317,16 @@ export const YoutubeStudioIcon: React.FC<IconProps> = ({width, height, viewBox, 
         fill='red'
         d='m12.32 5.73 4.89 2.83c.16.09.41.31.41.67v5.67c0 .37-.25.54-.41.64l-4.89 2.83c-.16.09-.48.09-.64 0l-4.89-2.83c-.16-.09-.41-.34-.41-.64V9.24c.02-.37.25-.58.41-.68l4.89-2.83c.08-.05.2-.07.32-.07s.24.02.32.07z'
       ></path>
-      <path
-        fill='#fff'
-        d='M9.88 15.25 15.5 12 9.88 8.75z'
-      ></path>
+      <path fill='#fff' d='M9.88 15.25 15.5 12 9.88 8.75z'></path>
     </SvgContext>
   );
 };
 
-export const YoutubeMusicIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+export const YoutubeMusicIcon: React.FC<IconProps> = ({ width, height, viewBox, fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      fill={fill}
-      viewBox={viewBox}
-    >
-      <circle
-        fill='#FF0000'
-        cx='12'
-        cy='12'
-        r='10'
-      ></circle>
-      <polygon
-        fill='#FFFFFF'
-        points='10,14.65 10,9.35 15,12 '
-      ></polygon>
+    <SvgContext width={width} height={height} fill={fill} viewBox={viewBox}>
+      <circle fill='#FF0000' cx='12' cy='12' r='10'></circle>
+      <polygon fill='#FFFFFF' points='10,14.65 10,9.35 15,12 '></polygon>
       <path
         fill='#FFFFFF'
         d='M12,7c2.76,0,5,2.24,5,5s-2.24,5-5,5s-5-2.24-5-5S9.24,7,12,7 M12,6c-3.31,0-6,2.69-6,6s2.69,6,6,6s6-2.69,6-6 S15.31,6,12,6L12,6z'
@@ -533,14 +335,9 @@ export const YoutubeMusicIcon: React.FC<IconProps> = ({width, height, viewBox, f
   );
 };
 
-export const YoutubeKidsIcon: React.FC<IconProps> = ({width, height, viewBox, fill}) => {
+export const YoutubeKidsIcon: React.FC<IconProps> = ({ width, height, viewBox, fill }) => {
   return (
-    <SvgContext
-      width={width}
-      height={height}
-      fill={fill}
-      viewBox={viewBox}
-    >
+    <SvgContext width={width} height={height} fill={fill} viewBox={viewBox}>
       <path
         fill='#FF0000'
         d='M21.39,13.19c0-0.08,0-0.15,0-0.22c-0.01-0.86-0.5-5-0.78-5.74c-0.32-0.85-0.76-1.5-1.31-1.91 c-0.9-0.67-1.66-0.82-2.6-0.84l-0.02,0c-0.4,0-3.01,0.32-5.2,0.62C9.28,5.4,6.53,5.8,5.88,6.04c-0.9,0.33-1.62,0.77-2.19,1.33 c-1.05,1.04-1.18,2.11-1.04,3.51c0.1,1.09,0.69,5.37,1.02,6.35c0.45,1.32,1.33,2.12,2.47,2.24c0.28,0.03,0.55,0.05,0.82,0.05 c1,0,1.8-0.21,2.72-0.46c1.45-0.39,3.25-0.87,6.97-0.87l0.09,0h0.02c0.91,0,3.14-0.2,4.16-2.07C21.44,15.12,21.41,13.91,21.39,13.19 z'
@@ -553,10 +350,7 @@ export const YoutubeKidsIcon: React.FC<IconProps> = ({width, height, viewBox, fi
         fill='#000'
         d='M11.59,14.76c-0.48,0.36-0.8,0.45-1.01,0.45c-0.16,0-0.25-0.05-0.3-0.08c-0.34-0.18-0.42-0.61-0.5-1.2l-0.01-0.1 c-0.04-0.31-0.26-2.1-0.38-3.16L9.3,9.94C9.26,9.66,9.2,9.19,9.54,8.94c0.32-0.23,0.75-0.09,0.96-0.03c0.53,0.17,3.6,1.23,4.59,1.73 c0.21,0.09,0.67,0.28,0.68,0.83c0.01,0.5-0.38,0.74-0.53,0.82L11.59,14.76z'
       ></path>
-      <path
-        fill='#FFF'
-        d='M10.3,9.89c0,0,0.5,4.08,0.51,4.19c0.06-0.04,3.79-2.58,3.79-2.58C13.71,11.07,11.07,10.14,10.3,9.89z'
-      ></path>
+      <path fill='#FFF' d='M10.3,9.89c0,0,0.5,4.08,0.51,4.19c0.06-0.04,3.79-2.58,3.79-2.58C13.71,11.07,11.07,10.14,10.3,9.89z'></path>
     </SvgContext>
   );
 };

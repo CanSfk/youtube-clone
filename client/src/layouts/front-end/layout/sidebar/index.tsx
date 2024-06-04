@@ -1,7 +1,7 @@
-import {ReactElement} from "react";
-import {HomeIcon, ShortIcon, Subscriber, YouIcon} from "../../../../assets/icons";
-import {SmallSidebarItem} from "./small-sidebar-item";
-import LargeSidebar from "./large-sidebar";
+import { ReactElement } from 'react';
+import { HomeIcon, ShortIcon, Subscriber, YouIcon } from '../../../../assets/icons';
+import { SmallSidebarItem } from './small-sidebar-item';
+import LargeSidebar from './large-sidebar';
 
 interface smallMenuItemType {
   title: string;
@@ -11,19 +11,19 @@ interface smallMenuItemType {
 export const Sidebar = () => {
   const smalMenuItems: smallMenuItemType[] = [
     {
-      title: "Ana Sayfa",
+      title: 'Ana Sayfa',
       icon: <HomeIcon />,
     },
     {
-      title: "Shorts",
+      title: 'Shorts',
       icon: <ShortIcon />,
     },
     {
-      title: "Abonelikler",
+      title: 'Abonelikler',
       icon: <Subscriber />,
     },
     {
-      title: "Siz",
+      title: 'Siz',
       icon: <YouIcon />,
     },
   ];
@@ -35,11 +35,7 @@ export const Sidebar = () => {
       <div className='fixed top-14 pt-1 left-0 bottom-0'>
         <div className='flex flex-col px-1'>
           {(smalMenuItems || []).map((sm, index) => (
-            <SmallSidebarItem
-              key={index}
-              icon={sm.icon}
-              text={sm.title}
-            />
+            <SmallSidebarItem key={index} icon={sm.icon} text={sm.title} />
           ))}
         </div>
       </div>

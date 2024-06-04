@@ -1,8 +1,8 @@
-import YoutubeStudioModal from "../modals/youtube-studio-modal";
+import YoutubeStudioModal from '../modals/youtube-studio-modal';
 
 export const modalRoutes = [
   {
-    name: "youtube_studio_modal",
+    name: 'youtube_studio_modal',
     element: YoutubeStudioModal,
   },
 ];

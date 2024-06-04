@@ -3,129 +3,128 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: "Roboto";
-    font-weight: 900;
-    font-style: normal;
-    src: url("/public/fonts/roboto/Roboto-Black.ttf");
+  font-family: 'Roboto';
+  font-weight: 900;
+  font-style: normal;
+  src: url('/public/fonts/roboto/Roboto-Black.ttf');
 }
 
 @font-face {
-    font-family: "Roboto";
-    font-weight: 900;
-    font-style: italic;
-    src: url("/public/fonts/roboto/Roboto-BlackItalic.ttf");
+  font-family: 'Roboto';
+  font-weight: 900;
+  font-style: italic;
+  src: url('/public/fonts/roboto/Roboto-BlackItalic.ttf');
 }
 
 @font-face {
-    font-family: "Roboto";
-    font-weight: 700;
-    font-style: normal;
-    src: url("/public/fonts/roboto/Roboto-Bold.ttf");
+  font-family: 'Roboto';
+  font-weight: 700;
+  font-style: normal;
+  src: url('/public/fonts/roboto/Roboto-Bold.ttf');
 }
 
 @font-face {
-    font-family: "Roboto";
-    font-weight: 700;
-    font-style: italic;
-    src: url("/public/fonts/roboto/Roboto-BoldItalic.ttf");
+  font-family: 'Roboto';
+  font-weight: 700;
+  font-style: italic;
+  src: url('/public/fonts/roboto/Roboto-BoldItalic.ttf');
 }
 
 @font-face {
-    font-family: "Roboto";
-    font-weight: 500;
-    font-style: normal;
-    src: url("/public/fonts/roboto/Roboto-Medium.ttf");
-    font-display: swap;
+  font-family: 'Roboto';
+  font-weight: 500;
+  font-style: normal;
+  src: url('/public/fonts/roboto/Roboto-Medium.ttf');
+  font-display: swap;
 }
 
 @font-face {
-    font-family: "Roboto";
-    font-weight: 500;
-    font-style: italic;
-    src: url("/public/fonts/roboto/Roboto-MediumItalic.ttf");
+  font-family: 'Roboto';
+  font-weight: 500;
+  font-style: italic;
+  src: url('/public/fonts/roboto/Roboto-MediumItalic.ttf');
 }
 
 @font-face {
-    font-family: "Roboto";
-    font-weight: 400;
-    font-style: normal;
-    src: url("/public/fonts/roboto/Roboto-Regular.ttf");
-    font-display: swap;
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-style: normal;
+  src: url('/public/fonts/roboto/Roboto-Regular.ttf');
+  font-display: swap;
 }
 
 @font-face {
-    font-family: "Roboto";
-    font-weight: 300;
-    font-style: normal;
-    src: url("/public/fonts/roboto/Roboto-Light.ttf");
-    font-display: swap;
+  font-family: 'Roboto';
+  font-weight: 300;
+  font-style: normal;
+  src: url('/public/fonts/roboto/Roboto-Light.ttf');
+  font-display: swap;
 }
 
 @font-face {
-    font-family: "Roboto";
-    font-weight: 300;
-    font-style: italic;
-    src: url("/public/fonts/roboto/Roboto-LightItalic.ttf");
+  font-family: 'Roboto';
+  font-weight: 300;
+  font-style: italic;
+  src: url('/public/fonts/roboto/Roboto-LightItalic.ttf');
 }
 
 .filepond--panel-root {
-    background-color: #000;
+  background-color: #000;
 }
 
 @layer base {
+  * {
+    scrollbar-color: #ababab #000;
+  }
 
-    * {
-        scrollbar-color: #ababab #000;
-    }
-
-    .custom-scrollbar {
-        scrollbar-color: #717171 transparent;
-        scrollbar-width: thin;
-    }
+  .custom-scrollbar {
+    scrollbar-color: #717171 transparent;
+    scrollbar-width: thin;
+  }
 }
 
 @layer components {
-    .vide-card-list-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  .vide-card-list-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  }
+
+  .modal-opacity-animate {
+    animation: opacityAnimateModal 250ms ease forwards;
+  }
+
+  @keyframes opacityAnimateModal {
+    to {
+      opacity: 1;
+    }
+  }
+
+  .my-alert-animate {
+    animation: myAlertAnimate 5s ease;
+  }
+
+  @keyframes myAlertAnimate {
+    8% {
+      opacity: 1;
+      right: 4px;
     }
 
-    .modal-opacity-animate {
-        animation: opacityAnimateModal 250ms ease forwards;
+    90% {
+      opacity: 1;
+      right: 4px;
     }
 
-    @keyframes opacityAnimateModal {
-        to {
-            opacity: 1;
-        }
+    100% {
+      opacity: 0;
+      right: -96px;
     }
-
-    .my-alert-animate {
-        animation: myAlertAnimate 5s ease
-    }
-
-    @keyframes myAlertAnimate {
-        8% {
-            opacity: 1;
-            right: 4px;
-        }
-
-        90% {
-            opacity: 1;
-            right: 4px;
-        }
-
-        100% {
-            opacity: 0;
-            right: -96px;
-        }
-    }
+  }
 }
 
 @layer utilities {
-    .font-roboto {
-        font-family: 'Roboto', Arial, sans-serif;
-        font-style: normal;
-        font-weight: 500;
-    }
+  .font-roboto {
+    font-family: 'Roboto', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+  }
 }

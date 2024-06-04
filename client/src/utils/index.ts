@@ -1,7 +1,7 @@
-import FileResizer from "react-image-file-resizer";
+import FileResizer from 'react-image-file-resizer';
 
 export const truncateText = (text: string, maxLength: number) => {
-  return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+  return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
 };
 
 export const optimizeImage = async (image: File, maxWidth: number = 1280, maxHeight: number = 720) => {
@@ -10,15 +10,15 @@ export const optimizeImage = async (image: File, maxWidth: number = 1280, maxHei
       image,
       maxWidth,
       maxHeight,
-      "webp",
+      'webp',
       80,
       0,
       (file) => {
         resolve(file as File);
       },
-      "file",
+      'file',
       100,
-      100
+      100,
     );
   });
 };

@@ -1,4 +1,4 @@
-import {FooterLink} from "./footer-link";
+import { FooterLink } from './footer-link';
 
 export const LargeSidebarFooter = () => {
   return (
