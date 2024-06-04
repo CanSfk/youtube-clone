@@ -17,6 +17,7 @@ type IVideoController interface {
 	index(c echo.Context) error
 	create(c echo.Context) error
 	show(c echo.Context) error
+	comment(c echo.Context) error
 }
 
 type videoController struct {
@@ -42,6 +43,7 @@ func (v *videoController) RegisterRoutes(e *echo.Echo) {
 	routeGroup.GET("/list", v.index)
 	routeGroup.POST("/create", v.create)
 	routeGroup.GET("/show/:vName", v.show)
+	routeGroup.POST("/comment", v.comment)
 }
 
 func (v *videoController) index(c echo.Context) error {
@@ -109,4 +111,14 @@ func (v *videoController) show(c echo.Context) error {
 	video := v.videoService.GetVideoByName(videoName)
 
 	return c.JSON(http.StatusOK, video)
+}
+
+func (v *videoController) comment(c echo.Context) error {
+	videoCommentCreateDto := dto.VideoCommentCreateDto{
+		VideoUrl: c.FormValue("video_url"),
+		UserName: c.FormValue("user_name"),
+		Comment:  c.FormValue("comment"),
+	}
+
+	return c.JSON(http.StatusOK, v.videoCommentService.CreateVideoComment(videoCommentCreateDto))
 }
