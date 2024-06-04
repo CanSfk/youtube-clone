@@ -1,6 +1,7 @@
 import { FormEvent, useState } from 'react';
 import { MyButton, MyInput } from '../../../components';
 import { useAuth } from '../../../stores/auth/hooks';
+import { setComment } from '../../../stores/video/actions';
 
 type CommentDataType = {
   message: string;
@@ -28,7 +29,10 @@ export const VideoComment: React.FC<VideoCommentProps> = ({ videoUrl }) => {
       body: formData,
     });
 
-    console.log(await response.json());
+    if (response.ok) {
+      setComment(await response.json());
+      setCommentData({ message: '' });
+    } else console.log('Failed the fetch comment data', response.status);
   };
 
   return (
@@ -45,7 +49,12 @@ export const VideoComment: React.FC<VideoCommentProps> = ({ videoUrl }) => {
       <div className='flex-1'>
         <form onSubmit={onSubmit}>
           <div className='flex flex-col gap-3'>
-            <MyInput placeholder='Yorum ekleyin...' className='w-full' onChange={(e) => setCommentData({ message: e.target.value })} />
+            <MyInput
+              placeholder='Yorum ekleyin...'
+              className='w-full'
+              value={commentData.message}
+              onChange={(e) => setCommentData({ message: e.target.value })}
+            />
 
             <div className='ml-auto'>
               <MyButton

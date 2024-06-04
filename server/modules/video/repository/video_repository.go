@@ -101,9 +101,9 @@ func (vr *videoRepository) CreateVideo(videoCreateDto dto.VideoCreateDto) dto.Vi
 
 func (vr *videoRepository) GetVideoByName(videoName string) (dto.VideoShowResponseDto, []dto.VideoCommentReponseDto, error) {
 	var videoId int
-	var video dto.VideoShowResponseDto
-	var comment dto.VideoCommentReponseDto
-	var comments []dto.VideoCommentReponseDto
+	video := dto.VideoShowResponseDto{}
+	comment := dto.VideoCommentReponseDto{}
+	comments := []dto.VideoCommentReponseDto{}
 
 	getByIdRowVideo, err := vr.baseCrudRepository.GetCustomQuery(fmt.Sprintf(`SELECT 
 	v.id, v.video_url, v.video_title, v.video_description, v.video_cover_image_name,

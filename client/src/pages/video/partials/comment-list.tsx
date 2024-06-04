@@ -1,11 +1,8 @@
-type CommentListType = {
-  comments: {
-    comment: string;
-    account_name: string;
-  }[];
-};
+import { useVideo } from '../../../stores/video/hooks';
 
-export const CommentList: React.FC<CommentListType> = ({ comments }) => {
+export const CommentList = () => {
+  const { comments } = useVideo();
+
   return (
     <>
       {(comments || []).map((cm, index) => (
