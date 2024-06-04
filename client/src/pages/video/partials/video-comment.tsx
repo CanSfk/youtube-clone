@@ -1,12 +1,35 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { MyButton, MyInput } from '../../../components';
+import { useAuth } from '../../../stores/auth/hooks';
 
 type CommentDataType = {
   message: string;
 };
 
-export const VideoComment = () => {
+type VideoCommentProps = {
+  videoUrl: string;
+};
+
+export const VideoComment: React.FC<VideoCommentProps> = ({ videoUrl }) => {
   const [commentData, setCommentData] = useState<CommentDataType>({ message: '' });
+  const { userName } = useAuth();
+
+  const onSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('comment', commentData.message);
+    formData.append('video_url', videoUrl);
+    formData.append('user_name', userName);
+
+    const response = await fetch('http://localhost:8085/video/comment', {
+      method: 'POST',
+      credentials: 'include',
+      body: formData,
+    });
+
+    console.log(await response.json());
+  };
 
   return (
     <div className='flex gap-2'>
@@ -20,21 +43,22 @@ export const VideoComment = () => {
         />
       </div>
       <div className='flex-1'>
-        <div className='flex flex-col gap-3'>
-          <form>
+        <form onSubmit={onSubmit}>
+          <div className='flex flex-col gap-3'>
             <MyInput placeholder='Yorum ekleyin...' className='w-full' onChange={(e) => setCommentData({ message: e.target.value })} />
-          </form>
 
-          <div className='ml-auto'>
-            <MyButton
-              color='green'
-              styleType='outline'
-              text='Yorum Yap'
-              disabled={commentData?.message === ''}
-              className={`${commentData.message === '' && 'opacity-60'}`}
-            />
+            <div className='ml-auto'>
+              <MyButton
+                type='submit'
+                color='green'
+                styleType='outline'
+                text='Yorum Yap'
+                disabled={commentData?.message === ''}
+                className={`${commentData.message === '' && 'opacity-60'}`}
+              />
+            </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

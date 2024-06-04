@@ -50,7 +50,5 @@ func (vc *videoCommentRepository) CreateVideoComment(videoCommentCreateDto dto.V
 
 	commonRow.Scan(&comment.Comment, &comment.UserName)
 
-	fmt.Println(comment, lastInsertId)
-
 	return comment
 }

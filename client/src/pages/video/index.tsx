@@ -64,7 +64,7 @@ export const Video = () => {
               <p className='text-dark-theme-white text-sm'>{video.video_description}</p>
             </div>
 
-            <VideoComment />
+            <VideoComment videoUrl={vName as string} />
 
             <CommentList />
           </div>
