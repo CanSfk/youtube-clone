@@ -1,19 +1,20 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 type initialStateType = {
   userName: string;
   state: boolean;
 };
 
-const storeAuth = localStorage.getItem("auth");
+const storeAuth = localStorage.getItem('auth');
+const storeUserName = localStorage.getItem('userName');
 
 const initialState: initialStateType = {
-  userName: "",
-  state: storeAuth === "true" ? true : false,
+  userName: storeUserName ?? '',
+  state: storeAuth === 'true' ? true : false,
 };
 
 const auth = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
     _setAuth: (state, action) => {
@@ -21,11 +22,11 @@ const auth = createSlice({
       state.state = action.payload.state;
     },
     _removeAuth: (state) => {
-      state.userName = "";
+      state.userName = '';
       state.state = false;
     },
   },
 });
 
-export const {_setAuth, _removeAuth} = auth.actions;
+export const { _setAuth, _removeAuth } = auth.actions;
 export default auth.reducer;
