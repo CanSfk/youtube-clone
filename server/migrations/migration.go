@@ -16,10 +16,34 @@ var CrateTableQuerys = []string{
 	video_cover_image_name VARCHAR(255) NOT NULL,
 	video_title VARCHAR(255) NOT NULL,
 	video_description VARCHAR(255) NOT NULL,
+	video_view_count INTEGER NOT NULL,
 	user_id INTEGER NOT NULL,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (user_id) REFERENCES Users(id)
+	)`,
+
+	`CREATE TABLE IF NOT EXISTS VideoLikes(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	user_id INTEGER NOT NULL,
+	video_id INTEGER NOT NULL,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (user_id) REFERENCES Users(id),
+	FOREIGN KEY (video_id) REFERENCES Videos(id),
+	UNIQUE (user_id, video_id)
+	)`,
+
+	`CREATE TABLE IF NOT EXISTS VideoComments(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	comment VARCHAR(255) NOT NULL,	
+	user_id INTEGER NOT NULL,
+	video_id INTEGER NOT NULL,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (user_id) REFERENCES Users(id),
+	FOREIGN KEY (video_id) REFERENCES Videos(id),
+	UNIQUE (user_id, video_id)
 	)`,
 }
 
