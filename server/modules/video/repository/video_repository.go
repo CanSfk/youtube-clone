@@ -11,6 +11,7 @@ type IVideoRepository interface {
 	GetAllVideos() []dto.VideoResponseDto
 	GetAllVideosWithUser() []dto.VideoWithUserResponseDto
 	CreateVideo(videoCreateDto dto.VideoCreateDto) dto.VideoWithUserResponseDto
+	GetVideoByName(videoName string) dto.VideoShowResponseDto
 }
 
 type videoRepository struct {
@@ -74,6 +75,7 @@ func (vr *videoRepository) CreateVideo(videoCreateDto dto.VideoCreateDto) dto.Vi
 		"video_cover_image_name": videoCreateDto.VideoCoverImageName,
 		"video_title":            videoCreateDto.VideoTitle,
 		"video_description":      videoCreateDto.VideoDescription,
+		"video_view_count":       videoCreateDto.VideoViewCount,
 		"user_id":                videoCreateDto.UserId,
 	}
 
@@ -89,10 +91,26 @@ func (vr *videoRepository) CreateVideo(videoCreateDto dto.VideoCreateDto) dto.Vi
 	u.user_name
 	FROM Videos v 
 	INNER JOIN Users u
-	ON v.user_id= u.id
+	ON v.user_id = u.id
 	Where v.id = ('%d')`, int(lastInsertId)))
 
 	getByIdRowVideo.Scan(&video.VideoUrl, &video.VideoTitle, &video.VideoCoverImageName, &video.UserName)
+
+	return video
+}
+
+func (vr *videoRepository) GetVideoByName(videoName string) dto.VideoShowResponseDto {
+	var video dto.VideoShowResponseDto
+
+	getByIdRowVideo, _ := vr.baseCrudRepository.GetCustomQuery(fmt.Sprintf(`SELECT 
+	v.video_url, v.video_title,v.video_description, v.video_cover_image_name,
+	u.user_name
+	FROM Videos v 
+	INNER JOIN Users u
+	ON v.user_id = u.id
+	Where v.video_url = ('%s')`, videoName))
+
+	getByIdRowVideo.Scan(&video.VideoUrl, &video.VideoTitle, &video.VideoDescription, &video.VideoCoverImageName, &video.UserName)
 
 	return video
 }

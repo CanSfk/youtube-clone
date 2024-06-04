@@ -16,6 +16,7 @@ type IVideoController interface {
 	RegisterRoutes(e *echo.Echo)
 	index(c echo.Context) error
 	create(c echo.Context) error
+	show(c echo.Context) error
 }
 
 type videoController struct {
@@ -36,8 +37,9 @@ func NewVideoController(videoService service.IVideoService) IVideoController {
 func (v *videoController) RegisterRoutes(e *echo.Echo) {
 	routeGroup := e.Group("video", jwt.JWTMiddleware)
 
-	routeGroup.GET("/list", v.index, jwt.JWTMiddleware)
+	routeGroup.GET("/list", v.index)
 	routeGroup.POST("/create", v.create)
+	routeGroup.GET("/show/:vName", v.show)
 }
 
 func (v *videoController) index(c echo.Context) error {
@@ -98,4 +100,11 @@ func (v *videoController) create(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, response)
+}
+
+func (v *videoController) show(c echo.Context) error {
+	videoName := c.Param("vName")
+	video := v.videoService.GetVideoByName(videoName)
+
+	return c.JSON(http.StatusOK, video)
 }

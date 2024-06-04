@@ -11,6 +11,7 @@ type VideoCreateDto struct {
 	VideoCoverImageName string `json:"video_cover_image_name"`
 	VideoTitle          string `json:"video_title"`
 	VideoDescription    string `json:"video_description"`
+	VideoViewCount      int    `json:"video_view_count"`
 	UserId              int    `json:"user_id"`
 }
 
@@ -18,5 +19,13 @@ type VideoWithUserResponseDto struct {
 	VideoUrl            string `json:"video_url"`
 	VideoCoverImageName string `json:"video_cover_image_name"`
 	VideoTitle          string `json:"video_title"`
-	UserName            string `json:"user_name"`
+	UserName            string `json:"account_name"`
+}
+
+type VideoShowResponseDto struct {
+	VideoUrl            string `json:"video_url"`
+	VideoCoverImageName string `json:"video_cover_image_name"`
+	VideoTitle          string `json:"video_title"`
+	VideoDescription    string `json:"video_description"`
+	UserName            string `json:"account_name"`
 }

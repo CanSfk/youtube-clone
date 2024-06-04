@@ -1,14 +1,10 @@
-import {useEffect, useState} from "react";
-import {MyVideoCard} from "../../../components";
-
-type videoType = {
-  video_cover_image_name: string;
-  video_title: string;
-  account_name: string;
-};
+import { useEffect, useState } from 'react';
+import { MyVideoCard } from '../../../components';
+import { useVideo } from '../../../stores/video/hooks';
+import { setAllVideo } from '../../../stores/video/actions';
 
 export const VideoList = () => {
-  const [videos, setVideo] = useState<videoType[]>();
+  const { videos } = useVideo();
 
   const [height, setHeight] = useState<number>(200);
   const [videoCard, setVideoCard] = useState<HTMLElement | undefined>();
@@ -18,16 +14,16 @@ export const VideoList = () => {
   };
 
   useEffect(() => {
-    setVideoCard(document.getElementById("card-1") || undefined);
+    setVideoCard(document.getElementById('card-1') || undefined);
 
     (async () => {
-      const response = await fetch("http://localhost:8085/video/list", {
-        credentials: "include",
+      const response = await fetch('http://localhost:8085/video/list', {
+        credentials: 'include',
       });
 
       const data = await response.json();
 
-      setVideo(data);
+      setAllVideo(data);
     })();
   }, []);
 
@@ -35,10 +31,10 @@ export const VideoList = () => {
     if (videoCard) {
       handleResize();
 
-      window.addEventListener("resize", handleResize);
+      window.addEventListener('resize', handleResize);
 
       return () => {
-        window.removeEventListener("resize", handleResize);
+        window.removeEventListener('resize', handleResize);
       };
     }
   }, [videoCard]);
@@ -48,6 +44,7 @@ export const VideoList = () => {
       {(videos || []).map((vd, index) => (
         <MyVideoCard
           id={`card-${index}`}
+          videoName={vd.video_url}
           key={index}
           imageName={`${import.meta.env.VITE_BASE_URL}/static/uploads/images/md-${vd.video_cover_image_name}`}
           title={vd.video_title}
