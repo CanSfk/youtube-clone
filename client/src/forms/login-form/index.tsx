@@ -8,7 +8,7 @@ export const LoginForm = () => {
 
     const formData = new FormData(e.target as HTMLFormElement);
 
-    const response: Response = await fetch('http://localhost:8085/login', {
+    const response: Response = await fetch(`${import.meta.env.VITE_BASE_URL}/login`, {
       method: 'POST',
       credentials: 'include',
       body: formData,

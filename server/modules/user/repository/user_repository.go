@@ -88,8 +88,8 @@ func (r *UserRepository) GetAllUsersWithVideos() []dto.UsersWithVideosResponse {
 	query := `SELECT 
 	u.full_name, u.user_name,
 	v.video_url, v.video_title, v.video_description 
-	FROM Users u 
-	LEFT JOIN Videos v 
+	FROM users u 
+	LEFT JOIN videos v 
 	ON u.id= v.user_id`
 
 	rows, _ := r.baseCrudRepository.GetAllCustomQuery(query)
@@ -143,7 +143,7 @@ func (r *UserRepository) GetAllUsersWithVideos() []dto.UsersWithVideosResponse {
 func (u *UserRepository) GetUserByUserName(userName string) dto.ResponseUserDtoWithPassport {
 	var user dto.ResponseUserDtoWithPassport
 
-	row, _ := u.baseCrudRepository.GetCustomQuery(fmt.Sprintf("Select full_name, user_name, password FROM Users Where user_name = ('%s')", userName))
+	row, _ := u.baseCrudRepository.GetCustomQuery(fmt.Sprintf("Select full_name, user_name, password FROM users Where user_name = ('%s')", userName))
 
 	row.Scan(&user.FullName, &user.UserName, &user.Password)
 

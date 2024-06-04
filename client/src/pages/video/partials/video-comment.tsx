@@ -22,7 +22,7 @@ export const VideoComment: React.FC<VideoCommentProps> = ({ videoUrl }) => {
     formData.append('video_url', videoUrl);
     formData.append('user_name', userName);
 
-    const response = await fetch('http://localhost:8085/video/comment', {
+    const response = await fetch(`${import.meta.env.VITE_BASE_URL}/video/comment`, {
       method: 'POST',
       credentials: 'include',
       body: formData,

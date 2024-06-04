@@ -25,10 +25,10 @@ func (vc *videoCommentRepository) CreateVideoComment(videoCommentCreateDto dto.V
 	var videoId int
 	var userId int
 
-	getVideoByIdRow, _ := vc.baseCrudRepository.GetCustomQuery(fmt.Sprintf("SELECT id FROM Videos WHERE video_url = ('%s')", videoCommentCreateDto.VideoUrl))
+	getVideoByIdRow, _ := vc.baseCrudRepository.GetCustomQuery(fmt.Sprintf("SELECT id FROM videos WHERE video_url = ('%s')", videoCommentCreateDto.VideoUrl))
 	getVideoByIdRow.Scan(&videoId)
 
-	getUserByIdRow, _ := vc.baseCrudRepository.GetCustomQuery(fmt.Sprintf("SELECT id FROM Users WHERE user_name = ('%s')", videoCommentCreateDto.UserName))
+	getUserByIdRow, _ := vc.baseCrudRepository.GetCustomQuery(fmt.Sprintf("SELECT id FROM users WHERE user_name = ('%s')", videoCommentCreateDto.UserName))
 	getUserByIdRow.Scan(&userId)
 
 	createData := map[string]interface{}{
@@ -42,8 +42,8 @@ func (vc *videoCommentRepository) CreateVideoComment(videoCommentCreateDto dto.V
 	lastInsertId, _ := row.LastInsertId()
 
 	query := fmt.Sprintf(`
-	SELECT v.comment, u.user_name FROM VideoComments v
-	INNER JOIN Users u ON v.user_id = u.id
+	SELECT v.comment, u.user_name FROM video_comments v
+	INNER JOIN users u ON v.user_id = u.id
 	WHERE v.id = %d`, lastInsertId)
 
 	commonRow, _ := vc.baseCrudRepository.GetCustomQuery(query)

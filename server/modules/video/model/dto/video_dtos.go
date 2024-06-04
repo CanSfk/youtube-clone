@@ -38,5 +38,10 @@ type VideoCommentCreateDto struct {
 
 type VideoCommentReponseDto struct {
 	Comment  string `json:"comment"`
-	UserName string `json:"accont_name"`
+	UserName string `json:"account_name"`
+}
+
+type VideoAndCommentsReponseDto struct {
+	Comments []VideoCommentReponseDto `json:"comments"`
+	Video    VideoShowResponseDto     `json:"video"`
 }

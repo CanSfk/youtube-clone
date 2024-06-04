@@ -108,9 +108,12 @@ func (v *videoController) create(c echo.Context) error {
 
 func (v *videoController) show(c echo.Context) error {
 	videoName := c.Param("vName")
-	video := v.videoService.GetVideoByName(videoName)
+	video, comments, err := v.videoService.GetVideoByName(videoName)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, dtos.ResponseMessage{Message: "Dahili sunucu hatası", StatusCode: "500"})
+	}
 
-	return c.JSON(http.StatusOK, video)
+	return c.JSON(http.StatusOK, dto.VideoAndCommentsReponseDto{Video: video, Comments: comments})
 }
 
 func (v *videoController) comment(c echo.Context) error {

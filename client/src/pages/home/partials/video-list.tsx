@@ -17,7 +17,7 @@ export const VideoList = () => {
     setVideoCard(document.getElementById('card-1') || undefined);
 
     (async () => {
-      const response = await fetch('http://localhost:8085/video/list', {
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL}/video/list`, {
         credentials: 'include',
       });
 

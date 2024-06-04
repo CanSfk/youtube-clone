@@ -11,7 +11,7 @@ type IVideoRepository interface {
 	GetAllVideos() []dto.VideoResponseDto
 	GetAllVideosWithUser() []dto.VideoWithUserResponseDto
 	CreateVideo(videoCreateDto dto.VideoCreateDto) dto.VideoWithUserResponseDto
-	GetVideoByName(videoName string) dto.VideoShowResponseDto
+	GetVideoByName(videoName string) (dto.VideoShowResponseDto, []dto.VideoCommentReponseDto, error)
 }
 
 type videoRepository struct {
@@ -46,8 +46,8 @@ func (vr *videoRepository) GetAllVideosWithUser() []dto.VideoWithUserResponseDto
 	query := `SELECT 
 	v.video_url, v.video_title, v.video_cover_image_name,
 	u.user_name
-	FROM Videos v 
-	INNER JOIN Users u
+	FROM videos v 
+	INNER JOIN users u
 	ON v.user_id = u.id`
 
 	rows, _ := vr.baseCrudRepository.GetAllCustomQuery(query)
@@ -89,8 +89,8 @@ func (vr *videoRepository) CreateVideo(videoCreateDto dto.VideoCreateDto) dto.Vi
 	getByIdRowVideo, _ := vr.baseCrudRepository.GetCustomQuery(fmt.Sprintf(`SELECT 
 	v.video_url, v.video_title, v.video_cover_image_name,
 	u.user_name
-	FROM Videos v 
-	INNER JOIN Users u
+	FROM videos v 
+	INNER JOIN users u
 	ON v.user_id = u.id
 	Where v.id = ('%d')`, int(lastInsertId)))
 
@@ -99,18 +99,49 @@ func (vr *videoRepository) CreateVideo(videoCreateDto dto.VideoCreateDto) dto.Vi
 	return video
 }
 
-func (vr *videoRepository) GetVideoByName(videoName string) dto.VideoShowResponseDto {
+func (vr *videoRepository) GetVideoByName(videoName string) (dto.VideoShowResponseDto, []dto.VideoCommentReponseDto, error) {
+	var videoId int
 	var video dto.VideoShowResponseDto
+	var comment dto.VideoCommentReponseDto
+	var comments []dto.VideoCommentReponseDto
 
-	getByIdRowVideo, _ := vr.baseCrudRepository.GetCustomQuery(fmt.Sprintf(`SELECT 
-	v.video_url, v.video_title,v.video_description, v.video_cover_image_name,
+	getByIdRowVideo, err := vr.baseCrudRepository.GetCustomQuery(fmt.Sprintf(`SELECT 
+	v.id, v.video_url, v.video_title, v.video_description, v.video_cover_image_name,
 	u.user_name
-	FROM Videos v 
-	INNER JOIN Users u
+	FROM videos v 
+	INNER JOIN users u
 	ON v.user_id = u.id
 	Where v.video_url = ('%s')`, videoName))
 
-	getByIdRowVideo.Scan(&video.VideoUrl, &video.VideoTitle, &video.VideoDescription, &video.VideoCoverImageName, &video.UserName)
+	if err != nil {
+		return video, nil, err
+	}
 
-	return video
+	scanErr := getByIdRowVideo.Scan(&videoId, &video.VideoUrl, &video.VideoTitle, &video.VideoDescription, &video.VideoCoverImageName, &video.UserName)
+	if scanErr != nil {
+		return video, nil, scanErr
+	}
+
+	fmt.Println(videoId)
+	getVideoCommentsRows, err := vr.baseCrudRepository.GetAllCustomQuery(fmt.Sprintf(`SELECT
+	c.comment, u.user_name FROM video_comments c 
+	INNER JOIN users u ON c.user_id = u.id
+	WHERE c.video_id = %d
+	`, videoId))
+	if err != nil {
+		return video, nil, err
+	}
+
+	for getVideoCommentsRows.Next() {
+		err := getVideoCommentsRows.Scan(&comment.Comment, &comment.UserName)
+		if err != nil {
+			return video, nil, err
+		}
+
+		comments = append(comments, comment)
+	}
+
+	defer getVideoCommentsRows.Close()
+
+	return video, comments, nil
 }

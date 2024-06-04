@@ -35,7 +35,7 @@ export const YoutubeStudioModal = () => {
     if (files.videoFile && files.videoFile.length > 0) formData.append('video_file', files.videoFile[0] as Blob);
     if (files.optimizedImageFile) formData.append('image_file', files.optimizedImageFile);
 
-    const response: Response = await fetch('http://localhost:8085/video/create', {
+    const response: Response = await fetch(`${import.meta.env.VITE_BASE_URL}/video/create`, {
       method: 'POST',
       credentials: 'include',
       body: formData,
