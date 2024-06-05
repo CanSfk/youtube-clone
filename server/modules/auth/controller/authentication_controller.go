@@ -6,8 +6,8 @@ import (
 	"time"
 	"youtube-clone/common/dtos"
 	"youtube-clone/modules/auth/jwt"
+	"youtube-clone/modules/auth/service"
 	"youtube-clone/modules/user/model/dto"
-	"youtube-clone/modules/user/service"
 
 	"github.com/labstack/echo/v4"
 )
@@ -20,7 +20,7 @@ type IAuthController interface {
 }
 
 type AuthController struct {
-	userService service.IUserService
+	authService service.IAuthService
 }
 
 type ResponseUser struct {
@@ -29,25 +29,38 @@ type ResponseUser struct {
 	Message    string `json:"message"`
 }
 
-func NewAuthController(userService service.IUserService) IAuthController {
+func NewAuthController(authService service.IAuthService) IAuthController {
 	return &AuthController{
-		userService: userService,
+		authService: authService,
 	}
 }
 
 func (a *AuthController) RegisterRoutes(e *echo.Echo) {
 	e.POST("/login", a.login)
 	e.POST("/logout", a.logout)
+	e.POST("/register", a.register)
 }
 
 func (a *AuthController) register(c echo.Context) error {
-	createUserDto := dto.CreateUserDto{}
-
-	if err := c.Bind(&createUserDto); err != nil {
-		return c.JSON(http.StatusBadRequest, dtos.ResponseMessage{Message: "Bad request"})
+	createUserDto := dto.CreateUserDto{
+		FullName: c.FormValue("full_name"),
+		UserName: c.FormValue("user_name"),
+		Password: c.FormValue("password"),
 	}
 
-	a.userService.CreateUser(createUserDto)
+	fmt.Println(createUserDto)
+
+	a.authService.CreateUser(createUserDto)
+
+	token, _ := jwt.CreateJwt(createUserDto.UserName)
+	cookie := new(http.Cookie)
+	cookie.Name = "authorization"
+	cookie.Value = token
+	cookie.Expires = time.Now().Add(24 * time.Hour)
+	cookie.HttpOnly = true
+	cookie.Path = "/"
+
+	c.SetCookie(cookie)
 
 	return c.JSON(http.StatusOK, dtos.ResponseMessage{Message: "Created user successful", StatusCode: "200"})
 }
@@ -58,7 +71,7 @@ func (a *AuthController) login(c echo.Context) error {
 		Password: c.FormValue("password"),
 	}
 
-	loggedIn := a.userService.LoginUser(loginUserDto)
+	loggedIn := a.authService.Login(loginUserDto)
 
 	if !loggedIn {
 		return c.JSON(http.StatusNotFound, dtos.ResponseMessage{Message: "User not found!", StatusCode: "404"})
@@ -79,7 +92,6 @@ func (a *AuthController) login(c echo.Context) error {
 }
 
 func (a *AuthController) logout(c echo.Context) error {
-	fmt.Println("LOG")
 	cookie := &http.Cookie{
 		Name:     "authorization",
 		Value:    "",

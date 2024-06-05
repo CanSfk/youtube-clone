@@ -16,9 +16,7 @@ export const RegisterForm = () => {
 
     const ms: { user_name: string; status: string; message: string } = await response.json();
 
-    if (ms.status === '200') {
-      setAuth(ms.user_name, true);
-    }
+    if (ms.status === '200') setAuth(ms.user_name, true);
   };
 
   return (

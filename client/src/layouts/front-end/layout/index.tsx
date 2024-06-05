@@ -26,7 +26,7 @@ export const FrontEndLayout = ({ children }: LayoutProps) => {
 
   return (
     <>
-      <div className='w-full min-h-[2000px] bg-dark-theme-black text-dark-theme-white flex'>
+      <div className='w-full min-h-[2000px] text-dark-theme-white flex'>
         <div className='flex-1'>
           <Navbar />
           <div className='flex'>

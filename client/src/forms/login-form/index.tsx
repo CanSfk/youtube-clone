@@ -16,11 +16,7 @@ export const LoginForm = () => {
 
     const ms: { user_name: string; status: string; message: string } = await response.json();
 
-    if (ms.status === '200') {
-      setAuth(ms.user_name, true);
-      localStorage.setItem('auth', 'true');
-      localStorage.setItem('userName', ms.user_name);
-    }
+    if (ms.status === '200') setAuth(ms.user_name, true);
   };
 
   return (
