@@ -1,13 +1,14 @@
 package controller
 
 import (
-	"fmt"
+	"mime/multipart"
 	"net/http"
 	"time"
 	"youtube-clone/common/dtos"
 	"youtube-clone/modules/auth/jwt"
 	"youtube-clone/modules/auth/service"
 	"youtube-clone/modules/user/model/dto"
+	"youtube-clone/utils"
 
 	"github.com/labstack/echo/v4"
 )
@@ -24,9 +25,10 @@ type AuthController struct {
 }
 
 type ResponseUser struct {
-	UserName   string `json:"user_name"`
-	StatusCode string `json:"status"`
-	Message    string `json:"message"`
+	UserName         string `json:"user_name"`
+	ProfileImageName string `json:"profile_image_name"`
+	StatusCode       string `json:"status"`
+	Message          string `json:"message"`
 }
 
 func NewAuthController(authService service.IAuthService) IAuthController {
@@ -42,13 +44,30 @@ func (a *AuthController) RegisterRoutes(e *echo.Echo) {
 }
 
 func (a *AuthController) register(c echo.Context) error {
-	createUserDto := dto.CreateUserDto{
-		FullName: c.FormValue("full_name"),
-		UserName: c.FormValue("user_name"),
-		Password: c.FormValue("password"),
+	profileImageName := ""
+	var profileImageErr error
+	var profileImageFile *multipart.FileHeader
+
+	profileImageFile, profileImageErr = c.FormFile("profile_image_file")
+
+	if profileImageFile != nil {
+		if profileImageErr != nil {
+			return c.JSON(http.StatusBadRequest, dtos.ResponseMessage{Message: "Error retrieving the file", StatusCode: "400"})
+		}
+
+		profileImageName, profileImageErr = utils.UploadImage(*profileImageFile, true)
+
+		if profileImageErr != nil {
+			return c.JSON(http.StatusBadRequest, dtos.ResponseMessage{Message: profileImageErr.Error(), StatusCode: "400"})
+		}
 	}
 
-	fmt.Println(createUserDto)
+	createUserDto := dto.CreateUserDto{
+		FullName:         c.FormValue("full_name"),
+		UserName:         c.FormValue("user_name"),
+		Password:         c.FormValue("password"),
+		ProfileImageName: profileImageName,
+	}
 
 	user := a.authService.CreateUser(createUserDto)
 
@@ -62,7 +81,7 @@ func (a *AuthController) register(c echo.Context) error {
 
 	c.SetCookie(cookie)
 
-	return c.JSON(http.StatusOK, ResponseUser{UserName: user.UserName, Message: "Created user successful", StatusCode: "200"})
+	return c.JSON(http.StatusOK, ResponseUser{UserName: user.UserName, ProfileImageName: user.ProfileImageName, StatusCode: "200", Message: ""})
 }
 
 func (a *AuthController) login(c echo.Context) error {
@@ -88,7 +107,7 @@ func (a *AuthController) login(c echo.Context) error {
 
 	c.SetCookie(cookie)
 
-	return c.JSON(http.StatusOK, ResponseUser{UserName: loginUserDto.UserName, StatusCode: "200", Message: ""})
+	return c.JSON(http.StatusOK, ResponseUser{UserName: user.UserName, ProfileImageName: user.ProfileImageName, StatusCode: "200", Message: ""})
 }
 
 func (a *AuthController) logout(c echo.Context) error {

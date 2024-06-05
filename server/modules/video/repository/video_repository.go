@@ -45,7 +45,7 @@ func (vr *videoRepository) GetAllVideosWithUser() []dto.VideoWithUserResponseDto
 
 	query := `SELECT 
 	v.video_url, v.video_title, v.video_cover_image_name,
-	u.user_name
+	u.user_name, u.profile_image_name
 	FROM videos v 
 	INNER JOIN users u
 	ON v.user_id = u.id`
@@ -56,7 +56,7 @@ func (vr *videoRepository) GetAllVideosWithUser() []dto.VideoWithUserResponseDto
 
 	for rows.Next() {
 
-		err := rows.Scan(&video.VideoUrl, &video.VideoTitle, &video.VideoCoverImageName, &video.UserName)
+		err := rows.Scan(&video.VideoUrl, &video.VideoTitle, &video.VideoCoverImageName, &video.UserName, &video.ProfileImageName)
 		if err != nil {
 			log.Fatalf("Error row scan: %s", err)
 		}
@@ -88,13 +88,13 @@ func (vr *videoRepository) CreateVideo(videoCreateDto dto.VideoCreateDto) dto.Vi
 
 	getByIdRowVideo, _ := vr.baseCrudRepository.GetCustomQuery(fmt.Sprintf(`SELECT 
 	v.video_url, v.video_title, v.video_cover_image_name,
-	u.user_name
+	u.user_name, u.profile_image_name
 	FROM videos v 
 	INNER JOIN users u
 	ON v.user_id = u.id
 	Where v.id = ('%d')`, int(lastInsertId)))
 
-	getByIdRowVideo.Scan(&video.VideoUrl, &video.VideoTitle, &video.VideoCoverImageName, &video.UserName)
+	getByIdRowVideo.Scan(&video.VideoUrl, &video.VideoTitle, &video.VideoCoverImageName, &video.UserName, &video.ProfileImageName)
 
 	return video
 }

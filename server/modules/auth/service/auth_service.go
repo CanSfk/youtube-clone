@@ -37,5 +37,5 @@ func (a *AuthService) Login(loginUserDto dto.LoginUserDto) (dto.ResponseUserDtoW
 		return dto.ResponseUserDtoWithId{}, false
 	}
 
-	return dto.ResponseUserDtoWithId{Id: user.Id, UserName: user.UserName, FullName: user.FullName}, true
+	return dto.ResponseUserDtoWithId{Id: user.Id, UserName: user.UserName, FullName: user.FullName, ProfileImageName: user.ProfileImageName}, true
 }

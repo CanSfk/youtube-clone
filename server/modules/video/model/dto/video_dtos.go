@@ -20,6 +20,7 @@ type VideoWithUserResponseDto struct {
 	VideoCoverImageName string `json:"video_cover_image_name"`
 	VideoTitle          string `json:"video_title"`
 	UserName            string `json:"account_name"`
+	ProfileImageName    string `json:"profile_image_name"`
 }
 
 type VideoShowResponseDto struct {

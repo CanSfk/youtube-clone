@@ -62,9 +62,10 @@ func (r *UserRepository) CreateUser(createUserDto dto.CreateUserDto) dto.Respons
 	var user dto.ResponseUserDtoWithId
 
 	userDataMap := map[string]interface{}{
-		"full_name": createUserDto.FullName,
-		"user_name": createUserDto.UserName,
-		"password":  createUserDto.Password,
+		"full_name":          createUserDto.FullName,
+		"user_name":          createUserDto.UserName,
+		"password":           createUserDto.Password,
+		"profile_image_name": createUserDto.ProfileImageName,
 	}
 
 	createRow, _ := r.baseCrudRepository.Create(userDataMap)
@@ -74,9 +75,9 @@ func (r *UserRepository) CreateUser(createUserDto dto.CreateUserDto) dto.Respons
 		log.Fatalf("Last insert id error: %s", err)
 	}
 
-	getByIdRow, _ := r.baseCrudRepository.GetById(int(lastInsertId), "id", "full_name", "user_name")
+	getByIdRow, _ := r.baseCrudRepository.GetById(int(lastInsertId), "id", "full_name", "user_name", "profile_image_name")
 
-	getByIdRow.Scan(&user.Id, &user.FullName, &user.UserName)
+	getByIdRow.Scan(&user.Id, &user.FullName, &user.UserName, &user.ProfileImageName)
 
 	return user
 }
@@ -143,9 +144,9 @@ func (r *UserRepository) GetAllUsersWithVideos() []dto.UsersWithVideosResponse {
 func (u *UserRepository) GetUserByUserName(userName string) dto.ResponseUserLoginDto {
 	var user dto.ResponseUserLoginDto
 
-	row, _ := u.baseCrudRepository.GetCustomQuery(fmt.Sprintf("Select id, full_name, user_name, password FROM users Where user_name = ('%s')", userName))
+	row, _ := u.baseCrudRepository.GetCustomQuery(fmt.Sprintf("Select id, full_name, user_name, profile_image_name, password FROM users Where user_name = ('%s')", userName))
 
-	row.Scan(&user.Id, &user.FullName, &user.UserName, &user.Password)
+	row.Scan(&user.Id, &user.FullName, &user.UserName, &user.ProfileImageName, &user.Password)
 
 	return user
 }

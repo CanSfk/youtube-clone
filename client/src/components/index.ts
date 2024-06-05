@@ -4,5 +4,6 @@ import MyInput from './my-input';
 import MyTextarea from './my-textarea';
 import MyVideoCard from './video-card';
 import MyBallonButton from './my-ballon-button';
+import AccountImage from './account-image';
 
-export { MyAlert, MyButton, MyInput, MyTextarea, MyVideoCard, MyBallonButton };
+export { MyAlert, MyButton, MyInput, MyTextarea, MyVideoCard, MyBallonButton, AccountImage };

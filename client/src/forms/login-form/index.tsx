@@ -14,15 +14,15 @@ export const LoginForm = () => {
       body: formData,
     });
 
-    const ms: { user_name: string; status: string; message: string } = await response.json();
+    const ms: { user_name: string; profile_image_name: string; status: string; message: string } = await response.json();
 
-    if (ms.status === '200') setAuth(ms.user_name, true);
+    if (ms.status === '200') setAuth(ms.user_name, ms.profile_image_name, true);
   };
 
   return (
     <div className='max-w-[600px] mx-auto'>
       <form onSubmit={onSubmit}>
-        <div className='flex flex-col gap-3'>
+        <div className='flex flex-col gap-5'>
           <div className='flex flex-col gap-2 flex-1'>
             <label htmlFor='user_name' className='text-dark-theme-white'>
               Kullanıcı Adı

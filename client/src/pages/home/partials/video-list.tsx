@@ -50,6 +50,7 @@ export const VideoList = () => {
           postedTime={12}
           accountName={vd.account_name}
           height={height}
+          profileImageName={vd.profile_image_name}
         />
       ))}
     </section>

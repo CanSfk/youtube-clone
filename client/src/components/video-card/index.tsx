@@ -2,6 +2,7 @@ import React from 'react';
 import { BarMenu } from '../../assets/icons';
 import { truncateText } from '../../utils';
 import { Link } from 'react-router-dom';
+import AccountImage from '../account-image';
 
 interface MyVideoCardProp {
   imageName: string;
@@ -13,9 +14,21 @@ interface MyVideoCardProp {
   postedTime: number;
   id: string;
   height: number;
+  profileImageName: string;
 }
 
-export const MyVideoCard: React.FC<MyVideoCardProp> = ({ imageName, videoName, href = '#', title, accountName, view, postedTime, id, height }) => {
+export const MyVideoCard: React.FC<MyVideoCardProp> = ({
+  imageName,
+  videoName,
+  href = '#',
+  title,
+  accountName,
+  view,
+  postedTime,
+  id,
+  height,
+  profileImageName,
+}) => {
   return (
     <div id={id} className='flex flex-col gap-3 relative transition-colors duration-300 active:bg-dark-theme-extra-soft-black rounded-md p-1'>
       <Link to={`/video/${videoName}`} style={{ height: height }} className='relative w-full rounded-lg overflow-hidden transition-all duration-500'>
@@ -31,13 +44,7 @@ export const MyVideoCard: React.FC<MyVideoCardProp> = ({ imageName, videoName, h
       </Link>
 
       <div className='flex gap-3 group relative'>
-        <div className='w-9 h-9 min-w-9 min-h-9 rounded-full overflow-hidden relative'>
-          <picture className='absolute inset-0'>
-            <source type='image/webp' srcSet={`${imageName}`} />
-
-            <img src={`${imageName}`} alt='Youtube clone image' className='w-full h-full object-cover' />
-          </picture>
-        </div>
+        <AccountImage size='sm' width={45} height={45} imageName={profileImageName} />
 
         <div className='flex flex-col gap-1'>
           <h3>{truncateText(title, 57)}</h3>

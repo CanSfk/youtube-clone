@@ -2,8 +2,11 @@ import { useEffect, useState } from 'react';
 import { CameraIcon, CloseIconDoor, NotificationIcon } from '../../../../../assets/icons';
 import { removeAuth } from '../../../../../stores/auth/actions';
 import { NavLink } from 'react-router-dom';
+import { AccountImage } from '../../../../../components';
+import { useAuth } from '../../../../../stores/auth/hooks';
 
 export const Account = () => {
+  const { profileImageName } = useAuth();
   const [showPopover, setShowPopover] = useState<boolean>(false);
 
   const logout = async () => {
@@ -44,16 +47,8 @@ export const Account = () => {
       </button>
 
       <div id='account_popover' className='px-2 grid place-items-center relative'>
-        <button onClick={() => setShowPopover((state) => !state)} className='relative h-8 w-8 rounded-full overflow-hidden'>
-          <picture className='absolute inset-0'>
-            <source type='image/webp' srcSet='https://yt3.ggpht.com/yti/ANjgQV_XxLV3Z6SdxWjxmWKjz2nYaNqv3I8X_QX8q3Uwaj8=s88-c-k-c0x00ffffff-no-rj' />
-
-            <img
-              src='https://yt3.ggpht.com/yti/ANjgQV_XxLV3Z6SdxWjxmWKjz2nYaNqv3I8X_QX8q3Uwaj8=s88-c-k-c0x00ffffff-no-rj'
-              alt='Youtube clone image'
-              className='w-full h-full object-cover'
-            />
-          </picture>
+        <button onClick={() => setShowPopover((state) => !state)}>
+          <AccountImage imageName={profileImageName} />
         </button>
 
         {showPopover && (

@@ -6,6 +6,7 @@ export interface Video {
   video_description: string;
   video_cover_image_name: string;
   account_name: string;
+  profile_image_name: string;
 }
 
 export interface Comment {
