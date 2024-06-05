@@ -8,12 +8,19 @@ type CreateUserDto struct {
 	Password string `json:"password"`
 }
 
+type ResponseUserDtoWithId struct {
+	Id       int    `json:"user_id" db:"id"`
+	FullName string `json:"full_name" db:"full_name"`
+	UserName string `json:"user_name" db:"user_name"`
+}
+
 type ResponseUserDto struct {
 	FullName string `json:"full_name" db:"full_name"`
 	UserName string `json:"user_name" db:"user_name"`
 }
 
-type ResponseUserDtoWithPassport struct {
+type ResponseUserLoginDto struct {
+	Id       int    `json:"user_id" db:"id"`
 	FullName string `json:"full_name" db:"full_name"`
 	UserName string `json:"user_name" db:"user_name"`
 	Password string `json:"password" db:"password"`

@@ -90,7 +90,7 @@ func (v *videoController) create(c echo.Context) error {
 		VideoCoverImageName: coverImageName,
 		VideoTitle:          c.FormValue("video_title"),
 		VideoDescription:    c.FormValue("video_description"),
-		UserId:              1,
+		UserId:              c.Get("user_id").(int),
 	}
 
 	video := v.videoService.CreateVideo(videoCreateDto)

@@ -50,9 +50,9 @@ func (a *AuthController) register(c echo.Context) error {
 
 	fmt.Println(createUserDto)
 
-	a.authService.CreateUser(createUserDto)
+	user := a.authService.CreateUser(createUserDto)
 
-	token, _ := jwt.CreateJwt(createUserDto.UserName)
+	token, _ := jwt.CreateJwt(user.UserName, user.Id)
 	cookie := new(http.Cookie)
 	cookie.Name = "authorization"
 	cookie.Value = token
@@ -62,7 +62,7 @@ func (a *AuthController) register(c echo.Context) error {
 
 	c.SetCookie(cookie)
 
-	return c.JSON(http.StatusOK, dtos.ResponseMessage{Message: "Created user successful", StatusCode: "200"})
+	return c.JSON(http.StatusOK, ResponseUser{UserName: user.UserName, Message: "Created user successful", StatusCode: "200"})
 }
 
 func (a *AuthController) login(c echo.Context) error {
@@ -71,13 +71,13 @@ func (a *AuthController) login(c echo.Context) error {
 		Password: c.FormValue("password"),
 	}
 
-	loggedIn := a.authService.Login(loginUserDto)
+	user, loggedIn := a.authService.Login(loginUserDto)
 
 	if !loggedIn {
 		return c.JSON(http.StatusNotFound, dtos.ResponseMessage{Message: "User not found!", StatusCode: "404"})
 	}
 
-	token, _ := jwt.CreateJwt(loginUserDto.UserName)
+	token, _ := jwt.CreateJwt(user.UserName, user.Id)
 
 	cookie := new(http.Cookie)
 	cookie.Name = "authorization"

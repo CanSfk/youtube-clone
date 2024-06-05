@@ -12,9 +12,9 @@ import (
 type IUserRepository interface {
 	GetAllUsers() []dto.ResponseUserDto
 	GetUserById(id int) (dto.ResponseUserDto, error)
-	CreateUser(createUser dto.CreateUserDto) dto.ResponseUserDto
+	CreateUser(createUser dto.CreateUserDto) dto.ResponseUserDtoWithId
 	GetAllUsersWithVideos() []dto.UsersWithVideosResponse
-	GetUserByUserName(userName string) dto.ResponseUserDtoWithPassport
+	GetUserByUserName(userName string) dto.ResponseUserLoginDto
 }
 
 type UserRepository struct {
@@ -58,8 +58,8 @@ func (r *UserRepository) GetUserById(id int) (dto.ResponseUserDto, error) {
 	return user, nil
 }
 
-func (r *UserRepository) CreateUser(createUserDto dto.CreateUserDto) dto.ResponseUserDto {
-	var user dto.ResponseUserDto
+func (r *UserRepository) CreateUser(createUserDto dto.CreateUserDto) dto.ResponseUserDtoWithId {
+	var user dto.ResponseUserDtoWithId
 
 	userDataMap := map[string]interface{}{
 		"full_name": createUserDto.FullName,
@@ -74,9 +74,9 @@ func (r *UserRepository) CreateUser(createUserDto dto.CreateUserDto) dto.Respons
 		log.Fatalf("Last insert id error: %s", err)
 	}
 
-	getByIdRow, _ := r.baseCrudRepository.GetById(int(lastInsertId), "full_name", "user_name")
+	getByIdRow, _ := r.baseCrudRepository.GetById(int(lastInsertId), "id", "full_name", "user_name")
 
-	getByIdRow.Scan(&user.FullName, &user.UserName)
+	getByIdRow.Scan(&user.Id, &user.FullName, &user.UserName)
 
 	return user
 }
@@ -140,12 +140,12 @@ func (r *UserRepository) GetAllUsersWithVideos() []dto.UsersWithVideosResponse {
 	return users
 }
 
-func (u *UserRepository) GetUserByUserName(userName string) dto.ResponseUserDtoWithPassport {
-	var user dto.ResponseUserDtoWithPassport
+func (u *UserRepository) GetUserByUserName(userName string) dto.ResponseUserLoginDto {
+	var user dto.ResponseUserLoginDto
 
-	row, _ := u.baseCrudRepository.GetCustomQuery(fmt.Sprintf("Select full_name, user_name, password FROM users Where user_name = ('%s')", userName))
+	row, _ := u.baseCrudRepository.GetCustomQuery(fmt.Sprintf("Select id, full_name, user_name, password FROM users Where user_name = ('%s')", userName))
 
-	row.Scan(&user.FullName, &user.UserName, &user.Password)
+	row.Scan(&user.Id, &user.FullName, &user.UserName, &user.Password)
 
 	return user
 }

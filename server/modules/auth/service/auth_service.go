@@ -7,8 +7,8 @@ import (
 )
 
 type IAuthService interface {
-	CreateUser(userCreateDto dto.CreateUserDto) dto.ResponseUserDto
-	Login(dto.LoginUserDto) bool
+	CreateUser(userCreateDto dto.CreateUserDto) dto.ResponseUserDtoWithId
+	Login(dto.LoginUserDto) (dto.ResponseUserDtoWithId, bool)
 }
 
 type AuthService struct {
@@ -21,15 +21,21 @@ func NewAuthService(userRepository repository.IUserRepository) IAuthService {
 	}
 }
 
-func (a *AuthService) CreateUser(userCreateDto dto.CreateUserDto) dto.ResponseUserDto {
+func (a *AuthService) CreateUser(userCreateDto dto.CreateUserDto) dto.ResponseUserDtoWithId {
 	hashedPassword, _ := password.HashPassword(userCreateDto.Password)
 	userCreateDto.Password = hashedPassword
 
 	return a.userRepository.CreateUser(userCreateDto)
 }
 
-func (a *AuthService) Login(loginUserDto dto.LoginUserDto) bool {
+func (a *AuthService) Login(loginUserDto dto.LoginUserDto) (dto.ResponseUserDtoWithId, bool) {
 	user := a.userRepository.GetUserByUserName(loginUserDto.UserName)
 
-	return password.ComparePasswords(user.Password, []byte(loginUserDto.Password))
+	passwordConfirmed := password.ComparePasswords(user.Password, []byte(loginUserDto.Password))
+
+	if !passwordConfirmed {
+		return dto.ResponseUserDtoWithId{}, false
+	}
+
+	return dto.ResponseUserDtoWithId{Id: user.Id, UserName: user.UserName, FullName: user.FullName}, true
 }
