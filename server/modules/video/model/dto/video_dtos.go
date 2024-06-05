@@ -19,6 +19,7 @@ type VideoWithUserResponseDto struct {
 	VideoUrl            string `json:"video_url"`
 	VideoCoverImageName string `json:"video_cover_image_name"`
 	VideoTitle          string `json:"video_title"`
+	TimeDif             int    `json:"time_dif"`
 	UserName            string `json:"account_name"`
 	ProfileImageName    string `json:"profile_image_name"`
 }

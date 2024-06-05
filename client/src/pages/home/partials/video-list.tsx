@@ -47,7 +47,7 @@ export const VideoList = () => {
           imageName={`${import.meta.env.VITE_BASE_URL}/static/uploads/images/md-${vd.video_cover_image_name}`}
           title={vd.video_title}
           view={2.8}
-          postedTime={12}
+          postedTime={vd.time_dif}
           accountName={vd.account_name}
           height={height}
           profileImageName={vd.profile_image_name}

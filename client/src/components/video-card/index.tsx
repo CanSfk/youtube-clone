@@ -1,6 +1,6 @@
 import React from 'react';
 import { BarMenu } from '../../assets/icons';
-import { truncateText } from '../../utils';
+import { calculateTimeEquivalent, truncateText } from '../../utils';
 import { Link } from 'react-router-dom';
 import AccountImage from '../account-image';
 
@@ -57,7 +57,7 @@ export const MyVideoCard: React.FC<MyVideoCardProp> = ({
             <div className='flex items-center gap-1'>
               <span>{view} B görüntüleme</span>
               <span>•</span>
-              <span>{postedTime} saat önce</span>
+              <span>{calculateTimeEquivalent(postedTime)} önce</span>
             </div>
           </div>
         </div>

@@ -22,3 +22,10 @@ export const optimizeImage = async (image: File, maxWidth: number = 1280, maxHei
     );
   });
 };
+
+export const calculateTimeEquivalent = (minutes: number): string => {
+  if (minutes < 60) return `${minutes} dakika`;
+  else if (minutes / 60 > 1 && minutes / 60 < 24) return `${Math.floor(minutes / 60)} saat`;
+  else if (minutes / 1440 < 356) return `${Math.floor(minutes / 60)} gün`;
+  else return `${Math.floor(minutes / 525600)} yıl`;
+};

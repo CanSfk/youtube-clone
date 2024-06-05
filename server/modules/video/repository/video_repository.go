@@ -3,6 +3,7 @@ package repository
 import (
 	"fmt"
 	"log"
+	"time"
 	"youtube-clone/common/repositories"
 	"youtube-clone/modules/video/model/dto"
 )
@@ -42,9 +43,10 @@ func (vr *videoRepository) GetAllVideos() []dto.VideoResponseDto {
 func (vr *videoRepository) GetAllVideosWithUser() []dto.VideoWithUserResponseDto {
 	videos := []dto.VideoWithUserResponseDto{}
 	video := dto.VideoWithUserResponseDto{}
+	created_at := time.Time{}
 
 	query := `SELECT 
-	v.video_url, v.video_title, v.video_cover_image_name,
+	v.video_url, v.video_title, v.video_cover_image_name, v.created_at,
 	u.user_name, u.profile_image_name
 	FROM videos v 
 	INNER JOIN users u
@@ -56,10 +58,14 @@ func (vr *videoRepository) GetAllVideosWithUser() []dto.VideoWithUserResponseDto
 
 	for rows.Next() {
 
-		err := rows.Scan(&video.VideoUrl, &video.VideoTitle, &video.VideoCoverImageName, &video.UserName, &video.ProfileImageName)
+		err := rows.Scan(&video.VideoUrl, &video.VideoTitle, &video.VideoCoverImageName, &created_at, &video.UserName, &video.ProfileImageName)
 		if err != nil {
 			log.Fatalf("Error row scan: %s", err)
 		}
+
+		timeDif := time.Since(created_at)
+
+		video.TimeDif = int(timeDif.Minutes())
 
 		videos = append(videos, video)
 	}
