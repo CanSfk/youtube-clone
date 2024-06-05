@@ -42,13 +42,13 @@ func (vc *videoCommentRepository) CreateVideoComment(videoCommentCreateDto dto.V
 	lastInsertId, _ := row.LastInsertId()
 
 	query := fmt.Sprintf(`
-	SELECT v.comment, u.user_name FROM video_comments v
+	SELECT v.comment, u.user_name, u.profile_image_name FROM video_comments v
 	INNER JOIN users u ON v.user_id = u.id
 	WHERE v.id = %d`, lastInsertId)
 
 	commonRow, _ := vc.baseCrudRepository.GetCustomQuery(query)
 
-	commonRow.Scan(&comment.Comment, &comment.UserName)
+	commonRow.Scan(&comment.Comment, &comment.UserName, &comment.AccountImageName)
 
 	return comment
 }

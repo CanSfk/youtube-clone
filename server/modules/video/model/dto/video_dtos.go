@@ -29,6 +29,7 @@ type VideoShowResponseDto struct {
 	VideoTitle          string `json:"video_title"`
 	VideoDescription    string `json:"video_description"`
 	UserName            string `json:"account_name"`
+	ProfileImageName    string `json:"profile_image_name"`
 }
 
 type VideoCommentCreateDto struct {
@@ -38,8 +39,9 @@ type VideoCommentCreateDto struct {
 }
 
 type VideoCommentReponseDto struct {
-	Comment  string `json:"comment"`
-	UserName string `json:"account_name"`
+	Comment          string `json:"comment"`
+	UserName         string `json:"account_name"`
+	AccountImageName string `json:"account_image_name"`
 }
 
 type VideoAndCommentsReponseDto struct {

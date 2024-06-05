@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react';
-import { MyButton, MyInput } from '../../../components';
+import { AccountImage, MyButton, MyInput } from '../../../components';
 import { useAuth } from '../../../stores/auth/hooks';
 import { setComment } from '../../../stores/video/actions';
 
@@ -13,7 +13,7 @@ type VideoCommentProps = {
 
 export const VideoComment: React.FC<VideoCommentProps> = ({ videoUrl }) => {
   const [commentData, setCommentData] = useState<CommentDataType>({ message: '' });
-  const { userName } = useAuth();
+  const { userName, profileImageName } = useAuth();
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -37,15 +37,7 @@ export const VideoComment: React.FC<VideoCommentProps> = ({ videoUrl }) => {
 
   return (
     <div className='flex gap-2'>
-      <div>
-        <img
-          id='img'
-          draggable='false'
-          className='rounded-full min-w-10 min-h-10 h-10 w-10'
-          alt='Avatar resmi'
-          src='https://yt3.ggpht.com/yti/ANjgQV_XxLV3Z6SdxWjxmWKjz2nYaNqv3I8X_QX8q3Uwaj8=s88-c-k-c0x00ffffff-no-rj'
-        />
-      </div>
+      <AccountImage imageName={profileImageName} size='sm' />
       <div className='flex-1'>
         <form onSubmit={onSubmit}>
           <div className='flex flex-col gap-3'>

@@ -1,3 +1,4 @@
+import { AccountImage } from '../../../components';
 import { useVideo } from '../../../stores/video/hooks';
 
 export const CommentList = () => {
@@ -7,15 +8,8 @@ export const CommentList = () => {
     <>
       {(comments || []).map((cm, index) => (
         <div key={index} className='flex gap-4'>
-          <div>
-            <img
-              id='img'
-              draggable='false'
-              className='rounded-full min-w-10 min-h-10 h-10 w-10'
-              alt='Avatar resmi'
-              src='https://yt3.ggpht.com/yti/ANjgQV_XxLV3Z6SdxWjxmWKjz2nYaNqv3I8X_QX8q3Uwaj8=s88-c-k-c0x00ffffff-no-rj'
-            />
-          </div>
+          <AccountImage size='sm' imageName={cm.account_image_name} />
+
           <div className='flex-1 flex-col'>
             <div className='flex gap-2 items-center'>
               <span className='text-[13px]'>{cm.account_name}</span>

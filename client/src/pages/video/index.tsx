@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import FrontEndLayout from '../../layouts/front-end/layout';
 import { useEffect, useState } from 'react';
-import { MyButton } from '../../components';
+import { AccountImage, MyButton } from '../../components';
 import VideoComment from './partials/video-comment';
 import CommentList from './partials/comment-list';
 import { setAllComment } from '../../stores/video/actions';
@@ -12,11 +12,13 @@ interface Video {
   video_description: string;
   video_cover_image_name: string;
   account_name: string;
+  profile_image_name: string;
 }
 
 interface Comment {
   comment: string;
   account_name: string;
+  account_image_name: string;
 }
 
 export const Video = () => {
@@ -48,17 +50,7 @@ export const Video = () => {
           <div className='flex flex-col gap-6'>
             <div className='flex gap-10'>
               <div className='flex gap-4'>
-                <div className='w-10 h-10 min-w-9 min-h-9 rounded-full overflow-hidden relative'>
-                  <picture className='absolute inset-0'>
-                    <source type='image/webp' srcSet={`${import.meta.env.VITE_BASE_URL}/static/uploads/images/sm-${video.video_cover_image_name}`} />
-
-                    <img
-                      src={`${import.meta.env.VITE_BASE_URL}/static/uploads/images/sm-${video.video_cover_image_name}`}
-                      alt='Youtube clone image'
-                      className='w-full h-full object-cover'
-                    />
-                  </picture>
-                </div>
+                <AccountImage imageName={video.profile_image_name} />
 
                 <div className='flex flex-col'>
                   <h2 className='text-dark-theme-white'>{video.account_name}</h2>

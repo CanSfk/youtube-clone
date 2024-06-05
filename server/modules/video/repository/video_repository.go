@@ -107,7 +107,7 @@ func (vr *videoRepository) GetVideoByName(videoName string) (dto.VideoShowRespon
 
 	getByIdRowVideo, err := vr.baseCrudRepository.GetCustomQuery(fmt.Sprintf(`SELECT 
 	v.id, v.video_url, v.video_title, v.video_description, v.video_cover_image_name,
-	u.user_name
+	u.user_name, u.profile_image_name
 	FROM videos v 
 	INNER JOIN users u
 	ON v.user_id = u.id
@@ -117,13 +117,13 @@ func (vr *videoRepository) GetVideoByName(videoName string) (dto.VideoShowRespon
 		return video, nil, err
 	}
 
-	scanErr := getByIdRowVideo.Scan(&videoId, &video.VideoUrl, &video.VideoTitle, &video.VideoDescription, &video.VideoCoverImageName, &video.UserName)
+	scanErr := getByIdRowVideo.Scan(&videoId, &video.VideoUrl, &video.VideoTitle, &video.VideoDescription, &video.VideoCoverImageName, &video.UserName, &video.ProfileImageName)
 	if scanErr != nil {
 		return video, nil, scanErr
 	}
 
 	getVideoCommentsRows, err := vr.baseCrudRepository.GetAllCustomQuery(fmt.Sprintf(`SELECT
-	c.comment, u.user_name FROM video_comments c 
+	c.comment, u.user_name, u.profile_image_name FROM video_comments c 
 	INNER JOIN users u ON c.user_id = u.id
 	WHERE c.video_id = %d
 	`, videoId))
@@ -132,7 +132,7 @@ func (vr *videoRepository) GetVideoByName(videoName string) (dto.VideoShowRespon
 	}
 
 	for getVideoCommentsRows.Next() {
-		err := getVideoCommentsRows.Scan(&comment.Comment, &comment.UserName)
+		err := getVideoCommentsRows.Scan(&comment.Comment, &comment.UserName, &comment.AccountImageName)
 		if err != nil {
 			return video, nil, err
 		}
