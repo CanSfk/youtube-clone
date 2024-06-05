@@ -104,19 +104,45 @@
   }
 
   @keyframes myAlertAnimate {
-    8% {
+    10% {
       opacity: 1;
       right: 4px;
+    }
+
+    20% {
+      opacity: 1;
+      right: 4px;
+    }
+
+    30% {
+      opacity: 0;
+      right: -96px;
+    }
+  }
+
+  .my-button-balloon-animate {
+    animation: myButtonBalloonAnimate 10s ease infinite alternate;
+  }
+
+  @keyframes myButtonBalloonAnimate {
+    10% {
+      transform: translate(calc(var(--random) + -10px), calc(var(--random) + 2px));
+    }
+
+    30% {
+      transform: translate(calc(var(--random) + -2px), calc(var(--random) + -4px));
+    }
+
+    50% {
+      transform: translate(calc(var(--random) + -6px), calc(var(--random) + 8px));
+    }
+
+    70% {
+      transform: translate(calc(var(--random) + 0px), calc(var(--random) + -2px));
     }
 
     90% {
-      opacity: 1;
-      right: 4px;
-    }
-
-    100% {
-      opacity: 0;
-      right: -96px;
+      transform: translate(calc(var(--random) + 7px), calc(var(--random) + 3px));
     }
   }
 }

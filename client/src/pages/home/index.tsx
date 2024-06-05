@@ -1,4 +1,4 @@
-import { LoginForm } from '../../forms';
+import { AuthForm } from '../../forms';
 import FrontEndLayout from '../../layouts/front-end/layout';
 import { useAuth } from '../../stores/auth/hooks';
 import VideoList from './partials/video-list';
@@ -8,7 +8,7 @@ export const Home = () => {
 
   return (
     <FrontEndLayout>
-      <article className='w-full flex-1'>{state ? <VideoList /> : <LoginForm />}</article>
+      <article className='w-full flex-1'>{state ? <VideoList /> : <AuthForm />}</article>
     </FrontEndLayout>
   );
 };
