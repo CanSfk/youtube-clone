@@ -30,7 +30,7 @@ export const Sidebar = () => {
 
   return (
     <div>
-      <div className='w-[72px]' />
+      {/* <div className='w-[72px]' /> */}
 
       <div className='fixed top-14 pt-1 left-0 bottom-0'>
         <div className='flex flex-col px-1'>

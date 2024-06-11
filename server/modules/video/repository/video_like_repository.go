@@ -8,6 +8,7 @@ import (
 
 type IVideoLikeRepository interface {
 	LikeOperations(videoLikeCreateDto dto.VideoLikeCreateDto) (bool, error)
+	LikeControl(videoLikeCreateDto dto.VideoLikeCreateDto) (bool, error)
 }
 
 type videoLikeRepository struct {
@@ -18,6 +19,25 @@ func NewVideoLikeRepository(baseCrudRepository repositories.IBaseCrudRepository)
 	return &videoLikeRepository{
 		baseCrudRepository: baseCrudRepository,
 	}
+}
+
+func (vc *videoLikeRepository) LikeControl(videoLikeCreateDto dto.VideoLikeCreateDto) (bool, error) {
+	videoId := 0
+	videoLikeId := 0
+
+	videoIdQuery := fmt.Sprintf("Select id from videos where video_url = ('%s')", videoLikeCreateDto.VideoUrl)
+	videoIdRow, _ := vc.baseCrudRepository.GetCustomQuery(videoIdQuery)
+	videoIdRow.Scan(&videoId)
+
+	videoControlQuery := fmt.Sprintf("SELECT id FROM video_likes where video_id = %d and user_id = %d", videoId, videoLikeCreateDto.UserId)
+	videoLikeRow, _ := vc.baseCrudRepository.GetCustomQuery(videoControlQuery)
+	videoLikeRow.Scan(&videoLikeId)
+
+	if videoLikeId == 0 {
+		return false, nil
+	}
+
+	return true, nil
 }
 
 func (vc *videoLikeRepository) LikeOperations(videoLikeCreateDto dto.VideoLikeCreateDto) (bool, error) {

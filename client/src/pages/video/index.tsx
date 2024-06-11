@@ -21,12 +21,14 @@ interface Video {
 
 interface Comment {
   comment: string;
+  posted_time: number;
   account_name: string;
   account_image_name: string;
 }
 
 export const Video = () => {
   const [video, setVideo] = useState<Video>();
+  const [likeStatus, setLikeStatus] = useState<boolean>(false);
   const { vName } = useParams();
 
   useEffect(() => {
@@ -37,9 +39,10 @@ export const Video = () => {
       });
 
       if (response.ok) {
-        const data: { video: Video; comments: Comment[] } = await response.json();
+        const data: { video: Video; comments: Comment[]; like_status: boolean } = await response.json();
         setVideo(data.video);
         setAllComment(data.comments);
+        setLikeStatus(data.like_status);
 
         await fetch(`${import.meta.env.VITE_BASE_URL}/user/history/${vName}`, {
           method: 'POST',
@@ -57,7 +60,7 @@ export const Video = () => {
           <h1 className='text-[20px] text-dark-theme-white'>{video.video_title}</h1>
 
           <div className='flex flex-col gap-6'>
-            <div className='flex gap-10'>
+            <div className='flex gap-10 flex-wrap'>
               <div className='flex gap-4'>
                 <AccountImage imageName={video.profile_image_name} />
 
@@ -69,7 +72,7 @@ export const Video = () => {
 
               <div className='flex items-center gap-5'>
                 <Subscribers accountId={video.account_id} />
-                <VideoLike videoUrl={video.video_url} />
+                <VideoLike videoUrl={video.video_url} likeStatus={likeStatus} />
               </div>
             </div>
 

@@ -1,11 +1,12 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { MyButton } from '../../../components';
 
 interface VideLikeProps {
   videoUrl: string;
+  likeStatus: boolean;
 }
 
-export const VideoLike: React.FC<VideLikeProps> = ({ videoUrl }) => {
+export const VideoLike: React.FC<VideLikeProps> = ({ videoUrl, likeStatus }) => {
   const [buttonState, setButtonState] = useState<boolean>(false);
 
   const onSubmit = async (e: FormEvent) => {
@@ -26,9 +27,13 @@ export const VideoLike: React.FC<VideLikeProps> = ({ videoUrl }) => {
     } else console.log('error');
   };
 
+  useEffect(() => {
+    setButtonState(likeStatus);
+  }, [likeStatus]);
+
   return (
     <form onSubmit={onSubmit}>
-      <MyButton text={buttonState ? 'Beğenmemek' : 'Beğenmek'} color='blue' styleType='outline' />
+      <MyButton text={buttonState ? 'Beğen' : 'Beğenme'} color='blue' styleType='outline' />
     </form>
   );
 };

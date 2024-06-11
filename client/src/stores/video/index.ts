@@ -12,6 +12,7 @@ export interface Video {
 
 export interface Comment {
   comment: string;
+  posted_time: number;
   account_name: string;
   account_image_name: string;
 }

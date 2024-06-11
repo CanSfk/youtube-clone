@@ -113,7 +113,7 @@ export const Search = () => {
   }, []);
 
   return (
-    <div className='w-full flex items-center justify-center gap-4'>
+    <div className='w-full flex items-center justify-center gap-4 max-md:hidden'>
       <div className='w-full max-w-[640px] flex'>
         <Combobox value={searchValue} onChange={setSearchValue} nullable>
           <div
@@ -135,7 +135,7 @@ export const Search = () => {
                 type='text'
                 ref={inputRef}
                 placeholder='Ara'
-                className='min-w-full border-none bg-transparent outline-none placeholder:text-[#888888] py-[1px]'
+                className=' border-none bg-transparent outline-none placeholder:text-[#888888] py-[1px]'
                 value={searchValue ?? ''}
                 onChange={(e) => setSearchValue(e.target.value)}
               />

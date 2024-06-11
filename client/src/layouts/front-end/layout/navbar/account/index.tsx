@@ -8,6 +8,7 @@ import { useAuth } from '../../../../../stores/auth/hooks';
 export const Account = () => {
   const { profileImageName } = useAuth();
   const [showPopover, setShowPopover] = useState<boolean>(false);
+  const { fullName } = useAuth();
 
   const logout = async () => {
     const response = await fetch(`${import.meta.env.VITE_BASE_URL}/logout`, {
@@ -47,9 +48,13 @@ export const Account = () => {
       </button> */}
 
       <div id='account_popover' className='px-2 grid place-items-center relative'>
-        <button onClick={() => setShowPopover((state) => !state)}>
-          <AccountImage imageName={profileImageName} />
-        </button>
+        <div className='flex gap-3 items-center'>
+          <span>{fullName}</span>
+
+          <button onClick={() => setShowPopover((state) => !state)}>
+            <AccountImage imageName={profileImageName} />
+          </button>
+        </div>
 
         {showPopover && (
           <div className='absolute right-0 top-full p-2'>

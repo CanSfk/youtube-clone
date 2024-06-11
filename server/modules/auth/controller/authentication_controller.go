@@ -26,6 +26,7 @@ type AuthController struct {
 
 type ResponseUser struct {
 	UserName         string `json:"user_name"`
+	FullName         string `json:"full_name"`
 	ProfileImageName string `json:"profile_image_name"`
 	StatusCode       string `json:"status"`
 	Message          string `json:"message"`
@@ -81,7 +82,7 @@ func (a *AuthController) register(c echo.Context) error {
 
 	c.SetCookie(cookie)
 
-	return c.JSON(http.StatusOK, ResponseUser{UserName: user.UserName, ProfileImageName: user.ProfileImageName, StatusCode: "200", Message: ""})
+	return c.JSON(http.StatusOK, ResponseUser{UserName: user.UserName, FullName: user.FullName, ProfileImageName: user.ProfileImageName, StatusCode: "200", Message: ""})
 }
 
 func (a *AuthController) login(c echo.Context) error {
@@ -107,7 +108,7 @@ func (a *AuthController) login(c echo.Context) error {
 
 	c.SetCookie(cookie)
 
-	return c.JSON(http.StatusOK, ResponseUser{UserName: user.UserName, ProfileImageName: user.ProfileImageName, StatusCode: "200", Message: ""})
+	return c.JSON(http.StatusOK, ResponseUser{UserName: user.UserName, FullName: user.FullName, ProfileImageName: user.ProfileImageName, StatusCode: "200", Message: ""})
 }
 
 func (a *AuthController) logout(c echo.Context) error {

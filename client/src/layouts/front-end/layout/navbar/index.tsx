@@ -3,6 +3,7 @@ import { MenuIcon } from '../../../../assets/icons';
 import { setMenu } from '../../../../stores/menu/actions';
 import Account from './account';
 import Search from './search';
+import { MyLogo } from '../../../../components/my-logo/my-logo';
 
 export const Navbar = () => {
   return (
@@ -16,12 +17,10 @@ export const Navbar = () => {
           <MenuIcon fill='white' />
         </button>
 
-        <div className='flex gap-1 py-[18px] pr-[14px] pl-[16px]'>
-          <NavLink to='/' className='w-[90px]'>
-            VidHue
+        <div className='flex gap-1 py-[14px] pr-[14px] pl-[16px]'>
+          <NavLink to='/'>
+            <MyLogo width={90} height={32} />
           </NavLink>
-
-          <span className='text-custom-gray text-[10px] -mt-[8px]'>TR</span>
         </div>
       </div>
 

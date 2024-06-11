@@ -7,6 +7,7 @@ import (
 
 type IVideoLikeService interface {
 	LikeOperations(videoLikeCreateDto dto.VideoLikeCreateDto) (bool, error)
+	LikeControl(videoLikeCreateDto dto.VideoLikeCreateDto) (bool, error)
 }
 
 type videoLikeService struct {
@@ -21,4 +22,8 @@ func NewVideoLikeService(videoLikeRepository repository.IVideoLikeRepository) IV
 
 func (vc *videoLikeService) LikeOperations(videoLikeCreateDto dto.VideoLikeCreateDto) (bool, error) {
 	return vc.videoLikeRepository.LikeOperations(videoLikeCreateDto)
+}
+
+func (vc *videoLikeService) LikeControl(videoLikeCreateDto dto.VideoLikeCreateDto) (bool, error) {
+	return vc.videoLikeRepository.LikeControl(videoLikeCreateDto)
 }

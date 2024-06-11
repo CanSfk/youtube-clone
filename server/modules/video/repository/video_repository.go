@@ -109,6 +109,7 @@ func (vr *videoRepository) GetVideoByName(videoName string) (dto.VideoShowRespon
 	video := dto.VideoShowResponseDto{}
 	comment := dto.VideoCommentReponseDto{}
 	comments := []dto.VideoCommentReponseDto{}
+	created_at := time.Time{}
 
 	getByIdRowVideo, err := vr.baseCrudRepository.GetCustomQuery(fmt.Sprintf(`SELECT 
 	v.id, v.video_url, v.video_title, v.video_description, v.video_cover_image_name, v.user_id,
@@ -128,7 +129,7 @@ func (vr *videoRepository) GetVideoByName(videoName string) (dto.VideoShowRespon
 	}
 
 	getVideoCommentsRows, err := vr.baseCrudRepository.GetAllCustomQuery(fmt.Sprintf(`SELECT
-	c.comment, u.user_name, u.profile_image_name FROM video_comments c 
+	c.comment,c.created_at, u.user_name, u.profile_image_name FROM video_comments c 
 	INNER JOIN users u ON c.user_id = u.id
 	WHERE c.video_id = %d
 	`, video.VideoId))
@@ -137,10 +138,14 @@ func (vr *videoRepository) GetVideoByName(videoName string) (dto.VideoShowRespon
 	}
 
 	for getVideoCommentsRows.Next() {
-		err := getVideoCommentsRows.Scan(&comment.Comment, &comment.UserName, &comment.AccountImageName)
+		err := getVideoCommentsRows.Scan(&comment.Comment, &created_at, &comment.UserName, &comment.AccountImageName)
 		if err != nil {
 			return video, nil, err
 		}
+
+		timeDif := time.Since(created_at)
+
+		comment.TimeDif = int(timeDif.Minutes())
 
 		comments = append(comments, comment)
 	}

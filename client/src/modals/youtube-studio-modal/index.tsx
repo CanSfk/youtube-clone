@@ -75,9 +75,9 @@ export const YoutubeStudioModal = () => {
 
   return (
     <ModalLayout>
-      <div className='min-w-[800px]'>
+      <div className='w-[800px] max-lg:w-full'>
         <form onSubmit={onSubmit} encType='multipart/form-data'>
-          <div className='flex gap-4'>
+          <div className='flex gap-4 max-md:flex-col'>
             <div className='flex flex-col gap-2 flex-1'>
               <label htmlFor='video' className='text-dark-theme-white'>
                 Video dosyası

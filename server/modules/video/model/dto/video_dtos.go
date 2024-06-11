@@ -43,13 +43,15 @@ type VideoCommentCreateDto struct {
 
 type VideoCommentReponseDto struct {
 	Comment          string `json:"comment"`
+	TimeDif          int    `json:"posted_time"`
 	UserName         string `json:"account_name"`
 	AccountImageName string `json:"account_image_name"`
 }
 
 type VideoAndCommentsReponseDto struct {
-	Comments []VideoCommentReponseDto `json:"comments"`
-	Video    VideoShowResponseDto     `json:"video"`
+	Comments    []VideoCommentReponseDto `json:"comments"`
+	Video       VideoShowResponseDto     `json:"video"`
+	LikeControl bool                     `json:"like_status"`
 }
 
 type VideoLikeCreateDto struct {

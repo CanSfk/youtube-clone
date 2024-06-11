@@ -8,7 +8,7 @@ export const MyInput: React.FC<MyInputProps> = ({ className, ...props }) => {
   return (
     <input
       {...props}
-      className={`${className} rounded-md border border-dark-theme-primary-black outline-none bg-transparent text-dark-theme-gray resize-none p-2`}
+      className={`${className} w-full rounded-md border border-dark-theme-primary-black outline-none bg-transparent text-dark-theme-gray resize-none p-2`}
     />
   );
 };

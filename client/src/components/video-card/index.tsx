@@ -62,13 +62,13 @@ export const MyVideoCard: React.FC<MyVideoCardProp> = ({
           </div>
         </div>
 
-        <div className='min-w-6 min-h-6 w-6 h-6 relative z-20'>
+        <div className='min-w-6 min-h-6 w-6 h-6 relative z-20 ml-auto'>
           <button className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 border border-transparent transition-all duration-300 hover:bg-dark-theme-soft-black grid place-items-center rounded-full opacity-0 group-hover:opacity-100 active:bg-dark-theme-extra-soft-black active:border-dark-theme-primary-black'>
             <BarMenu />
           </button>
         </div>
 
-        <a href='#aaa' className='absolute inset-0 z-10' />
+        <Link to={`/video/${videoName}`} className='absolute inset-0 z-10' />
       </div>
     </div>
   );

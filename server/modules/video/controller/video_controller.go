@@ -113,12 +113,13 @@ func (v *videoController) create(c echo.Context) error {
 func (v *videoController) show(c echo.Context) error {
 	videoName := c.Param("vName")
 
+	likeControl, _ := v.videoLikeService.LikeControl(dto.VideoLikeCreateDto{VideoUrl: videoName, UserId: c.Get("user_id").(int)})
 	video, comments, err := v.videoService.GetVideoByName(videoName)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, dtos.ResponseMessage{Message: "Server error", StatusCode: "500"})
 	}
 
-	return c.JSON(http.StatusOK, dto.VideoAndCommentsReponseDto{Video: video, Comments: comments})
+	return c.JSON(http.StatusOK, dto.VideoAndCommentsReponseDto{Video: video, Comments: comments, LikeControl: likeControl})
 }
 
 func (v *videoController) comment(c echo.Context) error {
