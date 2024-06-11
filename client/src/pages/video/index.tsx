@@ -1,16 +1,20 @@
 import { useParams } from 'react-router-dom';
 import FrontEndLayout from '../../layouts/front-end/layout';
 import { useEffect, useState } from 'react';
-import { AccountImage, MyButton } from '../../components';
+import { AccountImage } from '../../components';
 import VideoComment from './partials/video-comment';
 import CommentList from './partials/comment-list';
 import { setAllComment } from '../../stores/video/actions';
+import VideoLike from './partials/vidoe-like';
+import Subscribers from './partials/subscribers';
 
 interface Video {
+  video_id: number;
   video_url: string;
   video_title: string;
   video_description: string;
   video_cover_image_name: string;
+  account_id: number;
   account_name: string;
   profile_image_name: string;
 }
@@ -36,6 +40,11 @@ export const Video = () => {
         const data: { video: Video; comments: Comment[] } = await response.json();
         setVideo(data.video);
         setAllComment(data.comments);
+
+        await fetch(`${import.meta.env.VITE_BASE_URL}/user/history/${vName}`, {
+          method: 'POST',
+          credentials: 'include',
+        });
       } else console.log('Failed the fetch video data', response.status);
     })();
   }, []);
@@ -58,7 +67,10 @@ export const Video = () => {
                 </div>
               </div>
 
-              <MyButton text='Abone ol' color='yellow' styleType='outline' />
+              <div className='flex items-center gap-5'>
+                <Subscribers accountId={video.account_id} />
+                <VideoLike videoUrl={video.video_url} />
+              </div>
             </div>
 
             <div className='p-3 rounded-lg bg-dark-theme-extra-soft-black'>

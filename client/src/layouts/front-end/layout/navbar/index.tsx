@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { MenuIcon, YoutubeIcon } from '../../../../assets/icons';
+import { MenuIcon } from '../../../../assets/icons';
 import { setMenu } from '../../../../stores/menu/actions';
 import Account from './account';
 import Search from './search';
@@ -18,7 +18,7 @@ export const Navbar = () => {
 
         <div className='flex gap-1 py-[18px] pr-[14px] pl-[16px]'>
           <NavLink to='/' className='w-[90px]'>
-            <YoutubeIcon viewBox='0 0 90 20' width='100%' height='100%' />
+            VidHue
           </NavLink>
 
           <span className='text-custom-gray text-[10px] -mt-[8px]'>TR</span>

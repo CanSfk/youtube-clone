@@ -32,6 +32,7 @@ import LargeSidebarFooter from './large-sidebar-footer';
 import { LargeSidebarItem } from './large-sidebar-item';
 import { removeMenu } from '../../../../../stores/menu/actions';
 import { setModal } from '../../../../../stores/modal/actions';
+import { NavLink } from 'react-router-dom';
 
 type largeSidebarItemProps = {
   parentTitle: string | null;
@@ -56,185 +57,182 @@ const largeSidebarItems: largeSidebarItemProps[] = [
         childOnClick: () => removeMenu(),
       },
       {
-        childTitle: 'Shorts',
+        childTitle: 'Video yükle',
         childLeftIcon: <ShortIcon />,
-        childRightIcon: null,
-        childOnClick: () => removeMenu(),
-      },
-      {
-        childTitle: 'Abonelikler',
-        childLeftIcon: <Subscriber />,
-        childRightIcon: null,
-        childOnClick: () => removeMenu(),
-      },
-    ],
-  },
-  {
-    parentTitle: null,
-    child: [
-      {
-        childTitle: 'Siz',
-        childLeftIcon: null,
-        childRightIcon: <RightArrowIcon width={16} height={16} viewBox='0 0 16 16' />,
-        childOnClick: () => removeMenu(),
-      },
-      {
-        childTitle: 'Kanalınız',
-        childLeftIcon: <ChannelIcon />,
-        childRightIcon: null,
-        childOnClick: () => removeMenu(),
-      },
-      {
-        childTitle: 'Geçmiş',
-        childLeftIcon: <BeforeTimeIcon />,
-        childRightIcon: null,
-        childOnClick: () => removeMenu(),
-      },
-      {
-        childTitle: 'Oynatma listesi',
-        childLeftIcon: <PlayerListIcon />,
-        childRightIcon: null,
-        childOnClick: () => removeMenu(),
-      },
-      {
-        childTitle: 'Videolarınız',
-        childLeftIcon: <VideoIcon />,
-        childRightIcon: null,
-        childOnClick: () => removeMenu(),
-      },
-      {
-        childTitle: 'Daha sonra izle',
-        childLeftIcon: <TimeIcon />,
-        childRightIcon: null,
-        childOnClick: () => removeMenu(),
-      },
-      {
-        childTitle: 'Beğendiğin videolar',
-        childLeftIcon: <LikeIcon />,
-        childRightIcon: null,
-        childOnClick: () => removeMenu(),
-      },
-    ],
-  },
-  {
-    parentTitle: 'Abonelikler',
-    child: [
-      {
-        childTitle: 'Abonelik-1',
-        childLeftIcon: <ShortIcon />,
-        childRightIcon: null,
-        childOnClick: () => removeMenu(),
-      },
-      {
-        childTitle: 'Abonelik-2',
-        childLeftIcon: <ShortIcon />,
-        childRightIcon: null,
-        childOnClick: () => removeMenu(),
-      },
-      {
-        childTitle: 'Abonelik-3',
-        childLeftIcon: <ShortIcon />,
-        childRightIcon: null,
-        childOnClick: () => removeMenu(),
-      },
-    ],
-  },
-  {
-    parentTitle: 'Keşfet',
-    child: [
-      {
-        childTitle: 'Trendler',
-        childLeftIcon: <TrendIcon />,
-        childRightIcon: null,
-        childOnClick: () => removeMenu(),
-      },
-      {
-        childTitle: 'Müzik',
-        childLeftIcon: <MusicIcon />,
-        childRightIcon: null,
-        childOnClick: () => removeMenu(),
-      },
-      {
-        childTitle: 'Canlı',
-        childLeftIcon: <LiveIcon />,
-        childRightIcon: null,
-        childOnClick: () => removeMenu(),
-      },
-      {
-        childTitle: 'Oyun',
-        childLeftIcon: <GameIcon />,
-        childRightIcon: null,
-        childOnClick: () => removeMenu(),
-      },
-      {
-        childTitle: 'Spor',
-        childLeftIcon: <SportIcon />,
-        childRightIcon: null,
-        childOnClick: () => removeMenu(),
-      },
-    ],
-  },
-  {
-    parentTitle: "YouTube'dan daha fazla içerik",
-    child: [
-      {
-        childTitle: 'YouTube Premium',
-        childLeftIcon: <YoutubePremiumIcon />,
-        childRightIcon: null,
-        childOnClick: () => removeMenu(),
-      },
-      {
-        childTitle: 'YouTube Studio',
-        childLeftIcon: <YoutubeStudioIcon />,
         childRightIcon: null,
         childOnClick: () => {
           setModal('youtube_studio_modal', {});
           removeMenu();
         },
       },
-      {
-        childTitle: 'YouTube Music',
-        childLeftIcon: <YoutubeMusicIcon />,
-        childRightIcon: null,
-        childOnClick: () => removeMenu(),
-      },
-      {
-        childTitle: 'YouTube Kids',
-        childLeftIcon: <YoutubeKidsIcon />,
-        childRightIcon: null,
-        childOnClick: () => removeMenu(),
-      },
     ],
   },
-  {
-    parentTitle: null,
-    child: [
-      {
-        childTitle: 'Ayarlar',
-        childLeftIcon: <SettingIcon />,
-        childRightIcon: null,
-        childOnClick: () => removeMenu(),
-      },
-      {
-        childTitle: 'İçerik bildirme geçmişi',
-        childLeftIcon: <FlagIcon />,
-        childRightIcon: null,
-        childOnClick: () => removeMenu(),
-      },
-      {
-        childTitle: 'Yardım',
-        childLeftIcon: <HelpIcon />,
-        childRightIcon: null,
-        childOnClick: () => removeMenu(),
-      },
-      {
-        childTitle: 'Geri bildirim gönder',
-        childLeftIcon: <InfoIcon />,
-        childRightIcon: null,
-        childOnClick: () => removeMenu(),
-      },
-    ],
-  },
+  // {
+  //   parentTitle: null,
+  //   child: [
+  //     {
+  //       childTitle: 'Siz',
+  //       childLeftIcon: null,
+  //       childRightIcon: <RightArrowIcon width={16} height={16} viewBox='0 0 16 16' />,
+  //       childOnClick: () => removeMenu(),
+  //     },
+  //     {
+  //       childTitle: 'Kanalınız',
+  //       childLeftIcon: <ChannelIcon />,
+  //       childRightIcon: null,
+  //       childOnClick: () => removeMenu(),
+  //     },
+  //     {
+  //       childTitle: 'Geçmiş',
+  //       childLeftIcon: <BeforeTimeIcon />,
+  //       childRightIcon: null,
+  //       childOnClick: () => removeMenu(),
+  //     },
+  //     {
+  //       childTitle: 'Oynatma listesi',
+  //       childLeftIcon: <PlayerListIcon />,
+  //       childRightIcon: null,
+  //       childOnClick: () => removeMenu(),
+  //     },
+  //     {
+  //       childTitle: 'Videolarınız',
+  //       childLeftIcon: <VideoIcon />,
+  //       childRightIcon: null,
+  //       childOnClick: () => removeMenu(),
+  //     },
+  //     {
+  //       childTitle: 'Daha sonra izle',
+  //       childLeftIcon: <TimeIcon />,
+  //       childRightIcon: null,
+  //       childOnClick: () => removeMenu(),
+  //     },
+  //     {
+  //       childTitle: 'Beğendiğin videolar',
+  //       childLeftIcon: <LikeIcon />,
+  //       childRightIcon: null,
+  //       childOnClick: () => removeMenu(),
+  //     },
+  //   ],
+  // },
+  // {
+  //   parentTitle: 'Abonelikler',
+  //   child: [
+  //     {
+  //       childTitle: 'Abonelik-1',
+  //       childLeftIcon: <ShortIcon />,
+  //       childRightIcon: null,
+  //       childOnClick: () => removeMenu(),
+  //     },
+  //     {
+  //       childTitle: 'Abonelik-2',
+  //       childLeftIcon: <ShortIcon />,
+  //       childRightIcon: null,
+  //       childOnClick: () => removeMenu(),
+  //     },
+  //     {
+  //       childTitle: 'Abonelik-3',
+  //       childLeftIcon: <ShortIcon />,
+  //       childRightIcon: null,
+  //       childOnClick: () => removeMenu(),
+  //     },
+  //   ],
+  // },
+  // {
+  //   parentTitle: 'Keşfet',
+  //   child: [
+  //     {
+  //       childTitle: 'Trendler',
+  //       childLeftIcon: <TrendIcon />,
+  //       childRightIcon: null,
+  //       childOnClick: () => removeMenu(),
+  //     },
+  //     {
+  //       childTitle: 'Müzik',
+  //       childLeftIcon: <MusicIcon />,
+  //       childRightIcon: null,
+  //       childOnClick: () => removeMenu(),
+  //     },
+  //     {
+  //       childTitle: 'Canlı',
+  //       childLeftIcon: <LiveIcon />,
+  //       childRightIcon: null,
+  //       childOnClick: () => removeMenu(),
+  //     },
+  //     {
+  //       childTitle: 'Oyun',
+  //       childLeftIcon: <GameIcon />,
+  //       childRightIcon: null,
+  //       childOnClick: () => removeMenu(),
+  //     },
+  //     {
+  //       childTitle: 'Spor',
+  //       childLeftIcon: <SportIcon />,
+  //       childRightIcon: null,
+  //       childOnClick: () => removeMenu(),
+  //     },
+  //   ],
+  // },
+  // {
+  //   parentTitle: "YouTube'dan daha fazla içerik",
+  //   child: [
+  //     {
+  //       childTitle: 'YouTube Premium',
+  //       childLeftIcon: <YoutubePremiumIcon />,
+  //       childRightIcon: null,
+  //       childOnClick: () => removeMenu(),
+  //     },
+  //     {
+  //       childTitle: 'YouTube Studio',
+  //       childLeftIcon: <YoutubeStudioIcon />,
+  //       childRightIcon: null,
+  //       childOnClick: () => {
+  //         setModal('youtube_studio_modal', {});
+  //         removeMenu();
+  //       },
+  //     },
+  //     {
+  //       childTitle: 'YouTube Music',
+  //       childLeftIcon: <YoutubeMusicIcon />,
+  //       childRightIcon: null,
+  //       childOnClick: () => removeMenu(),
+  //     },
+  //     {
+  //       childTitle: 'YouTube Kids',
+  //       childLeftIcon: <YoutubeKidsIcon />,
+  //       childRightIcon: null,
+  //       childOnClick: () => removeMenu(),
+  //     },
+  //   ],
+  // },
+  // {
+  //   parentTitle: null,
+  //   child: [
+  //     {
+  //       childTitle: 'Ayarlar',
+  //       childLeftIcon: <SettingIcon />,
+  //       childRightIcon: null,
+  //       childOnClick: () => removeMenu(),
+  //     },
+  //     {
+  //       childTitle: 'İçerik bildirme geçmişi',
+  //       childLeftIcon: <FlagIcon />,
+  //       childRightIcon: null,
+  //       childOnClick: () => removeMenu(),
+  //     },
+  //     {
+  //       childTitle: 'Yardım',
+  //       childLeftIcon: <HelpIcon />,
+  //       childRightIcon: null,
+  //       childOnClick: () => removeMenu(),
+  //     },
+  //     {
+  //       childTitle: 'Geri bildirim gönder',
+  //       childLeftIcon: <InfoIcon />,
+  //       childRightIcon: null,
+  //       childOnClick: () => removeMenu(),
+  //     },
+  //   ],
+  // },
 ];
 
 export const LargeSidebar = () => {
@@ -256,15 +254,13 @@ export const LargeSidebar = () => {
         </button>
 
         <div className='flex gap-1 py-[18px] pr-[14px] pl-[16px]'>
-          <button type='button' className='w-[90px]'>
-            <YoutubeIcon viewBox='0 0 90 20' width='100%' height='100%' />
-          </button>
-
-          <span className='text-custom-gray text-[10px] -mt-[8px]'>TR</span>
+          <NavLink to='/' className='w-[90px]' onClick={() => removeMenu()}>
+            VidHue
+          </NavLink>
         </div>
       </div>
 
-      <div className='h-[calc(100%-56px)] overflow-y-auto custom-scrollbar'>
+      <div className='h-[calc(100%-56px)] overflow-y-auto custom-scrollbar justify-between flex'>
         <div className='flex items-center flex-col '>
           {(largeSidebarItems || []).map((parentItem, index) => (
             <div key={index} className='py-3 w-full border-b-[.5px] border-dark-theme-primary-black'>

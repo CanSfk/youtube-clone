@@ -28,16 +28,16 @@ export const FrontEndLayout = ({ children }: LayoutProps) => {
     <>
       <div className='w-full min-h-[2000px] text-dark-theme-white flex'>
         <div className='flex-1'>
-          <Navbar />
+          {localStorage.getItem('auth') == 'true' && <Navbar />}
           <div className='flex'>
             <Sidebar />
             <div className='w-full h-full'>
-              {location.pathname === '/' && <Suggestionbar />}
-              <main className={`px-6 ${location.pathname === '/' ? 'pt-20' : 'pt-2'}`}>{children}</main>
+              {/* {location.pathname === '/' && <Suggestionbar />} */}
+              <main className={`px-6 ${location.pathname === '/' ? 'pt-10' : 'pt-2'}`}>{children}</main>
             </div>
           </div>
         </div>
-        {(menuName !== null || modalName !== '') && <div className='w-[15px] bg-transparent ' />}
+        {/* {(menuName !== null || modalName !== '') && <div className='w-[15px] bg-transparent ' />} */}
 
         <div
           onClick={() => removeMenu()}

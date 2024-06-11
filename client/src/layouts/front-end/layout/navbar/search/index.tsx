@@ -201,9 +201,9 @@ export const Search = () => {
         </Combobox>
       </div>
 
-      <button className='w-10 h-10 grid place-items-center rounded-full bg-dark-theme-soft-black transition-colors duration-200 hover:bg-[#303030]'>
+      {/* <button className='w-10 h-10 grid place-items-center rounded-full bg-dark-theme-soft-black transition-colors duration-200 hover:bg-[#303030]'>
         <MicIcon />
-      </button>
+      </button> */}
     </div>
   );
 };

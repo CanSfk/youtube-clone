@@ -18,6 +18,7 @@ export const MyButton: React.FC<MyButtonProps> = ({ text, className, ballonEffec
         'border-green-500 text-green-500': styleType === 'outline' && color === 'green',
         'border-youtube-red text-youtube-red': styleType === 'outline' && color === 'red',
         'border-yellow-500 text-yellow-500': styleType === 'outline' && color === 'yellow',
+        'border-blue-500 text-blue-500': styleType === 'outline' && color === 'blue',
         'bg-dark-theme-black text-dark-theme-gray': styleType === 'normal',
       })}
     >

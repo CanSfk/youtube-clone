@@ -35,7 +35,7 @@ export const Account = () => {
 
   return (
     <div className='flex items-center justify-end gap-3 w-[225px]'>
-      <button className='w-10 h-10 grid place-items-center rounded-full hover:bg-dark-theme-soft-black'>
+      {/* <button className='w-10 h-10 grid place-items-center rounded-full hover:bg-dark-theme-soft-black'>
         <CameraIcon />
       </button>
 
@@ -44,7 +44,7 @@ export const Account = () => {
         <div className='absolute top-1.5 -right-0.5'>
           <div className='text-xs bg-youtube-red px-1 rounded-full font-[400]'>9+</div>
         </div>
-      </button>
+      </button> */}
 
       <div id='account_popover' className='px-2 grid place-items-center relative'>
         <button onClick={() => setShowPopover((state) => !state)}>
