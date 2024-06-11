@@ -18,11 +18,13 @@ type IVideoController interface {
 	create(c echo.Context) error
 	show(c echo.Context) error
 	comment(c echo.Context) error
+	like(c echo.Context) error
 }
 
 type videoController struct {
 	videoService        service.IVideoService
 	videoCommentService service.IVideoCommentService
+	videoLikeService    service.IVideoLikeService
 }
 
 type ReponseMessageAndVideo struct {
@@ -30,10 +32,11 @@ type ReponseMessageAndVideo struct {
 	Message dtos.ResponseMessage         `json:"message"`
 }
 
-func NewVideoController(videoService service.IVideoService, videoCommentService service.IVideoCommentService) IVideoController {
+func NewVideoController(videoService service.IVideoService, videoCommentService service.IVideoCommentService, videoLikeService service.IVideoLikeService) IVideoController {
 	return &videoController{
 		videoService:        videoService,
 		videoCommentService: videoCommentService,
+		videoLikeService:    videoLikeService,
 	}
 }
 
@@ -44,6 +47,7 @@ func (v *videoController) RegisterRoutes(e *echo.Echo) {
 	routeGroup.POST("/create", v.create)
 	routeGroup.GET("/show/:vName", v.show)
 	routeGroup.POST("/comment", v.comment)
+	routeGroup.POST("/like", v.like)
 }
 
 func (v *videoController) index(c echo.Context) error {
@@ -108,9 +112,10 @@ func (v *videoController) create(c echo.Context) error {
 
 func (v *videoController) show(c echo.Context) error {
 	videoName := c.Param("vName")
+
 	video, comments, err := v.videoService.GetVideoByName(videoName)
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, dtos.ResponseMessage{Message: "Dahili sunucu hatası", StatusCode: "500"})
+		return c.JSON(http.StatusInternalServerError, dtos.ResponseMessage{Message: "Server error", StatusCode: "500"})
 	}
 
 	return c.JSON(http.StatusOK, dto.VideoAndCommentsReponseDto{Video: video, Comments: comments})
@@ -124,4 +129,18 @@ func (v *videoController) comment(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, v.videoCommentService.CreateVideoComment(videoCommentCreateDto))
+}
+
+func (v *videoController) like(c echo.Context) error {
+	videoLikeCreateDto := dto.VideoLikeCreateDto{
+		VideoUrl: c.FormValue("video_url"),
+		UserId:   c.Get("user_id").(int),
+	}
+
+	result, err := v.videoLikeService.LikeOperations(videoLikeCreateDto)
+	if err != nil {
+		return c.JSON(http.StatusNotFound, dtos.ResponseMessage{Message: "Vidoe not found!", StatusCode: "200"})
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{"result": result})
 }

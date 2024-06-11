@@ -9,11 +9,16 @@ import (
 )
 
 func CreateUserApp(db *sql.DB) controller.IUserController {
-	baseCrudRepository := repositories.NewBaseCrudRepository(db, "users")
-	userRepository := repository.NewUserRepository(baseCrudRepository)
+	userRepository := repository.NewUserRepository(repositories.NewBaseCrudRepository(db, "users"))
 	userService := service.NewUserService(userRepository)
 
-	userController := controller.NewUserController(userService)
+	userSubscriberRepository := repository.NewUserSubscriberRepository(repositories.NewBaseCrudRepository(db, "user_subscribers"))
+	userSubscriberService := service.NewUserSubscriberService(userSubscriberRepository)
+
+	userVideoHistoryRepository := repository.NewUserVideoHistoryRepository(repositories.NewBaseCrudRepository(db, "user_video_histories"))
+	userVideoHistoryService := service.NewUserVideoHistoryService(userVideoHistoryRepository)
+
+	userController := controller.NewUserController(userService, userSubscriberService, userVideoHistoryService)
 
 	return userController
 }

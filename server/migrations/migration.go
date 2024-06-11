@@ -44,4 +44,26 @@ var CrateTableQuerys = []string{
 	FOREIGN KEY (user_id) REFERENCES users(id),
 	FOREIGN KEY (video_id) REFERENCES videos(id)
 	)`,
+
+	`CREATE TABLE IF NOT EXISTS user_subscribers(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	user_id INTEGER NOT NULL,
+	user_subscriber_id INTEGER NOT NULL,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (user_id) REFERENCES users(id),
+	FOREIGN KEY (user_subscriber_id) REFERENCES users(id)
+	)`,
+
+	// `Drop table user_video_histories`,
+	`CREATE TABLE IF NOT EXISTS user_video_histories(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	user_id INTEGER NOT NULL,
+	video_id INTEGER NOT NULL,
+	video_order INTEGER NOT NULL,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (user_id) REFERENCES users(id),
+	FOREIGN KEY (video_id) REFERENCES videos(id)
+	)`,
 }

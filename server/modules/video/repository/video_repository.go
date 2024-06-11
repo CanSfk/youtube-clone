@@ -106,13 +106,12 @@ func (vr *videoRepository) CreateVideo(videoCreateDto dto.VideoCreateDto) dto.Vi
 }
 
 func (vr *videoRepository) GetVideoByName(videoName string) (dto.VideoShowResponseDto, []dto.VideoCommentReponseDto, error) {
-	var videoId int
 	video := dto.VideoShowResponseDto{}
 	comment := dto.VideoCommentReponseDto{}
 	comments := []dto.VideoCommentReponseDto{}
 
 	getByIdRowVideo, err := vr.baseCrudRepository.GetCustomQuery(fmt.Sprintf(`SELECT 
-	v.id, v.video_url, v.video_title, v.video_description, v.video_cover_image_name,
+	v.id, v.video_url, v.video_title, v.video_description, v.video_cover_image_name, v.user_id,
 	u.user_name, u.profile_image_name
 	FROM videos v 
 	INNER JOIN users u
@@ -123,7 +122,7 @@ func (vr *videoRepository) GetVideoByName(videoName string) (dto.VideoShowRespon
 		return video, nil, err
 	}
 
-	scanErr := getByIdRowVideo.Scan(&videoId, &video.VideoUrl, &video.VideoTitle, &video.VideoDescription, &video.VideoCoverImageName, &video.UserName, &video.ProfileImageName)
+	scanErr := getByIdRowVideo.Scan(&video.VideoId, &video.VideoUrl, &video.VideoTitle, &video.VideoDescription, &video.VideoCoverImageName, &video.UserId, &video.UserName, &video.ProfileImageName)
 	if scanErr != nil {
 		return video, nil, scanErr
 	}
@@ -132,7 +131,7 @@ func (vr *videoRepository) GetVideoByName(videoName string) (dto.VideoShowRespon
 	c.comment, u.user_name, u.profile_image_name FROM video_comments c 
 	INNER JOIN users u ON c.user_id = u.id
 	WHERE c.video_id = %d
-	`, videoId))
+	`, video.VideoId))
 	if err != nil {
 		return video, nil, err
 	}

@@ -25,10 +25,12 @@ type VideoWithUserResponseDto struct {
 }
 
 type VideoShowResponseDto struct {
+	VideoId             int    `json:"video_id"`
 	VideoUrl            string `json:"video_url"`
 	VideoCoverImageName string `json:"video_cover_image_name"`
 	VideoTitle          string `json:"video_title"`
 	VideoDescription    string `json:"video_description"`
+	UserId              int    `json:"account_id"`
 	UserName            string `json:"account_name"`
 	ProfileImageName    string `json:"profile_image_name"`
 }
@@ -48,4 +50,9 @@ type VideoCommentReponseDto struct {
 type VideoAndCommentsReponseDto struct {
 	Comments []VideoCommentReponseDto `json:"comments"`
 	Video    VideoShowResponseDto     `json:"video"`
+}
+
+type VideoLikeCreateDto struct {
+	VideoUrl string `json:"video_url"`
+	UserId   int    `json:"user_id"`
 }

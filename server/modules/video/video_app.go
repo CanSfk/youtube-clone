@@ -16,7 +16,12 @@ func CreateVideoApp(db *sql.DB) controller.IVideoController {
 	baseCrudRepositoryVideoComment := repositories.NewBaseCrudRepository(db, "video_comments")
 	videoCommentRepository := repository.NewVideoCommentRepository(baseCrudRepositoryVideoComment)
 	videoCommentService := service.NewVideoCommentService(videoCommentRepository)
-	videoController := controller.NewVideoController(videoService, videoCommentService)
+
+	baseCrudRepositoryVideoLike := repositories.NewBaseCrudRepository(db, "video_likes")
+	videoLikesRepository := repository.NewVideoLikeRepository(baseCrudRepositoryVideoLike)
+	videoLikesService := service.NewVideoLikeService(videoLikesRepository)
+
+	videoController := controller.NewVideoController(videoService, videoCommentService, videoLikesService)
 
 	return videoController
 }
